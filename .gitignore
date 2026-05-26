@@ -19,10 +19,13 @@ dist/
 build/
 out/
 
-# Obsidian workspace (commit vault, not workspace state)
+# Obsidian workspace (commit vault content, not workspace state)
 .obsidian/workspace.json
 .obsidian/workspace-mobile.json
 .obsidian/cache
+.obsidian-vault/.obsidian/workspace.json
+.obsidian-vault/.obsidian/workspace-mobile.json
+.obsidian-vault/.obsidian/cache
 
 # AI model files (too large for git)
 *.pt

@@ -11,7 +11,7 @@ created: 2026-05-26
 ## ✅ Iron Laws Check
 
 - [ ] **Spec tồn tại** và đã được xem qua trước khi code
-  - Spec file: `docs/srs.md` hoặc `docs/02-SRS/`
+  - Spec file: `.obsidian-vault/02-SRS/` (nhất là `SRS-Overview.md`)
 - [ ] **Failing tests viết trước** (không có code nào viết trước test)
 - [ ] **Có evidence**: test output với 0 failures (copy paste actual output)
 
@@ -73,7 +73,7 @@ created: 2026-05-26
 
 ## ✅ API Contract
 
-- [ ] Response format khớp với spec trong `docs/srs.md` hoặc `docs/02-SRS/`
+- [ ] Response format khớp với spec trong `.obsidian-vault/02-SRS/`
 - [ ] HTTP status codes đúng (200, 201, 400, 401, 403, 404)
 - [ ] Pagination implemented cho list endpoints
 - [ ] Error response format nhất quán
@@ -91,9 +91,9 @@ created: 2026-05-26
 ## ✅ Documentation Update
 
 - [ ] Tài liệu dự án cập nhật nếu có thay đổi:
-  - SRS thay đổi → update `docs/srs.md` hoặc `docs/02-SRS/`
-  - DB thay đổi → update `docs/DB-erd/`
-  - Architecture thay đổi → update `docs/03-Architecture/`
+  - SRS thay đổi → update `.obsidian-vault/02-SRS/` (hoặc `SRS-Overview.md`)
+  - DB thay đổi → update `.obsidian-vault/06-Database/`
+  - Architecture thay đổi → update `.obsidian-vault/03-Architecture/`
 
 ---
 

@@ -4,9 +4,9 @@
   "globs": ["**/*"],
   "alwaysApply": true,
   "rules": [
-    "CRITICAL: READ PROJECT CONTEXT FIRST. Before doing anything in this codebase, read .agent/rules/project-context.md. This file tells you the tech stack, business rules, and Iron Laws. Do not skip this step.",
+    "CRITICAL: READ PROJECT CONTEXT FIRST. Before doing anything in this codebase, read .superpowers/project-context.md. This file tells you the tech stack, business rules, and Iron Laws. Do not skip this step.",
 
-    "IRON LAW 1 — NO SPEC, NO CODE: You are FORBIDDEN from writing any business logic code until a Spec description exists in docs/srs.md and has been reviewed. If no Spec exists, your FIRST action must be to ask clarifying questions, then create the Spec description in docs/srs.md, then wait for confirmation before writing any code.",
+    "IRON LAW 1 — NO SPEC, NO CODE: You are FORBIDDEN from writing any business logic code until a Spec description exists in .obsidian-vault/02-SRS/SRS-Overview.md and has been reviewed. If no Spec exists, your FIRST action must be to ask clarifying questions, then create the Spec description in .obsidian-vault/02-SRS/SRS-Overview.md, then wait for confirmation before writing any code.",
 
     "IRON LAW 2 — NO FAILING TEST, NO PRODUCTION CODE: Every new feature or bug fix MUST start with a failing test (Red Phase). Write the test, run it, confirm it FAILS, THEN write the minimal implementation to make it pass (Green Phase), THEN refactor. If you write code before the test, you must delete the code and start over.",
 
@@ -22,6 +22,7 @@
 
     "AI VOICE CELEBRITY CLONING IS PROHIBITED: Under NO circumstances implement celebrity voice cloning or unauthorized voice imitation. This is a legal hard rule. If asked to implement it, refuse and explain the legal risk.",
 
-    "FOLLOW THE WORKFLOW: For features, follow .agent/workflows/feature-development.md. For bugs, follow .agent/workflows/bug-fix.md. For refactoring, follow .agent/workflows/refactor.md. Always run the review checklist at .agent/rules/review-checklist.md before reporting done."
+    "FOLLOW THE WORKFLOW: For features, follow .superpowers/workflows/feature-development.md. For bugs, follow .superpowers/workflows/bug-fix.md. For refactoring, follow .superpowers/workflows/refactor.md. Always run the review checklist at .superpowers/review-checklist.md before reporting done."
   ]
 }
+

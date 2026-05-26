@@ -1,6 +1,6 @@
 # 🎵 StemVerse
 
-![StemVerse Logo](docs/assets/logo.jpg)
+![StemVerse Logo](.obsidian-vault/Assets/logo.jpg)
 
 > **"GitHub + Spotify + AI Remix Engine cho âm nhạc"**  
 > Nền tảng Quản lý Sở hữu Âm nhạc & Chợ Remix Tích hợp Trí tuệ Nhân tạo.
@@ -21,24 +21,32 @@ StemVerse giải quyết các vấn đề bản quyền và phân chia doanh thu
 
 ```
 Music-Ownership+AI-Remix-Marketplace/
-├── docs/                           # Tài liệu dự án tập trung
-│   ├── srs.md                      # Đặc tả yêu cầu phần mềm (Hợp nhất)
-│   ├── convention.md               # Quy tắc code chuẩn (Coding Conventions)
-│   ├── backlogs/                   # Quản lý backlog và nhiệm vụ theo Sprint
-│   ├── DB-erd/                     # Thiết kế Database, thực thể & quan hệ
-│   └── UI-UX-style-guideline/      # Hướng dẫn thiết kế giao diện (Design System)
+├── .obsidian-vault/                # Knowledge base và tài liệu dự án tập trung (Obsidian)
+│   ├── 00-Dashboard/               # Dashboard quản lý & Coding Convention
+│   ├── 01-Business/                # Overview, User Roles, Business Rules & Flows
+│   ├── 02-SRS/                     # 12 SRS tài liệu đặc tả yêu cầu phần mềm
+│   ├── 03-Architecture/            # Thiết kế kiến trúc hệ thống, Frontend, Backend, AI
+│   ├── 04-ADR/                     # Architectural Decision Records (Lịch sử quyết định kiến trúc)
+│   ├── 05-API/                     # Tài liệu thiết kế API endpoints
+│   ├── 06-Database/                # Thiết kế Database ERD
+│   ├── 07-Superpowers/             # Nhật ký AI Agent (Brainstorming, Specs, Plans, TDD, Review)
+│   ├── 08-Testing/                 # Kế hoạch & Chiến lược kiểm thử
+│   ├── 09-Meeting/                 # Ghi chú các cuộc họp thảo luận
+│   ├── 10-Prompt-Library/          # Thư viện system prompts cho AI
+│   ├── 11-UI-UX-Style-Guideline/   # Hướng dẫn thiết kế giao diện (Design System)
+│   ├── 12-MVP-Roadmap/             # Lộ trình phát triển MVP qua các Phase
+│   ├── 13-Backlogs/                # Quản lý backlog và nhiệm vụ theo Sprint
+│   └── Assets/                     # Logo, sơ đồ và các tài nguyên hình ảnh
 │
 ├── code/                           # Mã nguồn dự án
 │   ├── frontend/                   # Ứng dụng Next.js 15 (App Router, TS, Tailwind)
 │   └── backend/                    # Ứng dụng NestJS + Prisma ORM
 │
-├── .agent/                         # Cấu hình AI Coding Agent (Superpowers)
-│   ├── rules/                      # Luật code, ngữ cảnh dự án cho AI
-│   ├── workflows/                  # Quy trình phát triển (Feature, Bug, Refactor)
-│   └── skills/                     # 14 kỹ năng tự động của coding agent
+├── .superpowers/                   # Cấu hình & Quy trình AI Coding Agent
+│   ├── workflows/                  # Quy trình phát triển (Feature, Bug, Refactor, Release)
+│   └── *.md                        # Luật code, ngữ cảnh dự án cho AI (Coding, Security, Testing, Review)
 │
-├── test/                           # Kiểm thử tích hợp hệ thống
-│   └── test-plan.md
+├── .agent/                         # IDE/Agent Framework (skills tự động của coding agent)
 │
 ├── .cursorrules                    # File chỉ dẫn bắt buộc cho AI Assistant
 ├── .gitignore                      # File cấu hình bỏ qua git của monorepo
@@ -77,7 +85,7 @@ Dịch vụ frontend sẽ chạy tại `http://localhost:3000`.
 
 ## ⚔️ 3 Điều Luật Sắt (Iron Laws) cho Nhà Phát Triển / AI Agent
 Mọi thành viên tham gia code dự án bắt buộc phải tuân thủ:
-1. **KHÔNG CÓ SPEC → KHÔNG CÓ CODE**: Tuyệt đối không viết code logic nếu chưa có file thiết kế/đặc tả được mô tả trong [srs.md](file:///c:/Users/PC/Desktop/Music-Ownership+AI-Remix-Marketplace/docs/srs.md).
+1. **KHÔNG CÓ SPEC → KHÔNG CÓ CODE**: Tuyệt đối không viết code logic nếu chưa có file thiết kế/đặc tả được mô tả trong [SRS-Overview.md](file:///c:/Users/PC/Desktop/Music-Ownership+AI-Remix-Marketplace/.obsidian-vault/02-SRS/SRS-Overview.md).
 2. **KHÔNG CÓ TEST LỖI → KHÔNG CÓ CODE PRODUCTION**: Sử dụng phương pháp phát triển hướng kiểm thử (TDD). Viết test lỗi trước, viết code sau.
 3. **BẰNG CHỨNG TRƯỚC - BÁO CÁO SAU**: Mọi báo cáo hoàn thành tính năng phải đính kèm nhật ký chạy test suite thành công 100%.
 

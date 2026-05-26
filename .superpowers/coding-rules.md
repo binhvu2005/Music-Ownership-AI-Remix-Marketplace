@@ -12,7 +12,7 @@ created: 2026-05-26
 
 Tuyệt đối **KHÔNG** viết bất kỳ logic code nào nếu chưa có Spec được phê duyệt.
 
-- Spec file ở: `docs/srs.md`
+- Spec file ở: `.obsidian-vault/02-SRS/SRS-Overview.md`
 - Spec phải có: Problem, Goal, API, Database, Edge Cases, Acceptance Criteria
 - **Action**: Nếu không có Spec → Tạo Spec trước, hỏi xác nhận, sau đó mới code
 
@@ -263,7 +263,7 @@ Examples:
 
 ## 🧪 Testing Rules (Detail)
 
-See `.agent/rules/testing-rules.md` for full testing guidelines.
+See `.superpowers/testing-rules.md` for full testing guidelines.
 
 Summary:
 - Unit tests: `*.spec.ts` next to service file

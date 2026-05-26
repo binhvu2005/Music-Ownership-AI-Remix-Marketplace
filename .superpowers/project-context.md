@@ -103,10 +103,10 @@ admin-service    :3007
 
 ## Coding Standards (MANDATORY)
 
-Read `docs/convention.md` before writing any code.
+Read `.obsidian-vault/00-Dashboard/Coding-Convention.md` before writing any code.
 
 Summary:
-1. **NO CODE without Spec** → Spec lives in `docs/srs.md`
+1. **NO CODE without Spec** → Spec lives in `.obsidian-vault/02-SRS/SRS-Overview.md`
 2. **NO CODE without failing test** → TDD: Red → Green → Refactor
 3. **NO "should work" reporting** → Show test output as proof
 
@@ -129,17 +129,17 @@ Summary:
 
 ## Key Documents
 
-- Full SRS: `docs/srs.md`
-- Coding Convention: `docs/convention.md`
-- Database Design: `docs/DB-erd/`
-- Backlogs & Sprints: `docs/backlogs/`
+- Full SRS: `.obsidian-vault/02-SRS/SRS-Overview.md`
+- Coding Convention: `.obsidian-vault/00-Dashboard/Coding-Convention.md`
+- Database Design: `.obsidian-vault/06-Database/`
+- Backlogs & Sprints: `.obsidian-vault/13-Backlogs/`
 
 ---
 
 ## Questions to Ask Before Coding
 
 Before implementing any feature, ask yourself:
-1. Is there a Spec for this in `docs/srs.md`?
+1. Is there a Spec for this in `.obsidian-vault/02-SRS/`?
 2. Does it align with the Architecture?
 3. Do I have failing tests written first?
 4. Does this affect the ownership graph? (critical path)
