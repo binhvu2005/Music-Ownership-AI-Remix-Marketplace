@@ -144,3 +144,220 @@ Design a modern user profile and settings dashboard page.
   - "Wallet Settings" card displaying: "Connected Wallet Address" showing a mock crypto address (e.g. 0x71C...897) with a "Disconnect" button, and automatic Stripe Connect status (indicated as "Connected").
   - Save Changes button at the bottom highlighted in neon purple.
 ```
+
+---
+
+### 📤 Màn hình 8: Upload Music Page (Trang tải nhạc & Stems)
+*Mục tiêu: Giao diện cho phép kéo thả file nhạc gốc, tải lên các stem riêng lẻ và cấu hình bản quyền & doanh thu.*
+
+```text
+Design a web page for uploading songs and audio stems for StemVerse.
+- Main area: A split layout on a deep slate background.
+- Left column (Audio Files Upload):
+  - A large dotted drag-and-drop zone with a cloud icon labeled "Upload Full Track (.wav, .mp3, max 50MB)".
+  - A section titled "Stems Upload (Optional)" displaying 4 smaller drop zones for separated tracks: Vocals, Drums, Bass, Melody. Each with a progress bar and delete icon.
+- Right column (Metadata & Rights):
+  - Text fields for Song Title, Genre dropdown, BPM, Key (e.g. C#m), Mood tags.
+  - Switches for "Allow AI Remixing", "Allow Commercial Licensing", and "Allow AI Voice Cloning".
+  - A royalty slider showing "Remixer Split: 20%" and "Creator Split: 70%" (Platform split fixed at 10%).
+  - A neon purple "Publish Song" button.
+```
+
+---
+
+### 💳 Màn hình 9: Marketplace & Licensing Checkout (Trang thanh toán bản quyền)
+*Mục tiêu: Popup hoặc trang thanh toán khi mua license nhạc, hỗ trợ nhiều cổng thanh toán.*
+
+```text
+Design a licensing details and payment checkout modal for StemVerse.
+- Layout: Centered pop-up card with glassmorphism styling on dark background.
+- Header: Song thumbnail, title "Summer Breeze", creator "Original Creator", license type "Commercial License".
+- Left side (License Details):
+  - Bullet points describing usage rights: "✔ Commercial streaming allowed", "✔ Synchronization rights included", "✖ AI Voice Cloning prohibited", "✔ 20% Remix Royalty Split agreement".
+- Right side (Checkout Card):
+  - Price display "$29.99" in bold green font.
+  - Payment method tabs: "Card / Stripe", "MoMo (QR)", "VNPay".
+  - Interactive credit card inputs (Card Number, Expiry, CVC) on dark field style.
+  - A secure lock icon next to a solid green "Pay $29.99 Now" button.
+```
+
+---
+
+### 🛡️ Màn hình 10: Admin Control Panel (Bảng quản trị hệ thống)
+*Mục tiêu: Giao diện dành cho admin để theo dõi doanh thu, xử lý khiếu nại bản quyền và quản lý user.*
+
+```text
+Design an admin control panel dashboard for StemVerse managers.
+- Layout: Dark theme with a left sidebar nav (Overview, Copyright Disputes, User Audit, Billing), top bar with global search.
+- Overview Section:
+  - Metric blocks showing: "Platform Earnings: $14,250", "Pending Disputes: 8", "Total Songs: 1,420", "Banned Creators: 3".
+  - Chart area: A line graph tracking platform transactions over time.
+- Copyright Disputes List:
+  - A table showing active disputes: "Dispute ID", "Song Title", "Claimant", "Original Owner", "Status" (Pending / Resolved), and action buttons "Investigate" / "Resolve".
+- User Management Panel:
+  - List of flagged users with a red "Ban User" button.
+```
+
+---
+
+### 👥 Màn hình 11: Realtime Collab Studio & Social Remix Battle (Màn hình cộng tác & Remix Battle)
+*Mục tiêu: Giao diện phòng collab thời gian thực hiển thị cursor của nhiều user và bảng xếp hạng Remix Battle.*
+
+```text
+Design a realtime multiplayer audio collaboration studio and social remix battle page.
+- Top Bar: Display active user avatars with green status dots (multiplayer presence), and a glowing orange "Live" badge.
+- Timeline Area: A horizontal multitrack editor (Track 1: Vocals, Track 2: Drums, Track 3: Remix Synth).
+  - Show colored markers indicating the playback heads and cursor locations of other online users (e.g., "User A editing drums", "User B adding reverb").
+- Remix Battle Card:
+  - Banner: "Synthwave Remix Battle #12".
+  - Leaderboard table: Rank, Remix Title, Creator, Votes, and a "Vote" thumbs-up button.
+  - Subtitle: "Submit your remix entry before May 30th".
+```
+
+---
+
+### 🎤 Màn hình 12: AI Voice Library & Voice Cloning Page (Thư viện Giọng ca AI & Nhân bản Giọng hát)
+*Mục tiêu: Giao diện khám phá các giọng ca AI đã được xác thực của các Creator và bảng điều khiển tải lên mẫu thử âm thanh để huấn luyện mô hình giọng nói cá nhân.*
+
+```text
+Design a responsive web dashboard for the StemVerse AI Voice Library.
+- Header: Title "AI Voice Library" with a subtitle "Browse and license authenticated AI voice models or train your own." An emerald green primary button on the right labeled "+ Train My Voice".
+- Grid of Voice Cards: Show 3 columns of selectable AI Voice Cards. Each card includes:
+  - Circle avatar representing the voice owner, with a small verified checkmark.
+  - Voice Name (e.g. "Vocaloid-Sophia v2") and Creator name.
+  - Attributes: Tag badges showing Gender ("Female"), Vocal Type ("Alto / Husky"), Style ("Dreampop, Synthwave"), and Price (e.g. "$15 / license").
+  - An inline audio play slider to preview the voice singing a demo phrase.
+  - A neon purple action button "Use Voice in Studio" or "License Voice".
+- "Train My Voice" Slide-over Panel (or section): A mockup of the training wizard containing:
+  - Step indicator: "1. Upload 10-min clean vocal samples (.wav)" -> Drag-and-drop zone.
+  - Step indicator: "2. Set Licensing Model" -> Pricing inputs and royalty share agreement checkboxes.
+```
+
+---
+
+### 🌳 Màn hình 13: Interactive Song Lineage & Ownership Graph (Sơ đồ Phả hệ Sở hữu & Dòng chảy Bản quyền)
+*Mục tiêu: Sơ đồ phả hệ dạng cây phân nhánh giúp người dùng theo dõi nguồn gốc bài hát gốc, các bản remix phái sinh, tỷ lệ chia doanh thu và tổng tiền bản quyền đã được phân phối ở từng nhánh.*
+
+```text
+Design a fullscreen interactive user interface for the Song Lineage & Ownership Graph Explorer.
+- Header: Song name "Summer Breeze (Original)" by Creator X, with a total remix count "28 derivatives" and total royalty generated "$3,200.00".
+- Visual Canvas: A large dark canvas area showing a horizontal or vertical tree-graph structure (mind map style).
+  - Root Node: Glowing emerald green border card containing the original track info, owner name, and "100% Core Rights".
+  - Child Nodes (Branches): Connected with glowing purple lines. Multiple derivative remix nodes (e.g., "Summer Phonk Remix by User B" - showing a "20% Remixer, 70% Creator, 10% Platform" split badge, and a "Revenue Earned: $450" label).
+  - Sub-child Nodes: Further branches indicating remix of a remix (e.g., "Nightcore Edit of Phonk Remix" with its respective splits).
+- Hover Tooltip Mockup: A small dark popover overlay on a selected node showing: Remix prompt used, creation date, active licenses purchased, and a button to play/preview this specific remix.
+```
+
+---
+
+### 🏆 Màn hình 14: Remix Battle Details & Voting Page (Chi tiết Cuộc thi Remix & Bình chọn)
+*Mục tiêu: Trang chi tiết của một cuộc thi remix đang diễn ra, hiển thị giải thưởng, thể lệ, bài hát gốc làm đề bài, danh sách các bài dự thi kèm nút nghe thử và bình chọn.*
+
+```text
+Design a webpage detail view for a StemVerse Remix Battle.
+- Top Hero Section: A large glowing banner titled "Synthwave Remix Battle #12" with a countdown timer "Ends in: 3d 12h 45m" and a prize pool badge "Prize: $1,000 + 50% Platform Fee Share".
+- Left Panel:
+  - Battle Rules: Bullet list describing terms (e.g. "Must use vocals from 'Dreaming Out Loud'", "Submissions close May 30th", "Winner chosen by community vote").
+  - Target Track Card: Displays the original song art, title, play button, and an Emerald Green button: "Remix This Song in Studio".
+- Right Panel (Submissions & Voting):
+  - A header "Entries (142)" with tabs: "Trending", "Top Voted", "Recent".
+  - A scrollable list of remix entries. Each entry shows: Rank badge (e.g., #1, #2), Remixer avatar and username, waveform player, vote counter, and a thumbs-up "Vote" button (glowing orange when clicked).
+  - A floating CTA button at the bottom: "Submit Your Entry".
+```
+
+---
+
+### 📰 Màn hình 15: Social Activity Feed (Bảng tin Hoạt động Cộng đồng)
+*Mục tiêu: Dòng thời gian hiển thị các hoạt động xã hội như đăng bài hát mới, tạo remix mới, lượt like, bình luận và chia sẻ trong hệ sinh thái âm nhạc StemVerse.*
+
+```text
+Design a social activity feed layout for the StemVerse community.
+- Layout: Three-column layout.
+  - Left Sidebar: Short user profile summary (avatar, followers, edit profile) and navigation links.
+  - Center Feed: A feed of scrollable activity posts.
+    - Post Example 1: "User A remixed 'Neon Horizon' by User B" -> Displays a embedded mini player card with waveform, remix prompt "Make it drum and bass", like/repost/comment icons, and a comment input box.
+    - Post Example 2: "User C purchased a Commercial License for 'Midnight City'" -> Displays a purchase receipt graphic with positive green indicator badges.
+  - Right Sidebar: "Trending Remix Prompts" list (e.g., #phonk, #spedup, #ambientsynth) and "Creators to Follow" recommendations.
+```
+
+---
+
+### 🛒 Màn hình 16: Sound Packs & AI Assets Marketplace (Chợ mua bán Sound Packs, Loops & Presets)
+*Mục tiêu: Khu vực chợ mua bán dành riêng cho các gói âm thanh (Sound Packs), vòng lặp (Loops), bộ mẫu tiếng (Samples), và các thiết lập hiệu ứng AI (presets).*
+
+```text
+Design a digital marketplace page for sound packs, loops, and AI audio assets.
+- Hero Banner: Modern heading "Producer Sound Assets" with description "Buy royalty-free stems, vocal presets, and drum loops to elevate your productions."
+- Filters Sidebar: Left-hand filter menu with collapsible sections: Category (Vocal Pack, Drum Loop, Synth Preset, SFX), Price Range slider, Key, BPM range, and Seller rating.
+- Grid Layout: 4 columns of asset card items. Each card contains:
+  - A stylized colorful cover artwork.
+  - Pack Title (e.g. "Vaporwave Synth Loops Vol. 1") and Seller name.
+  - Format badges (e.g. "50 WAV Loops", "10 Serum Presets").
+  - Price label (e.g. "$19.99") and a quick "Add to Cart" shopping cart icon button.
+  - A small play button on the cover to play an audio demo preview.
+```
+
+---
+
+### 🔔 Màn hình 17: Notification Center & Activity Log Inbox (Trung tâm Thông báo & Lịch sử Hoạt động)
+*Mục tiêu: Hộp thư thông báo chi tiết phân loại theo danh mục: Tiền bản quyền nhận được (Royalties), hoạt động remix bài hát của mình (Remixes), tương tác mạng xã hội (Social) và cảnh báo hệ thống/tranh chấp (System).*
+
+```text
+Design a clean, modern notification center inbox page.
+- Layout: Center-aligned list card on a dark slate background, with tabs for filtering: "All", "Royalties", "Remixes", "Social", "System".
+- Notification Items List:
+  - Item 1 (Royalty split): Icon of money bag. Text: "You earned $14.20 from 'Summer Breeze (Lofi Edit)' streams." with a timestamp and a "View Statement" link.
+  - Item 2 (Remix activity): Icon of lightning/waveform. Text: "User X just remixed your track 'Blue Ocean' using AI Remix Studio." with a link to view the new remix and its split graph.
+  - Item 3 (Social comment): Icon of chat bubble. Text: "User Y commented on your remix: 'This drop is insane! 🔥'" with a reply button.
+  - Item 4 (System dispute): Icon of warning sign. Text: "System flag: A copyright dispute has been opened for your track 'Remix A1'." in yellow text with a "Resolve Now" action button.
+```
+
+---
+
+### 💳 Màn hình 18: Creator Onboarding & Payout Settings (Thiết lập Ví & Liên kết Stripe/MoMo)
+*Mục tiêu: Trang thiết lập phương thức thanh toán dành cho Creator để liên kết tài khoản Stripe Connect, ví MoMo, hoặc VNPay nhằm nhận tiền bản quyền tự động rút về ví.*
+
+```text
+Design a payout onboarding and wallet configuration settings page.
+- Header: Title "Payout Settings" with subtitle "Manage how you receive royalty payments and marketplace earnings."
+- Onboarding Cards:
+  - Card 1: "Stripe Connect" for international bank transfers. Shows a status badge "Not Connected" or "Connected", input field for Registered Legal Name, and a dark purple button "Setup Stripe Payouts".
+  - Card 2: "MoMo Wallet Link" for Vietnamese local payouts. Shows a status badge "Connected" with the connected phone number (e.g. "098***1234"), and a disconnect link.
+  - Card 3: "VNPay Business API". Shows input fields for VNPay Merchant ID, API keys, and a toggle for "Auto-Withdraw Weekly earnings".
+- Minimum Payout Threshold Card: A slider showing minimum payout amounts (e.g. "$10", "$50", "$100") and a checklist of required tax documents.
+```
+
+---
+
+### ⚖️ Màn hình 19: Copyright Dispute Investigation (Admin/Mediator Panel) (Trang Quản trị Viên Giải quyết Tranh chấp Bản quyền)
+*Mục tiêu: Giao diện dành riêng cho Admin hoặc người hòa giải để so sánh trực quan dạng sóng âm (waveform) của hai bài hát tranh chấp, xem tỷ lệ tương đồng do AI phân tích và đưa ra quyết định xử lý.*
+
+```text
+Design a split-screen copyright dispute investigation interface for administrators.
+- Header: Title "Dispute Case #98231 - Copyright Infringement Claim". Status badge: "Under Investigation" in yellow.
+- Left Column (Claimant's Song):
+  - Displays original track cover, title "Ocean Waves", creator name, upload timestamp.
+  - Audio player with a high-detail waveform. Highlighted in orange brackets are specific time ranges identified by AI as overlapping (e.g., "0:45 - 1:12").
+- Right Column (Disputed Song):
+  - Displays disputed track cover, title "Tsunami Beats", creator name, upload timestamp.
+  - Audio player with its waveform. Similar overlapping segment highlighted in orange (e.g., "1:15 - 1:42").
+- AI Similarity Analyzer Panel (Middle/Bottom):
+  - A card showing "AI Match Confirmed: 84% Melodic Similarity" with key comparisons (BPM match: 120/120, Key match: E Minor).
+- Mediator Actions Panel:
+  - Text area for mediator notes.
+  - Actions: Three buttons: "Reject Claim" (gray), "Issue Takedown" (red), "Adjust Royalty Split (Assign 50% to Claimant)" (purple).
+```
+
+---
+
+### 💎 Màn hình 20: Pricing & Premium Subscriptions (Gói cước & Đăng ký Premium)
+*Mục tiêu: Trang hiển thị bảng giá các gói đăng ký dịch vụ của StemVerse (Free, Creator Pro, Studio Master) để mua thêm lượt generate remix bằng AI, tải lên âm thanh chất lượng cao không nén, hoặc mở khóa giới hạn mô hình giọng nói.*
+
+```text
+Design a clean, premium pricing and subscription plans page.
+- Header: Title "Choose Your Creative Power" with a subtitle "Upgrade to unlock advanced AI remix credits, lossless audio stems, and private voice cloning models." Includes a toggle for "Billed Monthly / Billed Yearly (Save 20%)".
+- Plan Columns: 3 vertical pricing cards.
+  - Plan 1: "Listener / Fan" (Free). Price "$0". List of simple features with checkmarks (standard streaming, follow creators, write comments).
+  - Plan 2: "Creator Pro" (Most Popular - with glowing neon purple border and ribbon). Price "$14.99 / mo". List of features: "100 AI Remix Credits/mo", "Lossless WAV Stem uploads", "1 Custom AI Voice Model training", "Auto-Stripe splits". Action button: "Start 7-Day Free Trial".
+  - Plan 3: "Studio Master". Price "$49.99 / mo". List of features: "Unlimited AI Remix Credits", "API Access for batch separations", "5 Custom AI Voice Models", "Priority GPU processing", "Premium support". Action button: "Contact Sales".
+```
