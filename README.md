@@ -1,5 +1,7 @@
 # 🎵 StemVerse
 
+![StemVerse Logo](docs/assets/logo.jpg)
+
 > **"GitHub + Spotify + AI Remix Engine cho âm nhạc"**  
 > Nền tảng Quản lý Sở hữu Âm nhạc & Chợ Remix Tích hợp Trí tuệ Nhân tạo.
 

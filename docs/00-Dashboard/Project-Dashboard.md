@@ -12,6 +12,8 @@ tags:
 
 # 🎵 StemVerse — Project Dashboard
 
+![StemVerse Logo](../assets/logo.jpg)
+
 > **"GitHub + Spotify + AI Remix Engine cho âm nhạc"**
 > AI-powered Music Ownership & Remix Marketplace
 
