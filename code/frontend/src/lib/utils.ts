@@ -1,8 +1,8 @@
 import { type ClassValue, clsx } from 'clsx';
-import { twilightMerge } from 'tailwind-merge'; // Hoặc sử dụng tailwind-merge chuẩn
+import { twMerge } from 'tailwind-merge';
 
 export function cn(...inputs: ClassValue[]) {
-  return clsx(inputs);
+  return twMerge(clsx(inputs));
 }
 
 export function formatCurrency(cents: number, currency = 'USD') {

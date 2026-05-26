@@ -270,3 +270,20 @@ Summary:
 - Integration tests: `test/` directory
 - Test coverage minimum: **85%**
 - Always mock external services (R2, Stripe, Redis)
+
+---
+
+## 🎨 Theme & i18n Rules (Giao diện linh hoạt & Đa ngôn ngữ)
+
+Để đảm bảo khả năng mở rộng và đồng bộ giao diện, mọi lập trình viên và AI Agent phải tuân thủ các quy tắc sau khi viết mã giao diện (UI):
+
+### 1. Quy tắc Sáng/Tối (Theme Switching)
+- **CẤM** viết cứng các mã màu (như `text-#000000`, `bg-[#15121b]`) trực tiếp trong class component trừ các trường hợp đặc biệt.
+- **BẮT BUỘC** sử dụng các biến CSS Theme (ví dụ: `var(--background)`, `var(--foreground)`, `var(--primary)`, `var(--surface)`) hoặc các CSS class token của Tailwind v4 được ánh xạ từ CSS variables.
+- Hỗ trợ đổi theme bằng cách bật/tắt class `.dark` ở thẻ `html` hoặc `body`.
+
+### 2. Quy tắc Đa ngôn ngữ (i18n Rules)
+- **CẤM** viết cứng văn bản tĩnh trực tiếp bằng Tiếng Việt hoặc Tiếng Anh trong file TSX/JSX (ví dụ: `<h1>Chào mừng quay lại</h1>`).
+- **BẮT BUỘC** khai báo nội dung hiển thị trong các file từ điển ngôn ngữ tại `src/locales/en.json` (Tiếng Anh) và `src/locales/vi.json` (Tiếng Việt).
+- Sử dụng hook dịch (ví dụ: `t('auth.login.title')`) để hiển thị văn bản động, đảm bảo việc dịch tự động hoạt động hoàn hảo khi người dùng chọn chuyển đổi ngôn ngữ.
+- Mọi nhãn (label), placeholder, câu thông báo lỗi hoặc nút bấm đều phải được bao bọc qua hàm dịch.

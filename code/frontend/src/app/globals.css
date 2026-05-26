@@ -1,26 +1,99 @@
 @import "tailwindcss";
 
+/* ------------------------------------------------------------------------------
+   1. COLOR PALETTES CONFIGURATION (Light & Dark Themes)
+   ------------------------------------------------------------------------------ */
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* LIGHT MODE (Clean Slate Mode) */
+  --background: #f9fafb;       /* Gray 50 */
+  --foreground: #111827;       /* Gray 900 */
+  
+  --surface: #ffffff;          /* Pure White */
+  --surface-border: #e5e7eb;   /* Gray 200 */
+  
+  --primary: #6d3bd7;          /* Classic Deep Purple */
+  --primary-hover: #5516be;
+  
+  --secondary: #00a572;        /* Vibrant Emerald Green */
+  --secondary-hover: #00875c;
+  
+  --text-primary: #111827;     /* Gray 900 */
+  --text-secondary: #4b5563;   /* Gray 600 */
+  --text-muted: #9ca3af;       /* Gray 400 */
+  
+  --error: #ef4444;            /* Red 500 */
+  --error-bg: #fee2e2;         /* Red 100 */
+  
+  --glass-bg: rgba(255, 255, 255, 0.7);
+  --glass-border: rgba(229, 231, 235, 0.5);
 }
 
-@theme inline {
+.dark {
+  /* DARK MODE (Stitch UI High-Tech Audio Infrastructure) */
+  --background: #15121b;       /* Deep Slate Black */
+  --foreground: #e7e0ed;       /* Light purple-white tint */
+  
+  --surface: #1f2937;          /* Gray 800 */
+  --surface-border: #2d3748;   /* Gray 700 / Slate Border */
+  
+  --primary: #d0bcff;          /* Neon Purple */
+  --primary-hover: #a078ff;
+  
+  --secondary: #4edea3;        /* Emerald Green */
+  --secondary-hover: #00a572;
+  
+  --text-primary: #e7e0ed;     /* White-purple tint */
+  --text-secondary: #cbc3d7;   /* Slate Gray */
+  --text-muted: #958ea0;       /* Darker Gray */
+  
+  --error: #ffb4ab;            /* Light Red */
+  --error-bg: #93000a;         /* Deep Dark Red */
+  
+  --glass-bg: rgba(31, 41, 55, 0.6);
+  --glass-border: rgba(45, 55, 72, 0.5);
+}
+
+/* ------------------------------------------------------------------------------
+   2. TAILWIND v4 THEME DIRECTIVES
+   ------------------------------------------------------------------------------ */
+
+@theme {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-surface: var(--surface);
+  --color-surface-border: var(--surface-border);
+  --color-primary: var(--primary);
+  --color-primary-hover: var(--primary-hover);
+  --color-secondary: var(--secondary);
+  --color-secondary-hover: var(--secondary-hover);
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-muted: var(--text-muted);
+  --color-error: var(--error);
+  --color-error-bg: var(--error-bg);
+  --color-glass-bg: var(--glass-bg);
+  --color-glass-border: var(--glass-border);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
+/* ------------------------------------------------------------------------------
+   3. GLOBAL ELEMENT BASE STYLES
+   ------------------------------------------------------------------------------ */
 
 body {
-  background: var(--background);
+  background-color: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Inter', sans-serif;
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Outfit', 'Hanken Grotesk', sans-serif;
+}
+
+/* Smooth transitions for all elements affected by dark/light toggles */
+*, *::before, *::after {
+  transition-property: background-color, border-color, color, fill, stroke;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
 }

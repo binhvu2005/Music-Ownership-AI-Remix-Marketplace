@@ -1,7 +1,7 @@
 import Stripe from 'stripe';
 
 export const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || '', {
-  apiVersion: '2025-02-02-preview' as any, // Sử dụng phiên bản ổn định mới nhất hoặc cấu hình tương ứng
+  apiVersion: '2025-02-02-preview' as never, // Sử dụng phiên bản ổn định mới nhất hoặc cấu hình tương ứng
 });
 
 export async function createCheckoutSession(priceInCents: number, songId: string, userId: string) {

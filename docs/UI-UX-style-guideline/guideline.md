@@ -76,3 +76,54 @@ body {
 - **Mobile (dưới 640px)**: Ẩn sidebar phụ, chuyển sang thanh điều hướng dưới đáy (Bottom Navigation). Danh sách bài hát rút gọn hiển thị dọc.
 - **Tablet (640px - 1024px)**: Sidebar thu gọn thành các icon, hiển thị lưới bài hát 2 cột.
 - **Desktop (trên 1024px)**: Hiển thị sidebar đầy đủ, lưới bài hát 4 hoặc 5 cột.
+
+---
+
+## 🌗 Chế độ Sáng/Tối (Light/Dark Mode Theme)
+
+Giao diện StemVerse phải được thiết kế để tự động thay đổi dựa trên tùy chọn hệ thống hoặc do người dùng thủ công chọn qua nút bấm đổi theme (Theme Switcher).
+
+### Bảng đối chiếu màu sắc (Color Tokens Mapping)
+
+| CSS Variable | Light Theme | Dark Theme (Stitch Default) | Sử dụng |
+|--------------|-------------|-----------------------------|---------|
+| `--background` | `#F9FAFB` (Gray 50) | `#15121b` (Deep Slate Black) | Nền chính của ứng dụng |
+| `--foreground` | `#111827` (Gray 900) | `#E7E0ED` (White-purple tint) | Chữ chính trên nền ứng dụng |
+| `--surface` | `#FFFFFF` (White) | `#1F2937` (Gray 800 / Slate Surface) | Nền của các thẻ (Cards), Sidebars, Modals |
+| `--surface-border`| `#E5E7EB` (Gray 200) | `#2D3748` (Gray 700 / Slate Border) | Đường viền ngăn cách nhẹ |
+| `--primary` | `#6D3BD7` (Deep Purple) | `#D0BCFF` (Neon Purple / Violet 500) | Nút bấm chính, màu nhấn thương hiệu |
+| `--secondary` | `#00A572` (Green) | `#4EDEA3` (Emerald Green) | Trạng thái phát nhạc (Play), Xếp hạng, Royalty split |
+| `--text-primary` | `#111827` (Gray 900) | `#E7E0ED` | Chữ chính trong card, danh sách |
+| `--text-secondary`| `#4B5563` (Gray 600) | `#CBC3D7` (Slate Gray) | Chữ phụ, chú thích, metadata (BPM, Key) |
+
+### Cách áp dụng trong code:
+* Sử dụng CSS variables ở `globals.css` để định nghĩa:
+  ```css
+  :root {
+    --background: #f9fafb;
+    /* ... các giá trị sáng */
+  }
+  .dark {
+    --background: #15121b;
+    /* ... các giá trị tối */
+  }
+  ```
+* Trong JSX/TSX component: Sử dụng các lớp CSS chung như `bg-background text-foreground border-surface-border` để giao diện tự động thích ứng khi class `.dark` được toggled.
+
+---
+
+## 🌐 Đa ngôn ngữ (i18n Localization Guidelines)
+
+StemVerse hướng tới người dùng toàn cầu (Creator quốc tế và Creator Việt Nam), vì vậy giao diện bắt buộc phải hỗ trợ cả hai ngôn ngữ: **Tiếng Việt (VI)** và **Tiếng Anh (EN)**.
+
+* **Từ điển ngôn ngữ:** Lưu trữ tại `code/frontend/src/locales/vi.json` và `en.json`.
+* **Trạng thái ngôn ngữ:** Một biến Context/State lưu trữ ngôn ngữ hiện tại (`vi` hoặc `en`).
+* **Quy tắc đặt từ khóa (Translation Keys):** Đặt theo phân cấp module rõ ràng:
+  * `common`: Các từ khóa chung như `save`, `cancel`, `loading`, `error`.
+  * `nav`: Các mục điều hướng trong sidebar (`home`, `explore`, `studio`, `wallet`, ...).
+  * `auth`: Đăng nhập, đăng ký (`login`, `register`, `forgot_password`).
+  * `upload`: Các nhãn của trang upload stems và cài đặt bản quyền.
+  * `studio`: Các điều khiển và preset của AI Remix.
+  * `wallet`: Thống kê doanh thu, tiền bản quyền và cấu hình rút tiền.
+  * `disputes`: Các trạng thái khiếu nại bản quyền.
+  * `pricing`: Các gói đăng ký dịch vụ.
