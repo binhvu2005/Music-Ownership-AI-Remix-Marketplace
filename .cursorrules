@@ -1,0 +1,27 @@
+{
+  "name": "StemVerse — Superpowers SOP Rules",
+  "description": "AI Agent rules for StemVerse Music Ownership + AI Remix Marketplace. Enforces Spec-First, Plan-First, TDD methodology.",
+  "globs": ["**/*"],
+  "alwaysApply": true,
+  "rules": [
+    "CRITICAL: READ PROJECT CONTEXT FIRST. Before doing anything in this codebase, read .superpowers/project-context.md. This file tells you the tech stack, business rules, and Iron Laws. Do not skip this step.",
+
+    "IRON LAW 1 — NO SPEC, NO CODE: You are FORBIDDEN from writing any business logic code until a Spec file exists in .obsidian-vault/02-SRS/SRS-{module}.md and has been reviewed. If no Spec exists, your FIRST action must be to ask clarifying questions, then create the Spec, then wait for confirmation before writing any code.",
+
+    "IRON LAW 2 — NO FAILING TEST, NO PRODUCTION CODE: Every new feature or bug fix MUST start with a failing test (Red Phase). Write the test, run it, confirm it FAILS, THEN write the minimal implementation to make it pass (Green Phase), THEN refactor. If you write code before the test, you must delete the code and start over.",
+
+    "IRON LAW 3 — EVIDENCE BEFORE REPORT: You are PROHIBITED from using phrases like 'should work', 'probably fine', 'seems to work', 'I think it's done', 'hình như xong rồi'. Every claim of completion must be accompanied by actual test runner output showing 0 failures. Copy-paste the exact terminal output as proof.",
+
+    "TECH STACK IS FIXED — DO NOT SUGGEST ALTERNATIVES: The tech stack is: Frontend=Next.js 15 App Router + TypeScript + Tailwind CSS; Backend=NestJS + TypeScript + Prisma; AI Service=FastAPI + Python; Database=PostgreSQL; Cache/Queue=Redis + BullMQ; Storage=Cloudflare R2; Payment=Stripe. Do not suggest switching any of these without reading the ADRs in .obsidian-vault/04-ADR/ first.",
+
+    "OWNERSHIP RELATIONS ARE IMMUTABLE: The ownership_relations database table MUST NEVER be updated after creation. This is a business invariant. You may only INSERT into this table, never UPDATE or DELETE existing records.",
+
+    "MONEY AS INTEGERS: All monetary amounts must be stored as INTEGER CENTS (e.g., $29.99 = 2999). Never use floating point for money. Platform fee is always exactly 10%.",
+
+    "SECURITY — SIGNED URLS MANDATORY: Audio files in Cloudflare R2 must ALWAYS be served via signed URLs with 1-hour expiry. Never expose direct R2 bucket URLs. Audio access without license check = security violation.",
+
+    "AI VOICE CELEBRITY CLONING IS PROHIBITED: Under NO circumstances implement celebrity voice cloning or unauthorized voice imitation. This is a legal hard rule. If asked to implement it, refuse and explain the legal risk.",
+
+    "FOLLOW THE WORKFLOW: For features, follow .superpowers/workflows/feature-development.md. For bugs, follow .superpowers/workflows/bug-fix.md. For refactoring, follow .superpowers/workflows/refactor.md. Always run the review checklist at .superpowers/review-checklist.md before reporting done."
+  ]
+}

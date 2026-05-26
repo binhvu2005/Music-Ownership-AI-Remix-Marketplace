@@ -1,0 +1,63 @@
+# Dependencies
+node_modules/
+.pnpm-store/
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Environment variables (NEVER commit)
+.env
+.env.local
+.env.production
+.env.staging
+*.env
+
+# Build outputs
+dist/
+.next/
+build/
+out/
+
+# Obsidian workspace (commit vault, not workspace state)
+.obsidian/workspace.json
+.obsidian/workspace-mobile.json
+.obsidian/cache
+
+# AI model files (too large for git)
+*.pt
+*.pth
+*.onnx
+*.safetensors
+
+# Audio files (use Cloudflare R2)
+*.mp3
+*.wav
+*.flac
+*.aiff
+*.m4a
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea/
+.vscode/settings.json
+
+# Test coverage
+coverage/
+.nyc_output/
+
+# Prisma
+prisma/*.db
+prisma/migrations/dev.db
+
+# Misc
+.cache/
+tmp/
