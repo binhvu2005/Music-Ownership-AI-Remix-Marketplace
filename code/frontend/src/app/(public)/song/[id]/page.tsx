@@ -1,10 +1,11 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, use } from 'react';
 import Link from 'next/link';
 
-export default function SongDetailsPage({ params }: { params: { id: string } }) {
-  const songId = params.id;
+export default function SongDetailsPage({ params }: { params: Promise<{ id: string }> }) {
+  const resolvedParams = use(params);
+  const songId = resolvedParams.id;
   
   // Mock song details
   const song = {

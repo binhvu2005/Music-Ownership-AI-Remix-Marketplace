@@ -34,7 +34,7 @@ export const Navbar: React.FC = () => {
         </div>
 
         {/* Desktop Navigation Links */}
-        <nav className="hidden md:flex space-x-8 text-sm font-medium">
+        <nav className="hidden md:!flex space-x-8 text-sm font-medium">
           {navLinks.map((link) => (
             <Link
               key={link.href}
@@ -49,7 +49,7 @@ export const Navbar: React.FC = () => {
         </nav>
 
         {/* Action Controls & User Auth */}
-        <div className="hidden md:flex items-center space-x-4">
+        <div className="hidden md:!flex items-center space-x-4">
           {/* Language Toggle */}
           <button
             onClick={() => setLanguage(language === "en" ? "vi" : "en")}
