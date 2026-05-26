@@ -72,6 +72,7 @@ tags:
 
 ### 🤖 AI & Superpowers
 - [[Prompt-Generate-Spec]] | [[Prompt-Generate-Plan]] | [[Prompt-Code-Review]]
+- [[Prompt-Figma-Stitch]] | [[Prompt-Logo-AI]]
 
 ---
 
