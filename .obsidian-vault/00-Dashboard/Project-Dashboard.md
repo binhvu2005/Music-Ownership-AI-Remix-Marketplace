@@ -85,18 +85,17 @@ tags:
 - [x] Database schema + Prisma migrations + seeding
 - [x] Theme switching (Light/Dark) + i18n (EN/VI)
 - [x] Authentication Service (NestJS + JWT + TDD — 21 tests PASS)
+- [x] Frontend Auth pages (Login, Register, Profile)
 
 ### 🔄 IN PROGRESS
-- [ ] Frontend Auth pages (Login, Register, Profile)
-- [ ] Music Upload API
+*(Chưa có)*
 
 ### 📥 TODO
-- [ ] Stem Separation (Demucs)
-- [ ] Waveform Generation
-- [ ] Ownership Graph
-- [ ] Royalty Split Engine (MVP)
-- [ ] AI Remix (basic prompting)
-- [ ] Licensing System
+- [ ] Setup Cloudflare R2 Storage (Sprint 2)
+- [ ] Music Upload API (Sprint 2)
+- [ ] FastAPI AI Service Boilerplate (Sprint 2)
+- [ ] Waveform Generation (Sprint 2)
+- [ ] BPM & Key detection (Sprint 2)
 
 ---
 

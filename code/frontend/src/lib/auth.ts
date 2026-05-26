@@ -15,27 +15,60 @@ export const authOptions: AuthOptions = {
         password: { label: 'Password', type: 'password' },
       },
       async authorize(credentials) {
-        // Cần thực hiện kiểm tra mật khẩu qua API backend ở đây
-        if (credentials?.email === 'creator@stemverse.com' && credentials?.password === 'password') {
-          return { id: '1', name: 'Original Creator', email: 'creator@stemverse.com', role: 'creator' };
+        if (!credentials?.email || !credentials?.password) {
+          return null;
         }
-        return null;
+
+        try {
+          const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001';
+          const res = await fetch(`${apiUrl}/auth/login`, {
+            method: 'POST',
+            body: JSON.stringify({
+              email: credentials.email,
+              password: credentials.password,
+            }),
+            headers: { 'Content-Type': 'application/json' },
+          });
+
+          const data = await res.json();
+
+          if (res.ok && data?.access_token && data?.user) {
+            return {
+              id: data.user.id,
+              name: data.user.displayName || data.user.email.split('@')[0],
+              email: data.user.email,
+              role: data.user.role,
+              accessToken: data.access_token,
+            };
+          }
+          
+          if (data?.message) {
+            const errorMsg = Array.isArray(data.message) ? data.message[0] : data.message;
+            throw new Error(errorMsg);
+          }
+          return null;
+        } catch (error: unknown) {
+          throw new Error(error instanceof Error ? error.message : 'Authentication failed');
+        }
       },
     }),
   ],
   callbacks: {
     async jwt({ token, user }) {
       if (user) {
-        token.role = (user as { role?: string }).role;
-        token.id = user.id;
+        const extUser = user as { role?: string; accessToken?: string; id: string };
+        token.role = extUser.role;
+        token.id = extUser.id;
+        token.accessToken = extUser.accessToken;
       }
       return token;
     },
     async session({ session, token }) {
       if (session.user) {
-        const u = session.user as { role?: unknown; id?: unknown };
-        u.role = token.role;
-        u.id = token.id;
+        const u = session.user as { role?: string; id?: string };
+        u.role = token.role as string;
+        u.id = token.id as string;
+        (session as { accessToken?: unknown }).accessToken = token.accessToken;
       }
       return session;
     },

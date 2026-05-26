@@ -2,9 +2,12 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
+import { Navbar } from '../components/layout/Navbar';
+import { useLanguage } from '../context/LanguageContext';
 
 export default function Home() {
   const [remixPrompt, setRemixPrompt] = useState('');
+  const { language, t } = useLanguage();
   
   // Mock data for songs
   const trendingSongs = [
@@ -14,50 +17,38 @@ export default function Home() {
   ];
 
   return (
-    <div className="min-h-screen bg-[#0B0F19] text-[#F9FAFB] font-sans selection:bg-[#8B5CF6]/30">
+    <div className="min-h-screen bg-background text-foreground font-sans selection:bg-primary/30 transition-colors duration-300">
       {/* Navbar */}
-      <header className="sticky top-0 z-50 bg-[#0B0F19]/80 backdrop-blur-md border-b border-gray-800 px-6 py-4 flex items-center justify-between">
-        <Link href="/" className="flex items-center space-x-2 text-2xl font-bold tracking-wider text-[#8B5CF6]">
-          <span>🎵 StemVerse</span>
-        </Link>
-        <nav className="hidden md:flex items-center space-x-6 text-sm font-medium text-gray-400">
-          <Link href="/songs" className="hover:text-white transition">Explore</Link>
-          <Link href="/studio" className="hover:text-white transition">AI Remix Studio</Link>
-          <Link href="/dashboard" className="hover:text-white transition">Dashboard</Link>
-          <Link href="/wallet" className="hover:text-white transition">Wallet</Link>
-        </nav>
-        <div className="flex items-center space-x-4">
-          <Link href="/login" className="text-sm font-medium hover:text-white transition">Sign In</Link>
-          <Link href="/upload" className="bg-[#8B5CF6] hover:bg-[#7C3AED] text-white px-4 py-2 rounded-xl text-sm font-semibold shadow-lg shadow-indigo-500/20 transition">
-            Upload
-          </Link>
-        </div>
-      </header>
+      <Navbar />
 
       {/* Hero Section */}
       <section className="relative px-6 py-20 md:py-32 max-w-7xl mx-auto flex flex-col items-center text-center overflow-hidden">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-[#8B5CF6]/10 rounded-full blur-[120px] pointer-events-none" />
-        <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight mb-6">
-          The <span className="text-[#8B5CF6]">GitHub + Spotify</span> for Music Creators
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-primary/10 rounded-full blur-[120px] pointer-events-none" />
+        <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight mb-6 text-text-primary">
+          {t("explore.hero_title").split("GitHub + Spotify")[0]}
+          <span className="text-primary">GitHub + Spotify</span>
+          {t("explore.hero_title").split("GitHub + Spotify")[1] || " for Music Creators"}
         </h1>
-        <p className="text-gray-400 text-lg md:text-xl max-w-2xl mb-10 leading-relaxed">
-          Upload your original tracks, separate them into stems automatically with AI, license them for remixes, and track derivative ownership with automatic royalty splits.
+        <p className="text-text-secondary text-lg md:text-xl max-w-2xl mb-10 leading-relaxed">
+          {language === "en" 
+            ? "Upload your original tracks, separate them into stems automatically with AI, license them for remixes, and track derivative ownership with automatic royalty splits."
+            : "Tải lên các bài hát gốc của bạn, tự động tách thành các stem bằng AI, cấp quyền cho các bản remix, và theo dõi sơ đồ sở hữu với tính năng tự động chia tiền tác quyền."}
         </p>
 
         {/* Quick AI Remix Prompt Box */}
-        <div className="w-full max-w-xl bg-gray-900/60 backdrop-blur-md border border-gray-800 p-2 rounded-2xl flex items-center space-x-2 shadow-2xl">
+        <div className="w-full max-w-xl bg-glass-bg border border-glass-border p-2 rounded-2xl flex items-center space-x-2 shadow-2xl backdrop-blur-md">
           <input
             type="text"
-            placeholder="Remix 'Summer Breeze' into dark phonk..."
+            placeholder={t("explore.search_placeholder")}
             value={remixPrompt}
             onChange={(e) => setRemixPrompt(e.target.value)}
-            className="flex-1 bg-transparent px-4 py-3 text-sm focus:outline-none text-white placeholder-gray-500"
+            className="flex-1 bg-transparent px-4 py-3 text-sm focus:outline-none text-text-primary placeholder-text-muted"
           />
           <Link
             href={`/studio?prompt=${encodeURIComponent(remixPrompt)}`}
-            className="bg-[#10B981] hover:bg-[#059669] text-black font-semibold px-6 py-3 rounded-xl text-sm shadow-lg shadow-emerald-500/10 transition"
+            className="bg-secondary hover:bg-secondary-hover text-white dark:text-background font-bold px-6 py-3 rounded-xl text-sm shadow-lg shadow-secondary/10 transition-all duration-200"
           >
-            Remix
+            {t("explore.remix_btn")}
           </Link>
         </div>
       </section>
@@ -66,11 +57,11 @@ export default function Home() {
       <section className="px-6 py-16 max-w-7xl mx-auto">
         <div className="flex items-center justify-between mb-8">
           <div>
-            <h2 className="text-2xl font-bold">Trending Original Tracks</h2>
-            <p className="text-gray-400 text-sm">Open for AI remixing & licensing</p>
+            <h2 className="text-2xl font-bold text-text-primary">{t("explore.trending_section")}</h2>
+            <p className="text-text-secondary text-sm">{t("explore.trending_subtitle")}</p>
           </div>
-          <Link href="/songs" className="text-sm font-semibold text-[#8B5CF6] hover:text-[#7C3AED] transition">
-            View All →
+          <Link href="/songs" className="text-sm font-semibold text-primary hover:text-primary-hover transition-colors">
+            {language === "en" ? "View All →" : "Xem tất cả →"}
           </Link>
         </div>
 
@@ -78,31 +69,31 @@ export default function Home() {
           {trendingSongs.map((song) => (
             <div
               key={song.id}
-              className="bg-gray-900/40 backdrop-blur-md border border-gray-800 p-6 rounded-2xl hover:border-gray-700 transition flex flex-col justify-between"
+              className="bg-glass-bg border border-glass-border p-6 rounded-2xl hover:border-primary/45 hover:scale-[1.01] active:scale-[0.99] transition-all duration-300 flex flex-col justify-between shadow-sm"
             >
               <div>
                 <div className="flex justify-between items-start mb-4">
-                  <div className="w-12 h-12 bg-gray-800 rounded-lg flex items-center justify-center text-[#8B5CF6] font-bold text-xl">
+                  <div className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center text-primary font-bold text-xl">
                     📻
                   </div>
-                  <span className="text-xs bg-[#8B5CF6]/10 text-[#8B5CF6] px-2.5 py-1 rounded-full font-medium">
+                  <span className="text-xs bg-primary/15 text-primary px-2.5 py-1 rounded-full font-semibold">
                     {song.genre}
                   </span>
                 </div>
-                <h3 className="font-bold text-lg mb-1">{song.title}</h3>
-                <p className="text-sm text-gray-400 mb-4">by {song.creator}</p>
+                <h3 className="font-bold text-lg mb-1 text-text-primary">{song.title}</h3>
+                <p className="text-sm text-text-secondary mb-4">by {song.creator}</p>
               </div>
 
-              <div className="flex items-center justify-between border-t border-gray-800 pt-4 mt-4 text-xs font-mono text-gray-500">
+              <div className="flex items-center justify-between border-t border-glass-border pt-4 mt-4 text-xs font-mono text-text-muted">
                 <div className="flex space-x-3">
-                  <span>⏱ {song.bpm} BPM</span>
+                  <span>⏱ {song.bpm} {t("explore.badges.bpm")}</span>
                   <span>🎹 {song.key}</span>
                 </div>
                 <Link
                   href={`/song/${song.id}`}
-                  className="text-[#10B981] hover:underline flex items-center space-x-1"
+                  className="text-secondary hover:underline flex items-center space-x-1 font-semibold"
                 >
-                  <span>Listen</span>
+                  <span>{language === "en" ? "Listen" : "Nghe"}</span>
                   <span>▶</span>
                 </Link>
               </div>
@@ -112,9 +103,10 @@ export default function Home() {
       </section>
 
       {/* Footer */}
-      <footer className="border-t border-gray-800 px-6 py-8 text-center text-sm text-gray-500 bg-[#0B0F19]">
+      <footer className="border-t border-glass-border px-6 py-8 text-center text-sm text-text-muted bg-background/50">
         <p>© {new Date().getFullYear()} StemVerse. All rights reserved.</p>
       </footer>
     </div>
   );
 }
+
