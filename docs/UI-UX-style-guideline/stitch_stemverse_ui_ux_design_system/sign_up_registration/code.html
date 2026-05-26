@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>StemVerse | Join the Future of Music</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&amp;family=Geist:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-container": "#211e27",
+                    "background": "#15121b",
+                    "surface": "#15121b",
+                    "secondary-fixed": "#6ffbbe",
+                    "secondary": "#4edea3",
+                    "tertiary": "#ffb869",
+                    "on-background": "#e7e0ed",
+                    "surface-variant": "#37333d",
+                    "primary-container": "#a078ff",
+                    "outline": "#958ea0",
+                    "surface-dim": "#15121b",
+                    "on-secondary-container": "#00311f",
+                    "inverse-surface": "#e7e0ed",
+                    "error": "#ffb4ab",
+                    "on-tertiary": "#482900",
+                    "surface-container-low": "#1d1a23",
+                    "primary-fixed-dim": "#d0bcff",
+                    "on-primary-fixed": "#23005c",
+                    "on-error-container": "#ffdad6",
+                    "secondary-fixed-dim": "#4edea3",
+                    "surface-container-lowest": "#0f0d15",
+                    "tertiary-container": "#ca801e",
+                    "on-primary-fixed-variant": "#5516be",
+                    "error-container": "#93000a",
+                    "on-surface-variant": "#cbc3d7",
+                    "on-secondary-fixed": "#002113",
+                    "on-error": "#690005",
+                    "primary-fixed": "#e9ddff",
+                    "on-secondary-fixed-variant": "#005236",
+                    "on-primary-container": "#340080",
+                    "on-surface": "#e7e0ed",
+                    "primary": "#d0bcff",
+                    "outline-variant": "#494454",
+                    "surface-tint": "#d0bcff",
+                    "tertiary-fixed-dim": "#ffb869",
+                    "on-tertiary-container": "#3f2300",
+                    "surface-bright": "#3b3742",
+                    "surface-container-high": "#2c2832",
+                    "surface-container-highest": "#37333d",
+                    "on-tertiary-fixed-variant": "#673d00",
+                    "on-tertiary-fixed": "#2c1700",
+                    "inverse-on-surface": "#322f39",
+                    "tertiary-fixed": "#ffdcbb",
+                    "on-primary": "#3c0091",
+                    "secondary-container": "#00a572",
+                    "inverse-primary": "#6d3bd7",
+                    "on-secondary": "#003824"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "2xl": "1rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "base": "8px",
+                    "player-height": "96px",
+                    "container-margin": "32px",
+                    "sidebar-width": "280px",
+                    "gutter": "24px"
+            },
+            "fontFamily": {
+                    "label-sm": ["Geist"],
+                    "body-sm": ["Geist"],
+                    "headline-md": ["Hanken Grotesk"],
+                    "headline-lg-mobile": ["Hanken Grotesk"],
+                    "body-lg": ["Geist"],
+                    "label-md": ["Geist"],
+                    "headline-display": ["Hanken Grotesk"],
+                    "headline-lg": ["Hanken Grotesk"],
+                    "body-md": ["Geist"]
+            },
+            "fontSize": {
+                    "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                    "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "label-md": ["14px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "headline-display": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            background-color: #0B0F19; /* Level 0 Canvas per Style Guidance */
+            background-image: radial-gradient(circle at 20% 20%, rgba(139, 92, 246, 0.05) 0%, transparent 40%),
+                              radial-gradient(circle at 80% 80%, rgba(16, 185, 129, 0.03) 0%, transparent 40%);
+        }
+        .glass-panel {
+            background: rgba(31, 41, 55, 0.6);
+            backdrop-filter: blur(20px);
+            border: 1px solid #2D3748;
+        }
+        .primary-glow:hover {
+            box-shadow: 0 0 20px rgba(139, 92, 246, 0.4);
+        }
+        .role-card.active {
+            border-color: #8B5CF6;
+            background: rgba(139, 92, 246, 0.1);
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="flex items-center justify-center min-h-screen p-4 md:p-8">
+<!-- Registration Shell (No Sidebar/BottomNav for transactional page) -->
+<main class="w-full max-w-[640px] z-10">
+<div class="glass-panel rounded-2xl p-8 md:p-12 shadow-2xl">
+<!-- Header Section -->
+<div class="text-center mb-10">
+<div class="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-primary-container/20 text-primary mb-4">
+<span class="material-symbols-outlined text-[32px]">graphic_eq</span>
+</div>
+<h1 class="font-headline-lg text-headline-lg text-on-surface mb-2 tracking-tight">Create your account</h1>
+<p class="font-body-md text-body-md text-on-surface-variant">Join the next generation of music ownership</p>
+</div>
+<form class="space-y-8" id="registrationForm" onsubmit="event.preventDefault();">
+<!-- Role Selection -->
+<div class="space-y-4">
+<h2 class="font-label-md text-label-md text-on-surface-variant uppercase tracking-widest">Select your primary role</h2>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+<!-- Creator Role -->
+<button class="role-card flex flex-col items-center justify-center p-6 rounded-xl border border-outline-variant/30 bg-surface-container-low transition-all hover:border-primary/50 group" onclick="selectRole(this)" type="button">
+<span class="material-symbols-outlined text-primary mb-3 text-3xl group-hover:scale-110 transition-transform">cable</span>
+<span class="font-label-sm text-label-sm text-on-surface text-center">Original Creator</span>
+</button>
+<!-- AI Remixer Role -->
+<button class="role-card flex flex-col items-center justify-center p-6 rounded-xl border border-outline-variant/30 bg-surface-container-low transition-all hover:border-primary/50 group" onclick="selectRole(this)" type="button">
+<span class="material-symbols-outlined text-secondary mb-3 text-3xl group-hover:scale-110 transition-transform">bolt</span>
+<span class="font-label-sm text-label-sm text-on-surface text-center">AI Remixer</span>
+</button>
+<!-- Listener Role -->
+<button class="role-card flex flex-col items-center justify-center p-6 rounded-xl border border-outline-variant/30 bg-surface-container-low transition-all hover:border-primary/50 group" onclick="selectRole(this)" type="button">
+<span class="material-symbols-outlined text-tertiary mb-3 text-3xl group-hover:scale-110 transition-transform">headphones</span>
+<span class="font-label-sm text-label-sm text-on-surface text-center">Listener / Fan</span>
+</button>
+</div>
+</div>
+<!-- Input Fields -->
+<div class="space-y-5">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+<div class="space-y-2">
+<label class="font-label-md text-label-md text-on-surface-variant px-1">Username</label>
+<input class="w-full bg-surface-container-lowest border border-outline-variant/30 rounded-lg px-4 py-3 text-on-surface placeholder:text-outline focus:ring-1 focus:ring-primary focus:border-primary transition-all outline-none font-body-md" placeholder="@username" type="text"/>
+</div>
+<div class="space-y-2">
+<label class="font-label-md text-label-md text-on-surface-variant px-1">Email</label>
+<input class="w-full bg-surface-container-lowest border border-outline-variant/30 rounded-lg px-4 py-3 text-on-surface placeholder:text-outline focus:ring-1 focus:ring-primary focus:border-primary transition-all outline-none font-body-md" placeholder="name@domain.com" type="email"/>
+</div>
+</div>
+<div class="space-y-2">
+<label class="font-label-md text-label-md text-on-surface-variant px-1">Password</label>
+<div class="relative">
+<input class="w-full bg-surface-container-lowest border border-outline-variant/30 rounded-lg px-4 py-3 text-on-surface placeholder:text-outline focus:ring-1 focus:ring-primary focus:border-primary transition-all outline-none font-body-md" id="passwordInput" oninput="updatePasswordStrength(this.value)" placeholder="••••••••" type="password"/>
+</div>
+<!-- Strength Indicator -->
+<div class="flex gap-1.5 mt-2 h-1 px-1">
+<div class="h-full flex-1 rounded-full bg-outline-variant/20 transition-colors" id="str-1"></div>
+<div class="h-full flex-1 rounded-full bg-outline-variant/20 transition-colors" id="str-2"></div>
+<div class="h-full flex-1 rounded-full bg-outline-variant/20 transition-colors" id="str-3"></div>
+<div class="h-full flex-1 rounded-full bg-outline-variant/20 transition-colors" id="str-4"></div>
+</div>
+<p class="font-label-sm text-label-sm text-outline px-1" id="strengthLabel">Password must be at least 8 characters</p>
+</div>
+</div>
+<!-- Agreements -->
+<div class="flex items-start gap-3">
+<div class="flex items-center h-5">
+<input class="w-5 h-5 rounded border-outline-variant/30 bg-surface-container-lowest text-primary focus:ring-primary focus:ring-offset-background transition-all cursor-pointer" id="terms" type="checkbox"/>
+</div>
+<label class="font-body-sm text-body-sm text-on-surface-variant select-none cursor-pointer leading-tight" for="terms">
+                        I agree to the <span class="text-primary hover:underline">Terms of Service</span> and <span class="text-primary hover:underline">DRM Licensing Agreement</span>
+</label>
+</div>
+<!-- Action Button -->
+<button class="w-full bg-primary py-4 rounded-xl font-label-md text-label-md text-on-primary font-bold uppercase tracking-widest primary-glow transition-all active:scale-[0.98] shadow-lg shadow-primary/10" type="submit">
+                    Create Account
+                </button>
+</form>
+<!-- Footer -->
+<div class="mt-10 pt-8 border-t border-outline-variant/20 text-center">
+<p class="font-body-md text-body-md text-on-surface-variant">
+                    Already have an account? 
+                    <a class="text-primary font-bold hover:text-primary-container transition-colors ml-1" href="#">Sign in</a>
+</p>
+</div>
+</div>
+</main>
+<!-- Decorative background elements -->
+<div class="fixed top-0 left-0 w-full h-full pointer-events-none overflow-hidden -z-10 opacity-30">
+<div class="absolute top-[10%] right-[15%] w-96 h-96 bg-primary rounded-full blur-[120px] opacity-20"></div>
+<div class="absolute bottom-[10%] left-[15%] w-96 h-96 bg-secondary rounded-full blur-[120px] opacity-10"></div>
+</div>
+<script>
+        function selectRole(element) {
+            // Remove active class from all cards
+            document.querySelectorAll('.role-card').forEach(card => {
+                card.classList.remove('active', 'border-primary', 'bg-primary/10');
+                card.classList.add('border-outline-variant/30', 'bg-surface-container-low');
+            });
+            // Add active class to selected card
+            element.classList.add('active', 'border-primary', 'bg-primary/10');
+            element.classList.remove('border-outline-variant/30', 'bg-surface-container-low');
+        }
+
+        function updatePasswordStrength(val) {
+            const bars = [document.getElementById('str-1'), document.getElementById('str-2'), document.getElementById('str-3'), document.getElementById('str-4')];
+            const label = document.getElementById('strengthLabel');
+            
+            // Reset
+            bars.forEach(b => b.className = 'h-full flex-1 rounded-full bg-outline-variant/20 transition-colors');
+            
+            let score = 0;
+            if (val.length >= 8) score++;
+            if (/[A-Z]/.test(val)) score++;
+            if (/[0-9]/.test(val)) score++;
+            if (/[^A-Za-z0-9]/.test(val)) score++;
+
+            const colors = ['bg-error', 'bg-tertiary', 'bg-secondary', 'bg-primary'];
+            const labels = ['Weak', 'Fair', 'Good', 'Excellent'];
+
+            if (val.length > 0) {
+                for (let i = 0; i < score; i++) {
+                    bars[i].className = `h-full flex-1 rounded-full ${colors[score-1]} transition-colors`;
+                }
+                label.innerText = `Strength: ${labels[score-1]}`;
+                label.className = `font-label-sm text-label-sm px-1 text-on-surface`;
+            } else {
+                label.innerText = "Password must be at least 8 characters";
+                label.className = "font-label-sm text-label-sm text-outline px-1";
+            }
+        }
+    </script>
+</body></html>

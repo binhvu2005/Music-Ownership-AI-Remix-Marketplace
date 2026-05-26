@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>StemVerse - AI Remix Studio</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@600;700&amp;family=Geist:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-background": "#e7e0ed",
+                      "inverse-primary": "#6d3bd7",
+                      "on-tertiary-fixed-variant": "#673d00",
+                      "background": "#15121b",
+                      "on-primary-container": "#340080",
+                      "surface-container-low": "#1d1a23",
+                      "secondary-fixed-dim": "#4edea3",
+                      "tertiary": "#ffb869",
+                      "on-error-container": "#ffdad6",
+                      "secondary-container": "#00a572",
+                      "primary": "#d0bcff",
+                      "surface-tint": "#d0bcff",
+                      "inverse-on-surface": "#322f39",
+                      "tertiary-fixed": "#ffdcbb",
+                      "surface-container-highest": "#37333d",
+                      "surface-dim": "#15121b",
+                      "tertiary-fixed-dim": "#ffb869",
+                      "on-secondary-fixed": "#002113",
+                      "surface-container-high": "#2c2832",
+                      "error-container": "#93000a",
+                      "on-error": "#690005",
+                      "surface-container-lowest": "#0f0d15",
+                      "on-primary-fixed-variant": "#5516be",
+                      "inverse-surface": "#e7e0ed",
+                      "surface-variant": "#37333d",
+                      "on-primary": "#3c0091",
+                      "on-tertiary": "#482900",
+                      "on-primary-fixed": "#23005c",
+                      "surface-bright": "#3b3742",
+                      "secondary-fixed": "#6ffbbe",
+                      "error": "#ffb4ab",
+                      "secondary": "#4edea3",
+                      "surface-container": "#211e27",
+                      "on-tertiary-fixed": "#2c1700",
+                      "on-secondary-container": "#00311f",
+                      "outline": "#958ea0",
+                      "surface": "#15121b",
+                      "primary-fixed-dim": "#d0bcff",
+                      "on-surface": "#e7e0ed",
+                      "on-surface-variant": "#cbc3d7",
+                      "tertiary-container": "#ca801e",
+                      "outline-variant": "#494454",
+                      "primary-fixed": "#e9ddff",
+                      "on-tertiary-container": "#3f2300",
+                      "on-secondary": "#003824",
+                      "primary-container": "#a078ff",
+                      "on-secondary-fixed-variant": "#005236"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "player-height": "96px",
+                      "container-margin": "32px",
+                      "gutter": "24px",
+                      "sidebar-width": "280px",
+                      "base": "8px"
+              },
+              "fontFamily": {
+                      "label-sm": [
+                              "Geist"
+                      ],
+                      "body-md": [
+                              "Geist"
+                      ],
+                      "body-lg": [
+                              "Geist"
+                      ],
+                      "body-sm": [
+                              "Geist"
+                      ],
+                      "headline-display": [
+                              "Hanken Grotesk"
+                      ],
+                      "headline-lg-mobile": [
+                              "Hanken Grotesk"
+                      ],
+                      "label-md": [
+                              "Geist"
+                      ],
+                      "headline-lg": [
+                              "Hanken Grotesk"
+                      ],
+                      "headline-md": [
+                              "Hanken Grotesk"
+                      ]
+              },
+              "fontSize": {
+                      "label-sm": [
+                              "12px",
+                              {
+                                      "lineHeight": "16px",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "body-md": [
+                              "16px",
+                              {
+                                      "lineHeight": "24px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "body-lg": [
+                              "18px",
+                              {
+                                      "lineHeight": "28px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "body-sm": [
+                              "14px",
+                              {
+                                      "lineHeight": "20px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "headline-display": [
+                              "48px",
+                              {
+                                      "lineHeight": "56px",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "headline-lg-mobile": [
+                              "24px",
+                              {
+                                      "lineHeight": "32px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "label-md": [
+                              "14px",
+                              {
+                                      "lineHeight": "16px",
+                                      "letterSpacing": "0.05em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "headline-lg": [
+                              "32px",
+                              {
+                                      "lineHeight": "40px",
+                                      "letterSpacing": "-0.01em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "headline-md": [
+                              "24px",
+                              {
+                                      "lineHeight": "32px",
+                                      "fontWeight": "600"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+    </script>
+<style>
+        .glass-panel {
+            background-color: rgba(31, 41, 55, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(45, 55, 72, 1);
+        }
+        .ai-glow-button {
+            background-color: #10B981;
+            color: #0B0F19;
+            transition: all 0.3s ease;
+        }
+        .ai-glow-button:hover {
+            box-shadow: 0 0 20px rgba(16, 185, 129, 0.4);
+            transform: translateY(-2px);
+        }
+        .preset-chip {
+            background-color: #1F2937;
+            border: 1px solid #2D3748;
+            color: #9CA3AF;
+            transition: all 0.2s ease;
+        }
+        .preset-chip:hover {
+            border-color: #8B5CF6;
+            color: #e7e0ed;
+        }
+        .preset-chip.active {
+            background-color: rgba(139, 92, 246, 0.1);
+            border-color: #8B5CF6;
+            color: #e7e0ed;
+        }
+        .console-text {
+            font-family: monospace;
+        }
+        .progress-rail {
+            background-color: #2D3748;
+        }
+        .progress-fill {
+            background-color: #8B5CF6;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen flex flex-col md:flex-row overflow-hidden">
+<!-- SideNavBar -->
+<nav class="hidden md:flex flex-col h-full py-8 px-4 fixed left-0 top-0 w-[280px] bg-surface/80 backdrop-blur-[20px] border-r border-outline-variant/30 shadow-none z-40">
+<div class="mb-12 px-4">
+<h1 class="font-headline-md text-headline-md font-bold text-primary">StemVerse</h1>
+<p class="font-body-sm text-body-sm text-on-surface-variant">AI Remix Studio</p>
+</div>
+<button class="bg-primary text-on-primary font-label-md text-label-md py-3 px-6 rounded-full mb-8 hover:shadow-[0_0_20px_rgba(139,92,246,0.3)] transition-all flex items-center justify-center gap-2">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">add</span>
+            Create New Remix
+        </button>
+<div class="flex-1 space-y-2">
+<a class="flex items-center gap-4 px-4 py-3 rounded-lg text-on-surface-variant font-medium hover:bg-primary/10 hover:text-primary transition-colors group" href="#">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform">explore</span>
+<span class="font-label-md text-label-md">Explore</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 rounded-lg text-primary font-bold border-r-2 border-primary bg-primary/5" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">graphic_eq</span>
+<span class="font-label-md text-label-md">Studio</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 rounded-lg text-on-surface-variant font-medium hover:bg-primary/10 hover:text-primary transition-colors group" href="#">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform">shopping_cart</span>
+<span class="font-label-md text-label-md">Marketplace</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 rounded-lg text-on-surface-variant font-medium hover:bg-primary/10 hover:text-primary transition-colors group" href="#">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform">account_balance_wallet</span>
+<span class="font-label-md text-label-md">Wallet</span>
+</a>
+</div>
+<div class="mt-auto pt-8 border-t border-outline-variant/30 space-y-2">
+<a class="flex items-center gap-4 px-4 py-3 rounded-lg text-on-surface-variant font-medium hover:bg-primary/10 hover:text-primary transition-colors group" href="#">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform">settings</span>
+<span class="font-label-md text-label-md">Settings</span>
+</a>
+</div>
+</nav>
+<!-- TopNavBar (Mobile only for layout simplification, normally hidden md) -->
+<div class="md:hidden flex justify-between items-center w-full px-4 h-16 bg-surface/80 backdrop-blur-[20px] border-b border-outline-variant/30 sticky top-0 z-40">
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile font-bold text-primary">StemVerse</h1>
+<button class="text-on-surface-variant">
+<span class="material-symbols-outlined text-[28px]">menu</span>
+</button>
+</div>
+<!-- Main Content Canvas -->
+<main class="flex-1 md:ml-[280px] p-4 md:p-8 h-screen overflow-y-auto pb-[120px]">
+<div class="max-w-7xl mx-auto h-full">
+<header class="mb-8">
+<h2 class="font-headline-lg text-headline-lg text-on-background mb-2">Neural Stem Processor</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">Configure parameters for the AI generation engine.</p>
+</header>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8 h-[calc(100%-120px)]">
+<!-- Left Panel (Control Panel) -->
+<div class="lg:col-span-8 flex flex-col gap-6">
+<!-- Text Prompt Card -->
+<div class="glass-panel rounded-xl p-6 flex-1 flex flex-col">
+<div class="flex items-center gap-3 mb-4">
+<span class="material-symbols-outlined text-primary">edit_note</span>
+<h3 class="font-headline-md text-headline-md text-on-background">1. Text Prompt Description</h3>
+</div>
+<textarea class="w-full flex-1 bg-surface-container-lowest border border-outline-variant rounded-lg p-4 font-body-md text-on-background focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary/50 transition-all resize-none placeholder:text-on-surface-variant/50" placeholder="Make the drums faster, add deep bass distortion, synth arp overlays..."></textarea>
+</div>
+<!-- Style Preset Card -->
+<div class="glass-panel rounded-xl p-6">
+<div class="flex items-center gap-3 mb-4">
+<span class="material-symbols-outlined text-primary">style</span>
+<h3 class="font-headline-md text-headline-md text-on-background">2. Choose Style Preset</h3>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-3 gap-3">
+<button class="preset-chip active font-label-md py-3 px-4 rounded-lg flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[18px]">radio</span> Lofi
+                            </button>
+<button class="preset-chip font-label-md py-3 px-4 rounded-lg flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[18px]">speaker</span> Phonk
+                            </button>
+<button class="preset-chip font-label-md py-3 px-4 rounded-lg flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[18px]">electric_bolt</span> Synthwave
+                            </button>
+<button class="preset-chip font-label-md py-3 px-4 rounded-lg flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[18px]">album</span> Techno
+                            </button>
+<button class="preset-chip font-label-md py-3 px-4 rounded-lg flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[18px]">cloud</span> Ambient
+                            </button>
+<button class="preset-chip font-label-md py-3 px-4 rounded-lg flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[18px]">auto_awesome</span> Anime
+                            </button>
+</div>
+</div>
+<!-- Action Button -->
+<button class="ai-glow-button w-full py-5 rounded-xl font-headline-md text-[20px] font-bold flex items-center justify-center gap-3 mt-auto">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">bolt</span>
+                        GENERATE AI REMIX
+                    </button>
+<!-- Console Status -->
+<div class="bg-surface-container-lowest border border-outline-variant/30 rounded-lg p-4 mt-2">
+<div class="flex items-center gap-2 mb-2 text-on-surface-variant">
+<span class="material-symbols-outlined text-[16px]">terminal</span>
+<span class="font-label-sm text-label-sm uppercase tracking-wider">System Log</span>
+</div>
+<div class="console-text text-sm text-secondary/80 space-y-1">
+<p>&gt; Analyzing original audio structure...</p>
+<p class="animate-pulse">&gt; Queueing AI Remix task... [Awaiting Input]</p>
+</div>
+</div>
+</div>
+<!-- Right Panel (Ownership & Royalty Info) -->
+<div class="lg:col-span-4 flex flex-col gap-6">
+<!-- Royalty Split Card -->
+<div class="glass-panel rounded-xl p-6 relative overflow-hidden">
+<!-- Decorative glow -->
+<div class="absolute top-0 right-0 w-32 h-32 bg-primary/10 rounded-full blur-3xl -mr-16 -mt-16 pointer-events-none"></div>
+<div class="flex items-center gap-3 mb-6 relative z-10">
+<span class="material-symbols-outlined text-primary">pie_chart</span>
+<h3 class="font-headline-md text-headline-md text-on-background">Royalty Split Invariants</h3>
+</div>
+<div class="space-y-6 relative z-10">
+<!-- Original Creator -->
+<div>
+<div class="flex justify-between font-label-md text-label-md mb-2">
+<span class="text-on-background">Original Creator</span>
+<span class="text-primary font-bold">70%</span>
+</div>
+<div class="h-2 w-full progress-rail rounded-full overflow-hidden">
+<div class="h-full progress-fill w-[70%]"></div>
+</div>
+</div>
+<!-- Remixer -->
+<div>
+<div class="flex justify-between font-label-md text-label-md mb-2">
+<span class="text-on-background">Remixer (You)</span>
+<span class="text-secondary font-bold">20%</span>
+</div>
+<div class="h-2 w-full progress-rail rounded-full overflow-hidden">
+<div class="h-full bg-secondary w-[20%]"></div>
+</div>
+</div>
+<!-- Platform Fee -->
+<div>
+<div class="flex justify-between font-label-md text-label-md mb-2">
+<span class="text-on-surface-variant">Platform Fee</span>
+<span class="text-tertiary font-bold">10%</span>
+</div>
+<div class="h-2 w-full progress-rail rounded-full overflow-hidden">
+<div class="h-full bg-tertiary w-[10%]"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Disclaimer Box -->
+<div class="border border-outline-variant/50 rounded-xl p-5 bg-surface-container/50 mt-auto">
+<div class="flex gap-3">
+<span class="material-symbols-outlined text-error mt-0.5">warning</span>
+<div>
+<h4 class="font-label-md text-label-md text-on-background mb-1">Immutable Smart Contract</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+                                    Upon generation, this derivative remix will be minted with an immutable royalty split. The 70% allocation to the original creator is hard-coded into the smart contract and cannot be altered. Ensure your prompt adheres to community guidelines.
+                                </p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- BottomNavBar (Player) -->
+<div class="fixed bottom-0 w-full h-player-height z-50 bg-surface-container-lowest/80 backdrop-blur-[20px] border-t border-outline-variant/30 shadow-2xl flex items-center justify-between px-container-margin md:pl-[312px]">
+<div class="flex items-center gap-4 w-1/3">
+<div class="w-12 h-12 rounded-lg bg-surface-variant flex items-center justify-center border border-outline-variant/50">
+<span class="material-symbols-outlined text-on-surface-variant">music_note</span>
+</div>
+<div>
+<p class="font-label-md text-label-md text-on-background">Cybernetic Horizon (Original Mix)</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Source Audio</p>
+</div>
+</div>
+<div class="flex-1 flex flex-col items-center justify-center max-w-xl px-8">
+<div class="flex items-center gap-6 mb-2">
+<button class="text-on-surface-variant hover:text-on-background transition-colors"><span class="material-symbols-outlined">skip_previous</span></button>
+<button class="w-10 h-10 rounded-full bg-on-background text-background flex items-center justify-center hover:scale-105 transition-transform">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+</button>
+<button class="text-on-surface-variant hover:text-on-background transition-colors"><span class="material-symbols-outlined">skip_next</span></button>
+</div>
+<div class="w-full flex items-center gap-3">
+<span class="font-label-sm text-label-sm text-on-surface-variant">0:00</span>
+<div class="flex-1 h-1 progress-rail rounded-full relative group cursor-pointer">
+<div class="absolute left-0 top-0 h-full w-[30%] bg-primary rounded-full"></div>
+<div class="absolute left-[30%] top-1/2 -translate-y-1/2 w-3 h-3 bg-white rounded-full opacity-0 group-hover:opacity-100 transition-opacity"></div>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">3:42</span>
+</div>
+</div>
+<div class="w-1/3 flex justify-end items-center gap-4 text-on-surface-variant">
+<button class="hover:text-primary transition-colors"><span class="material-symbols-outlined text-[20px]">volume_up</span></button>
+<button class="hover:text-primary transition-colors"><span class="material-symbols-outlined text-[20px]">queue_music</span></button>
+</div>
+</div>
+</body></html>

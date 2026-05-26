@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Wallet - StemVerse</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&amp;family=Hanken+Grotesk:wght@600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-background": "#e7e0ed",
+                        "inverse-primary": "#6d3bd7",
+                        "on-tertiary-fixed-variant": "#673d00",
+                        "background": "#15121b",
+                        "on-primary-container": "#340080",
+                        "surface-container-low": "#1d1a23",
+                        "secondary-fixed-dim": "#4edea3",
+                        "tertiary": "#ffb869",
+                        "on-error-container": "#ffdad6",
+                        "secondary-container": "#00a572",
+                        "primary": "#d0bcff",
+                        "surface-tint": "#d0bcff",
+                        "inverse-on-surface": "#322f39",
+                        "tertiary-fixed": "#ffdcbb",
+                        "surface-container-highest": "#37333d",
+                        "surface-dim": "#15121b",
+                        "tertiary-fixed-dim": "#ffb869",
+                        "on-secondary-fixed": "#002113",
+                        "surface-container-high": "#2c2832",
+                        "error-container": "#93000a",
+                        "on-error": "#690005",
+                        "surface-container-lowest": "#0f0d15",
+                        "on-primary-fixed-variant": "#5516be",
+                        "inverse-surface": "#e7e0ed",
+                        "surface-variant": "#37333d",
+                        "on-primary": "#3c0091",
+                        "on-tertiary": "#482900",
+                        "on-primary-fixed": "#23005c",
+                        "surface-bright": "#3b3742",
+                        "secondary-fixed": "#6ffbbe",
+                        "error": "#ffb4ab",
+                        "secondary": "#4edea3",
+                        "surface-container": "#211e27",
+                        "on-tertiary-fixed": "#2c1700",
+                        "on-secondary-container": "#00311f",
+                        "outline": "#958ea0",
+                        "surface": "#15121b",
+                        "primary-fixed-dim": "#d0bcff",
+                        "on-surface": "#e7e0ed",
+                        "on-surface-variant": "#cbc3d7",
+                        "tertiary-container": "#ca801e",
+                        "outline-variant": "#494454",
+                        "primary-fixed": "#e9ddff",
+                        "on-tertiary-container": "#3f2300",
+                        "on-secondary": "#003824",
+                        "primary-container": "#a078ff",
+                        "on-secondary-fixed-variant": "#005236"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "player-height": "96px",
+                        "container-margin": "32px",
+                        "gutter": "24px",
+                        "sidebar-width": "280px",
+                        "base": "8px"
+                    },
+                    "fontFamily": {
+                        "label-sm": ["Geist"],
+                        "body-md": ["Geist"],
+                        "body-lg": ["Geist"],
+                        "body-sm": ["Geist"],
+                        "headline-display": ["Hanken Grotesk"],
+                        "headline-lg-mobile": ["Hanken Grotesk"],
+                        "label-md": ["Geist"],
+                        "headline-lg": ["Hanken Grotesk"],
+                        "headline-md": ["Hanken Grotesk"]
+                    },
+                    "fontSize": {
+                        "label-sm": ["12px", { "lineHeight": "16px", "fontWeight": "500" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "headline-display": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "headline-lg-mobile": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "label-md": ["14px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body {
+            background-color: theme('colors.background');
+            color: theme('colors.on-background');
+        }
+        .glass-panel {
+            background-color: theme('colors.surface-container');
+            border: 1px solid theme('colors.outline-variant');
+            backdrop-filter: blur(12px);
+        }
+        .btn-primary {
+            background-color: theme('colors.primary');
+            color: theme('colors.on-primary');
+            transition: all 0.2s ease-in-out;
+        }
+        .btn-primary:hover {
+            box-shadow: 0 0 10px theme('colors.primary');
+        }
+    </style>
+</head>
+<body class="flex flex-col md:flex-row min-h-screen overflow-x-hidden font-body-md text-body-md">
+<!-- SideNavBar (Desktop) -->
+<nav class="hidden md:flex flex-col h-full py-8 px-4 fixed left-0 top-0 w-[280px] bg-surface/80 backdrop-blur-[20px] border-r border-outline-variant/30 shadow-none z-40">
+<div class="mb-10 px-4">
+<h1 class="font-headline-md text-headline-md font-bold text-primary">StemVerse</h1>
+<p class="font-body-sm text-body-sm text-on-surface-variant">AI Remix Studio</p>
+</div>
+<div class="flex flex-col gap-2 flex-grow">
+<a class="flex items-center gap-4 px-4 py-3 rounded-lg text-on-surface-variant font-medium hover:bg-primary/10 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">explore</span>
+<span class="font-label-md text-label-md">Explore</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 rounded-lg text-on-surface-variant font-medium hover:bg-primary/10 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">graphic_eq</span>
+<span class="font-label-md text-label-md">Studio</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 rounded-lg text-on-surface-variant font-medium hover:bg-primary/10 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">shopping_cart</span>
+<span class="font-label-md text-label-md">Marketplace</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 rounded-lg text-primary font-bold border-r-2 border-primary bg-primary/5 active:scale-95 transition-transform duration-150" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">account_balance_wallet</span>
+<span class="font-label-md text-label-md">Wallet</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 rounded-lg text-on-surface-variant font-medium hover:bg-primary/10 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">settings</span>
+<span class="font-label-md text-label-md">Settings</span>
+</a>
+</div>
+<div class="mt-auto px-4">
+<button class="w-full py-3 rounded-lg btn-primary font-label-md text-label-md flex justify-center items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">add</span>
+                Create New Remix
+            </button>
+</div>
+</nav>
+<!-- Main Content Area -->
+<div class="flex-1 flex flex-col min-h-screen md:ml-[280px] w-full max-w-[100vw] md:max-w-[calc(100%-280px)] pb-[96px] md:pb-0">
+<!-- TopNavBar -->
+<header class="flex justify-between items-center w-full px-container-margin h-20 bg-transparent sticky top-0 z-30">
+<div class="flex items-center gap-4 focus-within:ring-1 ring-primary rounded-full px-4 py-2 bg-surface-container border border-outline-variant/50 w-full max-w-md">
+<span class="material-symbols-outlined text-on-surface-variant">search</span>
+<input class="bg-transparent border-none outline-none text-on-surface w-full font-body-sm placeholder:text-on-surface-variant/50" placeholder="Search Wallet..." type="text"/>
+</div>
+<div class="flex items-center gap-6">
+<button class="text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined">account_circle</span>
+</button>
+</div>
+</header>
+<!-- Main Canvas -->
+<main class="flex-1 px-4 md:px-container-margin py-8 flex flex-col gap-8 max-w-7xl mx-auto w-full">
+<div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-4">
+<div>
+<h2 class="font-headline-lg-mobile md:font-headline-lg text-on-surface">Wallet Analytics</h2>
+<p class="font-body-md text-on-surface-variant mt-1">Manage your royalties and track ownership splits.</p>
+</div>
+<div class="flex gap-3">
+<button class="px-4 py-2 rounded-lg border border-outline-variant text-on-surface-variant hover:bg-surface-bright hover:text-primary transition-colors font-label-md flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">download</span> Export CSV
+                    </button>
+</div>
+</div>
+<!-- Metrics Row (Bento Grid Style) -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<!-- Balance Card -->
+<div class="glass-panel rounded-xl p-6 relative overflow-hidden group">
+<div class="absolute -right-10 -top-10 w-32 h-32 bg-secondary/10 rounded-full blur-2xl group-hover:bg-secondary/20 transition-all duration-500"></div>
+<div class="flex justify-between items-start mb-4">
+<h3 class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Total Balance</h3>
+<span class="material-symbols-outlined text-secondary bg-secondary/10 p-2 rounded-full">account_balance_wallet</span>
+</div>
+<div class="flex flex-col gap-4">
+<span class="font-headline-display text-headline-display text-secondary">$150.00</span>
+<button class="w-full py-3 rounded-lg btn-primary font-label-md text-label-md mt-2 flex justify-center items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">payments</span> Withdraw Payout
+                        </button>
+</div>
+</div>
+<!-- Streams Card -->
+<div class="glass-panel rounded-xl p-6 relative overflow-hidden group">
+<div class="absolute -right-10 -top-10 w-32 h-32 bg-primary/10 rounded-full blur-2xl group-hover:bg-primary/20 transition-all duration-500"></div>
+<div class="flex justify-between items-start mb-4">
+<h3 class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Total Streams</h3>
+<span class="material-symbols-outlined text-primary bg-primary/10 p-2 rounded-full">bar_chart</span>
+</div>
+<div class="flex items-end gap-4 mt-2">
+<span class="font-headline-display text-headline-display text-on-surface">142,500</span>
+</div>
+<div class="mt-6 h-12 w-full flex items-end gap-1 opacity-70">
+<div class="w-1/6 bg-secondary rounded-t-sm" style="height: 40%"></div>
+<div class="w-1/6 bg-secondary rounded-t-sm" style="height: 55%"></div>
+<div class="w-1/6 bg-secondary rounded-t-sm" style="height: 45%"></div>
+<div class="w-1/6 bg-secondary rounded-t-sm" style="height: 70%"></div>
+<div class="w-1/6 bg-secondary rounded-t-sm" style="height: 85%"></div>
+<div class="w-1/6 bg-secondary rounded-t-sm" style="height: 100%"></div>
+</div>
+<p class="font-label-sm text-secondary mt-2 flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">trending_up</span> +12% this week</p>
+</div>
+<!-- Active Remixes Card -->
+<div class="glass-panel rounded-xl p-6 relative overflow-hidden group">
+<div class="absolute -right-10 -top-10 w-32 h-32 bg-tertiary/10 rounded-full blur-2xl group-hover:bg-tertiary/20 transition-all duration-500"></div>
+<div class="flex justify-between items-start mb-4">
+<h3 class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Active Remixes</h3>
+<span class="material-symbols-outlined text-tertiary bg-tertiary/10 p-2 rounded-full">graphic_eq</span>
+</div>
+<div class="flex flex-col gap-2 mt-2">
+<span class="font-headline-display text-headline-display text-on-surface">28</span>
+<p class="font-body-sm text-on-surface-variant">Tracks generating royalties</p>
+</div>
+<div class="mt-6 flex flex-wrap gap-2">
+<span class="px-2 py-1 bg-surface-bright rounded-full text-label-sm text-outline border border-outline-variant/30">Lofi</span>
+<span class="px-2 py-1 bg-surface-bright rounded-full text-label-sm text-outline border border-outline-variant/30">Synthwave</span>
+<span class="px-2 py-1 bg-surface-bright rounded-full text-label-sm text-outline border border-outline-variant/30">House</span>
+</div>
+</div>
+</div>
+<!-- Complex Layout Area -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+<!-- Royalty Splits Activity Table (Spans 2 columns on large screens) -->
+<div class="lg:col-span-2 glass-panel rounded-xl flex flex-col overflow-hidden">
+<div class="p-6 border-b border-outline-variant/50 flex justify-between items-center bg-surface-container/50">
+<h3 class="font-headline-md text-on-surface">Recent Earnings Activity</h3>
+<button class="text-primary font-label-sm hover:underline">View All</button>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="border-b border-outline-variant/30 bg-surface-container-low/50">
+<th class="p-4 font-label-md text-on-surface-variant">Date</th>
+<th class="p-4 font-label-md text-on-surface-variant">Source Track</th>
+<th class="p-4 font-label-md text-on-surface-variant">Remix Track</th>
+<th class="p-4 font-label-md text-on-surface-variant">Event Type</th>
+<th class="p-4 font-label-md text-on-surface-variant">Gross</th>
+<th class="p-4 font-label-md text-on-surface-variant text-right">Net Payout</th>
+</tr>
+</thead>
+<tbody class="font-body-sm text-on-surface">
+<tr class="border-b border-outline-variant/10 hover:bg-surface-bright/20 transition-colors">
+<td class="p-4 text-on-surface-variant">Oct 24, 2023</td>
+<td class="p-4">Neon Nights (Stem)</td>
+<td class="p-4">Neon Nights (Lofi Chill)</td>
+<td class="p-4"><span class="px-2 py-1 bg-secondary/10 text-secondary rounded-full text-[10px] uppercase font-bold tracking-wider">Stream</span></td>
+<td class="p-4">$12.50</td>
+<td class="p-4 text-right text-secondary font-medium">+$2.50</td>
+</tr>
+<tr class="border-b border-outline-variant/10 hover:bg-surface-bright/20 transition-colors">
+<td class="p-4 text-on-surface-variant">Oct 23, 2023</td>
+<td class="p-4">Quantum Beat</td>
+<td class="p-4">Quantum (Cyberpunk Mix)</td>
+<td class="p-4"><span class="px-2 py-1 bg-primary/10 text-primary rounded-full text-[10px] uppercase font-bold tracking-wider">License Sale</span></td>
+<td class="p-4">$50.00</td>
+<td class="p-4 text-right text-secondary font-medium">+$15.00</td>
+</tr>
+<tr class="border-b border-outline-variant/10 hover:bg-surface-bright/20 transition-colors">
+<td class="p-4 text-on-surface-variant">Oct 21, 2023</td>
+<td class="p-4">Vocal Chop Pack Vol. 1</td>
+<td class="p-4">Summer House Anthem</td>
+<td class="p-4"><span class="px-2 py-1 bg-secondary/10 text-secondary rounded-full text-[10px] uppercase font-bold tracking-wider">Stream</span></td>
+<td class="p-4">$8.20</td>
+<td class="p-4 text-right text-secondary font-medium">+$1.64</td>
+</tr>
+<tr class="hover:bg-surface-bright/20 transition-colors">
+<td class="p-4 text-on-surface-variant">Oct 20, 2023</td>
+<td class="p-4">Deep Bass Stem</td>
+<td class="p-4">Midnight Runner</td>
+<td class="p-4"><span class="px-2 py-1 bg-primary/10 text-primary rounded-full text-[10px] uppercase font-bold tracking-wider">License Sale</span></td>
+<td class="p-4">$100.00</td>
+<td class="p-4 text-right text-secondary font-medium">+$30.00</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Ownership Graph Visualization Mock -->
+<div class="glass-panel rounded-xl flex flex-col overflow-hidden">
+<div class="p-6 border-b border-outline-variant/50 bg-surface-container/50">
+<h3 class="font-headline-md text-on-surface">Ownership Graph</h3>
+<p class="font-body-sm text-on-surface-variant">Smart Contract Split Visualization</p>
+</div>
+<div class="p-6 flex-1 flex flex-col items-center justify-center relative min-h-[300px] bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-surface-bright/30 via-surface/10 to-surface">
+<!-- Pseudo Tree Graph -->
+<div class="flex flex-col items-center w-full">
+<!-- Root Node -->
+<div class="bg-primary/20 border border-primary text-on-surface px-4 py-2 rounded-lg text-center z-10 shadow-[0_0_15px_rgba(208,188,255,0.2)]">
+<p class="font-label-md">Original Song</p>
+<p class="font-label-sm text-primary">100% Stem Ownership</p>
+</div>
+<!-- Connecting Lines (Vertical) -->
+<div class="w-px h-8 bg-outline-variant/50"></div>
+<!-- Branching Horizontal Line -->
+<div class="w-3/4 h-px bg-outline-variant/50 relative">
+<!-- Connecting Lines (Vertical down to children) -->
+<div class="absolute left-0 top-0 w-px h-8 bg-outline-variant/50"></div>
+<div class="absolute left-1/2 top-0 w-px h-8 bg-outline-variant/50 -translate-x-1/2"></div>
+<div class="absolute right-0 top-0 w-px h-8 bg-outline-variant/50"></div>
+</div>
+<!-- Child Nodes -->
+<div class="flex justify-between w-full mt-8 px-4 gap-2">
+<div class="bg-surface-container border border-outline-variant text-on-surface px-3 py-2 rounded-lg text-center flex-1 flex flex-col items-center">
+<p class="font-label-sm text-xs truncate w-full max-w-[80px]">Remix A</p>
+<div class="mt-1 flex items-center justify-center bg-surface w-8 h-8 rounded-full border border-secondary/50">
+<p class="font-label-sm text-secondary text-[10px]">20%</p>
+</div>
+</div>
+<div class="bg-surface-container border border-outline-variant text-on-surface px-3 py-2 rounded-lg text-center flex-1 flex flex-col items-center">
+<p class="font-label-sm text-xs truncate w-full max-w-[80px]">Remix B</p>
+<div class="mt-1 flex items-center justify-center bg-surface w-8 h-8 rounded-full border border-secondary/50">
+<p class="font-label-sm text-secondary text-[10px]">15%</p>
+</div>
+</div>
+<div class="bg-surface-container border border-outline-variant text-on-surface px-3 py-2 rounded-lg text-center flex-1 flex flex-col items-center">
+<p class="font-label-sm text-xs truncate w-full max-w-[80px]">Remix C</p>
+<div class="mt-1 flex items-center justify-center bg-surface w-8 h-8 rounded-full border border-secondary/50">
+<p class="font-label-sm text-secondary text-[10px]">30%</p>
+</div>
+</div>
+</div>
+</div>
+<div class="absolute bottom-4 right-4 flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-primary"></span><span class="font-label-sm text-[10px] text-on-surface-variant">Root</span>
+<span class="w-2 h-2 rounded-full bg-secondary ml-2"></span><span class="font-label-sm text-[10px] text-on-surface-variant">Your Split</span>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>

@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>StemVerse - Explore</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@600;700&amp;family=Geist:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-tint": "#d0bcff",
+                        "surface-container-highest": "#37333d",
+                        "secondary-container": "#00a572",
+                        "on-surface-variant": "#cbc3d7",
+                        "tertiary": "#ffb869",
+                        "on-primary-container": "#340080",
+                        "tertiary-fixed": "#ffdcbb",
+                        "on-secondary-container": "#00311f",
+                        "on-tertiary-container": "#3f2300",
+                        "surface-dim": "#15121b",
+                        "on-primary-fixed-variant": "#5516be",
+                        "outline-variant": "#494454",
+                        "inverse-primary": "#6d3bd7",
+                        "on-tertiary": "#482900",
+                        "background": "#15121b",
+                        "primary-container": "#a078ff",
+                        "primary-fixed-dim": "#d0bcff",
+                        "on-secondary-fixed": "#002113",
+                        "error-container": "#93000a",
+                        "surface-container-lowest": "#0f0d15",
+                        "on-primary-fixed": "#23005c",
+                        "on-background": "#e7e0ed",
+                        "surface-variant": "#37333d",
+                        "outline": "#958ea0",
+                        "on-tertiary-fixed": "#2c1700",
+                        "error": "#ffb4ab",
+                        "surface": "#15121b",
+                        "surface-container-high": "#2c2832",
+                        "primary": "#d0bcff",
+                        "tertiary-fixed-dim": "#ffb869",
+                        "surface-container": "#211e27",
+                        "on-secondary-fixed-variant": "#005236",
+                        "tertiary-container": "#ca801e",
+                        "on-error-container": "#ffdad6",
+                        "secondary-fixed": "#6ffbbe",
+                        "secondary-fixed-dim": "#4edea3",
+                        "on-surface": "#e7e0ed",
+                        "inverse-surface": "#e7e0ed",
+                        "on-secondary": "#003824",
+                        "primary-fixed": "#e9ddff",
+                        "on-primary": "#3c0091",
+                        "surface-bright": "#3b3742",
+                        "on-error": "#690005",
+                        "surface-container-low": "#1d1a23",
+                        "secondary": "#4edea3",
+                        "inverse-on-surface": "#322f39",
+                        "on-tertiary-fixed-variant": "#673d00"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "player-height": "96px",
+                        "gutter": "24px",
+                        "base": "8px",
+                        "container-margin": "32px",
+                        "sidebar-width": "280px"
+                    },
+                    "fontFamily": {
+                        "headline-display": ["Hanken Grotesk"],
+                        "body-lg": ["Geist"],
+                        "label-md": ["Geist"],
+                        "headline-lg-mobile": ["Hanken Grotesk"],
+                        "headline-lg": ["Hanken Grotesk"],
+                        "label-sm": ["Geist"],
+                        "headline-md": ["Hanken Grotesk"],
+                        "body-sm": ["Geist"],
+                        "body-md": ["Geist"]
+                    },
+                    "fontSize": {
+                        "headline-display": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "label-md": ["14px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "headline-lg-mobile": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "label-sm": ["12px", { "lineHeight": "16px", "fontWeight": "500" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { background-color: #0B0F19; color: #e7e0ed; }
+        .glass-panel { background: rgba(31, 41, 55, 0.6); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid #2D3748; }
+        .glass-panel-heavy { background: rgba(11, 15, 25, 0.8); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-top: 1px solid #2D3748; }
+        .glow-hover:hover { box-shadow: 0 0 10px rgba(139, 92, 246, 0.5); }
+        .text-glow { text-shadow: 0 0 10px rgba(139, 92, 246, 0.3); }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="font-body-md text-body-md min-h-screen flex flex-col antialiased relative pb-[160px]">
+<!-- TopNavBar (Mobile Adaptation) -->
+<header class="bg-transparent docked full-width top-0 w-full px-4 h-20 flex justify-between items-center z-40 fixed">
+<div class="font-headline-md text-headline-md font-bold text-primary tracking-tight">StemVerse</div>
+<div class="flex items-center gap-4">
+<button class="text-on-surface-variant hover:text-primary transition-colors focus:outline-none h-10 w-10 flex items-center justify-center rounded-full hover:bg-surface-variant/50">
+<span class="material-symbols-outlined" data-icon="notifications" style="font-variation-settings: 'FILL' 0;">notifications</span>
+</button>
+<button class="text-on-surface-variant hover:text-primary transition-colors focus:outline-none h-10 w-10 flex items-center justify-center rounded-full hover:bg-surface-variant/50">
+<img alt="User Avatar" class="w-8 h-8 rounded-full object-cover border border-outline-variant/30" data-alt="A close up portrait of a young woman with a cyberpunk or futuristic lighting aesthetic. Neon purple and blue lights cast shadows on her face. She has a neutral, focused expression. High resolution, high tech audio producer vibe." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD2ecAF9AhxvVNiO9HsLQwlufgl7CBSUEzmdjaNlNf33FlJXPYpuHbtoiZTqpNdwXz4miysX0wm5EkwDiW4JQ_n_FoI_qE7zXYgWPz05n8ulQFwUHA9jimH2X7WNlJlTeYkm6s6tpddwl_7fsM3IjT-vzzahpHKZS38kD5JWOovSHMN2a4bPUcFyU-2q-sSS9ScrcheVez6687m6rPfuPkLkbSC6s36_JAXt_-hapwSv7pNZRLak3_n-7OQOvA-Rc4mjJfjuSFHWjhp"/>
+</button>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-1 px-4 pt-24 pb-8 flex flex-col gap-8 w-full max-w-md mx-auto relative z-10">
+<!-- Hero Section -->
+<section class="flex flex-col items-center text-center gap-6 mt-4">
+<h1 class="font-headline-display text-headline-lg-mobile text-on-surface text-glow leading-tight">
+                The GitHub + Spotify<br/>for Music Creators
+            </h1>
+<p class="font-body-md text-on-surface-variant max-w-[280px]">
+                Collaborate on stems, remix tracks, and monetize your sound in the AI era.
+            </p>
+<div class="w-full relative mt-2 group">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant group-focus-within:text-primary transition-colors" data-icon="search">search</span>
+<input class="w-full bg-[#0B0F19] border border-[#2D3748] rounded-full py-3 pl-12 pr-4 text-on-surface font-body-md focus:outline-none focus:border-[#8B5CF6] focus:ring-1 focus:ring-[#8B5CF6]/50 transition-all shadow-[inset_0_2px_4px_rgba(0,0,0,0.4)]" placeholder="Remix 'Summer Breeze'..." type="text"/>
+</div>
+<button class="w-full bg-[#8B5CF6] text-white font-label-md text-label-md py-3 rounded-full glow-hover transition-all mt-2">
+                Start Creating
+            </button>
+</section>
+<!-- Trending Original Tracks -->
+<section class="flex flex-col gap-4 mt-4">
+<div class="flex justify-between items-end mb-2">
+<h2 class="font-headline-md text-headline-md text-on-surface">Trending Tracks</h2>
+<button class="font-label-sm text-label-sm text-primary hover:text-primary-fixed-dim transition-colors">View All</button>
+</div>
+<!-- Single Column Scrollable List -->
+<div class="flex flex-col gap-4">
+<!-- Track Card 1 -->
+<div class="glass-panel rounded-xl p-3 flex gap-4 items-center group cursor-pointer hover:border-primary/50 transition-colors">
+<div class="relative w-20 h-20 rounded-lg overflow-hidden shrink-0">
+<img alt="Album Art" class="w-full h-full object-cover" data-alt="Abstract 3D rendering of floating geometric shapes in deep space. Neon purple and cyan lighting illuminates metallic textures. High contrast, digital art style, perfect for electronic music album cover." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCfnbOd1efppG0WuCJ68FtDz-wq88sZlTiOT48WENmGoU5LDj_B7WJEdty9m9mUaV8yktJBa0Eeb3R5Hrt3QHRgNFKZNOB4Zd7_d8m8XVMEYn6PaiWq78i_o-_QJLL7E3y9E03vprSMm4fk0FA3yb9xmMrlwPXYakhF9OXtNYlACkHhMEtNJ25S764muELoiGZmPSb7_qmOBLP6f2Ycu1ul1OnrDC-II3Q4vEYvxfxrbFaSn7jUUCeOasqojc_-Z4u3U24jzZEpHP0L"/>
+<div class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-white text-3xl" data-icon="play_arrow" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+</div>
+</div>
+<div class="flex flex-col flex-1 min-w-0">
+<h3 class="font-label-md text-label-md text-on-surface truncate">Neon Nights (Original Mix)</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant truncate">Kaelo &amp; The Synth</p>
+<div class="flex gap-2 mt-2">
+<span class="bg-[#1F2937] text-[#9CA3AF] text-[10px] uppercase font-bold px-2 py-0.5 rounded-full border border-[#2D3748]">Synthwave</span>
+<span class="bg-[#1F2937] text-[#9CA3AF] text-[10px] uppercase font-bold px-2 py-0.5 rounded-full border border-[#2D3748]">120 BPM</span>
+</div>
+</div>
+</div>
+<!-- Track Card 2 -->
+<div class="glass-panel rounded-xl p-3 flex gap-4 items-center group cursor-pointer hover:border-primary/50 transition-colors">
+<div class="relative w-20 h-20 rounded-lg overflow-hidden shrink-0">
+<img alt="Album Art" class="w-full h-full object-cover" data-alt="A moody, atmospheric photograph of a dark recording studio mixing console lit only by the glowing LEDs and meters. Red and purple ambient light. High tech audio engineering vibe." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBhZS6mxohs2YAEhTvuXoGTpiBpQ4ofu04_g8ypXUWuaDYTHtw7KZ3l999sfPgHRSdfeaXr2WdGc5cQf2XCJX-OAefRVwH4jh2weL_JqRNgGH52eck0GKF0MzcpXWgueV2gbpo-HOOXCZwNpSoCkfot1BEXlBRiOWzK4T3x7nQ161WkqNaZGA_DCk-zf6FGfqg_60tfcyzjHhyDHv6zLQBl9LDJESmEhvjKwFfDcajScuylpxip55_mFpqzByhlGONia55bFuCoG0GZ"/>
+<div class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-white text-3xl" data-icon="play_arrow" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+</div>
+</div>
+<div class="flex flex-col flex-1 min-w-0">
+<h3 class="font-label-md text-label-md text-on-surface truncate">Deep Resonance</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant truncate">Audio Architect</p>
+<div class="flex gap-2 mt-2">
+<span class="bg-[#1F2937] text-[#9CA3AF] text-[10px] uppercase font-bold px-2 py-0.5 rounded-full border border-[#2D3748]">Techno</span>
+<span class="bg-[#1F2937] text-[#9CA3AF] text-[10px] uppercase font-bold px-2 py-0.5 rounded-full border border-[#2D3748]">135 BPM</span>
+</div>
+</div>
+</div>
+<!-- Track Card 3 -->
+<div class="glass-panel rounded-xl p-3 flex gap-4 items-center group cursor-pointer hover:border-primary/50 transition-colors">
+<div class="relative w-20 h-20 rounded-lg overflow-hidden shrink-0">
+<img alt="Album Art" class="w-full h-full object-cover" data-alt="A macro shot of a vinyl record surface catching light, creating colorful rainbow reflections on the grooves. Dark background, focus on the texture of the sound waves cut into the plastic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB2Yv8VXx-rFJ99W9Zgk3a6KTyb-zuUkZb96YeOgi-iME3et3uCyvHt7c6KQhisdNnVLLz-KO2Binj3Wim13cfFsGKvOlUQ-n_qOApm-8HH-SW661EbZI7x6TZpYiGJPq-zHs4J1w75wvpv62mSALp4EjROWVfz5_MPolPIS1aaYFwUdojSgFFrlu6fjFNjy634p2qD6L44laldSXKeMybNUfuFf2X3YoPjiRJmjM61JrA1Bt73hXvDmpqp3OyHrfXEHS_3pPOQTw1R"/>
+<div class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-white text-3xl" data-icon="play_arrow" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+</div>
+</div>
+<div class="flex flex-col flex-1 min-w-0">
+<h3 class="font-label-md text-label-md text-on-surface truncate">Analog Dreams</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant truncate">Vinyl Phantom</p>
+<div class="flex gap-2 mt-2">
+<span class="bg-[#1F2937] text-[#9CA3AF] text-[10px] uppercase font-bold px-2 py-0.5 rounded-full border border-[#2D3748]">Lo-Fi</span>
+<span class="bg-[#1F2937] text-[#9CA3AF] text-[10px] uppercase font-bold px-2 py-0.5 rounded-full border border-[#2D3748]">85 BPM</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Compact Mobile Audio Player -->
+<div class="fixed bottom-[64px] w-full z-40 bg-[#0B0F19]/90 backdrop-blur-[20px] border-t border-[#2D3748] px-4 py-2 flex items-center justify-between shadow-[0_-10px_30px_rgba(0,0,0,0.5)]">
+<!-- Progress Bar (Absolute Top) -->
+<div class="absolute top-0 left-0 w-full h-[2px] bg-[#2D3748]">
+<div class="h-full bg-[#8B5CF6] w-1/3 relative">
+<div class="absolute right-0 top-1/2 -translate-y-1/2 w-2 h-2 bg-white rounded-full shadow-md"></div>
+</div>
+</div>
+<div class="flex items-center gap-3 pt-1 w-full">
+<img alt="Now Playing Art" class="w-10 h-10 rounded object-cover" data-alt="Abstract 3D rendering of floating geometric shapes in deep space. Neon purple and cyan lighting illuminates metallic textures. High contrast, digital art style, perfect for electronic music album cover." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCUbHyzTPD9C6Gx_MAVu94r-AvzMKjvD0yNz4kOJpGiEqFqq_ZO52kXo5YqUBasb-m_RTsM6FWpKewvZiV8aDj0sIaFsIUw-x1orYRT1CJGkf_P_dOurqgK-Yf_TcyR0itWZuee4Zl1SRKlxrltK9Npt3HzX5VO-AQIMPiV4Xe5nGKD7dKHidc_rTIrFsXxVPeLeSxNmfGGPbv-QD5JZn2oWs6dm9ggoOQJIeM9kk8Y77eQO5MKGWUnPv3j5mIdIlOWSRBRfHvUAXCk"/>
+<div class="flex flex-col flex-1 min-w-0">
+<h4 class="font-label-md text-label-sm text-on-surface truncate">Neon Nights (Original Mix)</h4>
+<p class="font-body-sm text-[10px] text-on-surface-variant truncate">Kaelo &amp; The Synth</p>
+</div>
+<div class="flex items-center gap-2 shrink-0 text-on-surface">
+<button class="hover:text-primary transition-colors focus:outline-none"><span class="material-symbols-outlined text-xl" data-icon="favorite_border">favorite_border</span></button>
+<button class="hover:text-primary transition-colors focus:outline-none"><span class="material-symbols-outlined text-3xl" data-icon="play_circle" style="font-variation-settings: 'FILL' 1;">play_circle</span></button>
+</div>
+</div>
+</div>
+<!-- BottomNavBar -->
+<nav class="bg-surface-container-lowest/80 backdrop-blur-[20px] fixed bottom-0 w-full h-[64px] z-50 flex items-center justify-around px-2 pb-safe border-t-0">
+<!-- Explore (Active) -->
+<a class="flex flex-col items-center justify-center w-16 h-full text-primary opacity-80 group" href="#">
+<span class="material-symbols-outlined text-2xl group-hover:scale-110 transition-transform mb-1" data-icon="explore" style="font-variation-settings: 'FILL' 1;">explore</span>
+<span class="font-label-sm text-[10px]">Explore</span>
+</a>
+<!-- Studio -->
+<a class="flex flex-col items-center justify-center w-16 h-full text-on-surface-variant hover:text-primary transition-colors group" href="#">
+<span class="material-symbols-outlined text-2xl group-hover:scale-110 transition-transform mb-1" data-icon="graphic_eq">graphic_eq</span>
+<span class="font-label-sm text-[10px]">Studio</span>
+</a>
+<!-- Marketplace -->
+<a class="flex flex-col items-center justify-center w-16 h-full text-on-surface-variant hover:text-primary transition-colors group" href="#">
+<span class="material-symbols-outlined text-2xl group-hover:scale-110 transition-transform mb-1" data-icon="shopping_cart">shopping_cart</span>
+<span class="font-label-sm text-[10px]">Market</span>
+</a>
+<!-- Wallet -->
+<a class="flex flex-col items-center justify-center w-16 h-full text-on-surface-variant hover:text-primary transition-colors group" href="#">
+<span class="material-symbols-outlined text-2xl group-hover:scale-110 transition-transform mb-1" data-icon="account_balance_wallet">account_balance_wallet</span>
+<span class="font-label-sm text-[10px]">Wallet</span>
+</a>
+</nav>
+</body></html>

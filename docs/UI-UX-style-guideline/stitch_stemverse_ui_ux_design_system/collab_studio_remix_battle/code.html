@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>StemVerse | Multiplayer Audio Studio</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;600;700;800&amp;family=Geist:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+    .glass-panel {
+      background: rgba(31, 41, 55, 0.6);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(45, 55, 72, 0.5);
+    }
+    .waveform-bg {
+      background-image: linear-gradient(90deg, transparent 0%, transparent 49%, rgba(45, 55, 72, 0.5) 50%, transparent 51%);
+      background-size: 40px 100%;
+    }
+    .user-cursor {
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    @keyframes pulse-glow {
+      0%, 100% { box-shadow: 0 0 10px rgba(139, 92, 246, 0.3); }
+      50% { box-shadow: 0 0 20px rgba(139, 92, 246, 0.6); }
+    }
+    .active-glow {
+      animation: pulse-glow 2s infinite;
+    }
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: #15121b; }
+    ::-webkit-scrollbar-thumb { background: #2d3748; border-radius: 10px; }
+  </style>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+                  "surface-container": "#211e27",
+                  "background": "#15121b",
+                  "surface": "#15121b",
+                  "secondary-fixed": "#6ffbbe",
+                  "secondary": "#4edea3",
+                  "tertiary": "#ffb869",
+                  "on-background": "#e7e0ed",
+                  "surface-variant": "#37333d",
+                  "primary-container": "#a078ff",
+                  "outline": "#958ea0",
+                  "surface-dim": "#15121b",
+                  "on-secondary-container": "#00311f",
+                  "inverse-surface": "#e7e0ed",
+                  "error": "#ffb4ab",
+                  "on-tertiary": "#482900",
+                  "surface-container-low": "#1d1a23",
+                  "primary-fixed-dim": "#d0bcff",
+                  "on-primary-fixed": "#23005c",
+                  "on-error-container": "#ffdad6",
+                  "secondary-fixed-dim": "#4edea3",
+                  "surface-container-lowest": "#0f0d15",
+                  "tertiary-container": "#ca801e",
+                  "on-primary-fixed-variant": "#5516be",
+                  "error-container": "#93000a",
+                  "on-surface-variant": "#cbc3d7",
+                  "on-secondary-fixed": "#002113",
+                  "on-error": "#690005",
+                  "primary-fixed": "#e9ddff",
+                  "on-secondary-fixed-variant": "#005236",
+                  "on-primary-container": "#340080",
+                  "on-surface": "#e7e0ed",
+                  "primary": "#d0bcff",
+                  "outline-variant": "#494454",
+                  "surface-tint": "#d0bcff",
+                  "tertiary-fixed-dim": "#ffb869",
+                  "on-tertiary-container": "#3f2300",
+                  "surface-bright": "#3b3742",
+                  "surface-container-high": "#2c2832",
+                  "surface-container-highest": "#37333d",
+                  "on-tertiary-fixed-variant": "#673d00",
+                  "on-tertiary-fixed": "#2c1700",
+                  "inverse-on-surface": "#322f39",
+                  "tertiary-fixed": "#ffdcbb",
+                  "on-primary": "#3c0091",
+                  "secondary-container": "#00a572",
+                  "inverse-primary": "#6d3bd7",
+                  "on-secondary": "#003824"
+          },
+          "borderRadius": {
+                  "DEFAULT": "0.25rem",
+                  "lg": "0.5rem",
+                  "xl": "0.75rem",
+                  "full": "9999px"
+          },
+          "spacing": {
+                  "base": "8px",
+                  "player-height": "96px",
+                  "container-margin": "32px",
+                  "sidebar-width": "280px",
+                  "gutter": "24px"
+          },
+          "fontFamily": {
+                  "label-sm": ["Geist"],
+                  "body-sm": ["Geist"],
+                  "headline-md": ["Hanken Grotesk"],
+                  "headline-lg-mobile": ["Hanken Grotesk"],
+                  "body-lg": ["Geist"],
+                  "label-md": ["Geist"],
+                  "headline-display": ["Hanken Grotesk"],
+                  "headline-lg": ["Hanken Grotesk"],
+                  "body-md": ["Geist"]
+          },
+          "fontSize": {
+                  "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                  "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                  "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                  "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                  "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                  "label-md": ["14px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                  "headline-display": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                  "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                  "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+          }
+        },
+      },
+    }
+  </script>
+</head>
+<body class="bg-background text-on-background min-h-screen overflow-x-hidden">
+<!-- Side Navigation Shell -->
+<aside class="fixed left-0 top-0 h-full w-[280px] bg-surface/80 backdrop-blur-[20px] border-r border-outline-variant/30 flex flex-col py-8 px-4 z-50">
+<div class="mb-10 px-4">
+<h1 class="font-headline-md text-headline-md font-bold text-primary">StemVerse</h1>
+<p class="font-body-md text-body-md text-on-surface-variant opacity-70">AI Remix Studio</p>
+</div>
+<nav class="flex-1 space-y-2">
+<div class="flex items-center gap-3 px-4 py-3 text-primary font-bold border-r-2 border-primary bg-primary/10 transition-colors">
+<span class="material-symbols-outlined">workspaces</span>
+<span class="font-label-md text-label-md">Studio</span>
+</div>
+<div class="flex items-center gap-3 px-4 py-3 text-on-surface-variant font-medium hover:bg-primary/10 hover:text-primary transition-colors cursor-pointer">
+<span class="material-symbols-outlined">explore</span>
+<span class="font-label-md text-label-md">Explore</span>
+</div>
+<div class="flex items-center gap-3 px-4 py-3 text-on-surface-variant font-medium hover:bg-primary/10 hover:text-primary transition-colors cursor-pointer">
+<span class="material-symbols-outlined">shopping_cart</span>
+<span class="font-label-md text-label-md">Marketplace</span>
+</div>
+<div class="flex items-center gap-3 px-4 py-3 text-on-surface-variant font-medium hover:bg-primary/10 hover:text-primary transition-colors cursor-pointer">
+<span class="material-symbols-outlined">account_balance_wallet</span>
+<span class="font-label-md text-label-md">Wallet</span>
+</div>
+<div class="flex items-center gap-3 px-4 py-3 text-on-surface-variant font-medium hover:bg-primary/10 hover:text-primary transition-colors cursor-pointer">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-label-md text-label-md">Settings</span>
+</div>
+</nav>
+<div class="px-4">
+<button class="w-full bg-primary text-on-primary py-4 rounded-xl font-label-md text-label-md active:scale-95 transition-transform shadow-lg shadow-primary/20">
+        Create New Remix
+      </button>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="ml-[280px] w-[calc(100%-280px)] min-h-screen flex flex-col">
+<!-- Top Navigation Bar -->
+<header class="h-20 w-full px-container-margin flex justify-between items-center bg-transparent">
+<div class="flex items-center gap-4">
+<div class="bg-surface-container rounded-full px-4 py-2 border border-outline-variant/30 flex items-center gap-3">
+<span class="material-symbols-outlined text-primary">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-on-surface font-body-sm text-body-sm w-48" placeholder="Search stems..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<!-- Multiplayer Presence -->
+<div class="flex -space-x-3 items-center">
+<div class="relative group cursor-pointer">
+<img class="w-10 h-10 rounded-full border-2 border-background object-cover" data-alt="A professional portrait of a tech-savvy music producer in a dark studio setting, with subtle purple accent lighting on their face. The image has a cinematic quality with shallow depth of field and a high-tech corporate modern aesthetic, perfectly matching the dark slate and neon palette." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC-J4XuAMbUAV2PDPCDENDrRXvlRabna-9je--C2rkiU2pTjHU_dAng9bzxeiGLD4UW3UNCpNz42ulFtuSXAMJZLZQEQmH-1xOwj5bJYG5zZcF6ts2esBBAb3kricu2yWOEgTaTyG7bSzDuZ5Dq6xQQUCVqS_y_AxsZs5c6YUTa9cKnoctyl1WhM2mKrlAQEnp-drq_EGs1ipxTAomclL2lIOHbsL1DmUv_8KY4rJ5Jfa7MvIphHMoQjFeJtFOknRfIVcgTQ2_oEE3Q"/>
+<span class="absolute bottom-0 right-0 w-3 h-3 bg-secondary rounded-full border-2 border-background"></span>
+</div>
+<div class="relative group cursor-pointer">
+<img class="w-10 h-10 rounded-full border-2 border-background object-cover" data-alt="A stylish profile picture of a female electronic artist with neon green highlights in her hair, looking thoughtfully at a digital audio workstation monitor. The lighting is moody and atmospheric, featuring deep slate backgrounds and emerald green glows, echoing a high-tech audio infrastructure design." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCoKYpZlx__oK-jDZ5EqgAdxsDCSWrs4-YIEQKmeQrgRLximcymlyn_tWweNEbUnQr95fbpGhYnMlSkDzo5Nq8IM2yTuGB1F1xdfSXvNGiqDIexa7zKxRcGA2YJDuX-oYaWOUCK4IdaPWC0KYzLF4mI9AyJduFoSdPbBVgvDi5ms2TicR7Vq61X4_bz5QPoKCAo-jcdI4_ZMEJmP4x7SZwsE4ihln_bUIP5fyZn9EIyGXvbldaSoFjCdsGS69MYtL7Z6IZw4K8ABWwM"/>
+<span class="absolute bottom-0 right-0 w-3 h-3 bg-secondary rounded-full border-2 border-background"></span>
+</div>
+<div class="relative group cursor-pointer">
+<img class="w-10 h-10 rounded-full border-2 border-background object-cover" data-alt="Close-up photography of a young producer wearing professional studio headphones, partially illuminated by the glowing interface of a mixing console. The scene is saturated with deep blacks and vibrant violet tones, creating a sense of technical focus and premium futuristic reliability." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDDPHno71adiLMVT-1BjEvhG7agPaZNUiaimqzH9Avz161SwbbJYllujBCISmwpXdLKg4pzyX4qbrgr2_h6f4UhNPCY8H5iCU8G1jFgaMErihO3CuhcZRWcnijz23xCk9JJSSgWt9AoU2YJwvFZ6hV564uC4VERJBj_uUFCFmI1QiEpLGvV-L_gjo2blIv700GFuA89q55GJUcv5A7wRMBoogOzFM0H5B5UfMt1MJhoE2ebpna8N-V9HWRsMKMs5QHrnJQlYlCaMaCS"/>
+<span class="absolute bottom-0 right-0 w-3 h-3 bg-secondary rounded-full border-2 border-background"></span>
+</div>
+<div class="pl-6 flex items-center">
+<div class="bg-tertiary-container text-on-tertiary-container font-label-md text-[10px] px-2 py-0.5 rounded uppercase tracking-widest active-glow flex items-center gap-1">
+<span class="w-1.5 h-1.5 bg-white rounded-full animate-pulse"></span> Live
+             </div>
+</div>
+</div>
+<div class="flex items-center gap-4 text-on-surface-variant">
+<button class="material-symbols-outlined hover:text-primary transition-colors">notifications</button>
+<button class="material-symbols-outlined hover:text-primary transition-colors">account_circle</button>
+</div>
+</div>
+</header>
+<!-- Studio Canvas -->
+<div class="flex-1 px-container-margin py-6 space-y-gutter overflow-y-auto pb-player-height">
+<!-- Timeline Section -->
+<section class="glass-panel rounded-2xl overflow-hidden flex flex-col">
+<div class="p-4 border-b border-outline-variant/30 flex justify-between items-center">
+<div class="flex items-center gap-4">
+<span class="font-headline-md text-headline-md text-on-surface">Collaborative Session</span>
+<div class="flex items-center gap-2 bg-surface-container-low px-3 py-1 rounded-full border border-outline-variant/30">
+<span class="material-symbols-outlined text-sm text-primary">timer</span>
+<span class="font-label-sm text-label-sm">124 BPM</span>
+</div>
+</div>
+<div class="flex gap-2">
+<button class="material-symbols-outlined p-2 hover:bg-surface-variant rounded-lg">undo</button>
+<button class="material-symbols-outlined p-2 hover:bg-surface-variant rounded-lg">redo</button>
+<button class="material-symbols-outlined p-2 bg-primary text-on-primary rounded-lg">share</button>
+</div>
+</div>
+<!-- Horizontal Multi-track Editor -->
+<div class="flex-1 relative waveform-bg min-h-[400px]">
+<!-- Playback Head -->
+<div class="absolute left-1/4 top-0 bottom-0 w-px bg-primary z-10">
+<div class="absolute -top-1 -left-1.5 w-3 h-3 bg-primary rotate-45"></div>
+</div>
+<!-- User Cursors -->
+<div class="absolute left-[40%] top-12 z-20 user-cursor flex flex-col items-center">
+<div class="bg-secondary text-on-secondary text-[10px] px-1.5 py-0.5 rounded font-label-sm whitespace-nowrap shadow-lg">User A editing drums</div>
+<div class="w-px h-64 bg-secondary/50"></div>
+</div>
+<div class="absolute left-[65%] top-48 z-20 user-cursor flex flex-col items-center">
+<div class="bg-primary-container text-on-primary-container text-[10px] px-1.5 py-0.5 rounded font-label-sm whitespace-nowrap shadow-lg">User B adding reverb</div>
+<div class="w-px h-32 bg-primary-container/50"></div>
+</div>
+<!-- Tracks -->
+<div class="space-y-4 p-6">
+<!-- Track 1 -->
+<div class="h-24 bg-surface-container-low/50 rounded-xl border border-outline-variant/20 flex group hover:border-primary/30 transition-all overflow-hidden">
+<div class="w-48 bg-surface-container border-r border-outline-variant/30 p-4 flex flex-col justify-center gap-1">
+<span class="font-label-md text-label-md text-on-surface">Vocals</span>
+<div class="flex items-center gap-2 opacity-60">
+<span class="material-symbols-outlined text-sm">volume_up</span>
+<div class="h-1 flex-1 bg-outline-variant rounded-full"><div class="h-full w-3/4 bg-primary rounded-full"></div></div>
+</div>
+</div>
+<div class="flex-1 relative flex items-center px-4">
+<div class="w-full h-12 flex items-center gap-0.5">
+<!-- Placeholder Waveform -->
+<div class="h-4 w-1 bg-secondary opacity-40 rounded-full"></div><div class="h-8 w-1 bg-secondary opacity-40 rounded-full"></div><div class="h-6 w-1 bg-secondary opacity-40 rounded-full"></div><div class="h-10 w-1 bg-secondary rounded-full"></div><div class="h-12 w-1 bg-secondary rounded-full"></div><div class="h-8 w-1 bg-secondary rounded-full"></div><div class="h-6 w-1 bg-secondary opacity-40 rounded-full"></div><div class="h-4 w-1 bg-secondary opacity-40 rounded-full"></div><div class="h-8 w-1 bg-secondary opacity-40 rounded-full"></div><div class="h-12 w-1 bg-secondary rounded-full"></div><div class="h-10 w-1 bg-secondary rounded-full"></div><div class="h-6 w-1 bg-secondary opacity-40 rounded-full"></div>
+<div class="h-4 w-1 bg-secondary opacity-40 rounded-full"></div><div class="h-8 w-1 bg-secondary opacity-40 rounded-full"></div><div class="h-12 w-1 bg-secondary rounded-full"></div><div class="h-6 w-1 bg-secondary opacity-40 rounded-full"></div><div class="h-10 w-1 bg-secondary rounded-full"></div><div class="h-8 w-1 bg-secondary rounded-full"></div><div class="h-4 w-1 bg-secondary opacity-40 rounded-full"></div>
+</div>
+</div>
+</div>
+<!-- Track 2 -->
+<div class="h-24 bg-surface-container-low/50 rounded-xl border border-outline-variant/20 flex group hover:border-secondary/30 transition-all overflow-hidden">
+<div class="w-48 bg-surface-container border-r border-outline-variant/30 p-4 flex flex-col justify-center gap-1">
+<span class="font-label-md text-label-md text-on-surface">Drums</span>
+<div class="flex items-center gap-2 opacity-60">
+<span class="material-symbols-outlined text-sm">volume_up</span>
+<div class="h-1 flex-1 bg-outline-variant rounded-full"><div class="h-full w-1/2 bg-secondary rounded-full"></div></div>
+</div>
+</div>
+<div class="flex-1 relative flex items-center px-4">
+<div class="w-full h-12 flex items-center gap-1">
+<div class="h-8 w-6 bg-secondary/20 rounded border border-secondary/40"></div>
+<div class="h-8 w-6 bg-secondary/20 rounded border border-secondary/40"></div>
+<div class="h-8 w-32 bg-secondary/40 rounded-lg border-2 border-secondary active-glow flex items-center px-3 gap-2">
+<span class="font-label-sm text-[10px] text-on-secondary">DRUM_LOOP_01.wav</span>
+</div>
+<div class="h-8 w-6 bg-secondary/20 rounded border border-secondary/40"></div>
+</div>
+</div>
+</div>
+<!-- Track 3 -->
+<div class="h-24 bg-surface-container-low/50 rounded-xl border border-outline-variant/20 flex group hover:border-tertiary/30 transition-all overflow-hidden">
+<div class="w-48 bg-surface-container border-r border-outline-variant/30 p-4 flex flex-col justify-center gap-1">
+<span class="font-label-md text-label-md text-on-surface">Remix Synth</span>
+<div class="flex items-center gap-2 opacity-60">
+<span class="material-symbols-outlined text-sm">volume_up</span>
+<div class="h-1 flex-1 bg-outline-variant rounded-full"><div class="h-full w-2/3 bg-tertiary rounded-full"></div></div>
+</div>
+</div>
+<div class="flex-1 relative flex items-center px-4">
+<div class="w-full h-12 flex items-center gap-0.5">
+<div class="h-2 w-1 bg-tertiary opacity-40 rounded-full"></div><div class="h-3 w-1 bg-tertiary opacity-40 rounded-full"></div><div class="h-6 w-1 bg-tertiary rounded-full"></div><div class="h-4 w-1 bg-tertiary rounded-full"></div><div class="h-3 w-1 bg-tertiary opacity-40 rounded-full"></div>
+<div class="h-10 w-full bg-tertiary/10 rounded border-dashed border border-tertiary/30 flex items-center justify-center">
+<span class="font-label-sm text-tertiary opacity-60 italic">Processing AI Remix...</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Bottom Layout Grid: Remix Battle + Social -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+<!-- Remix Battle Card (Bento Style) -->
+<div class="lg:col-span-8 glass-panel rounded-2xl overflow-hidden flex flex-col h-full">
+<div class="relative h-40">
+<img class="w-full h-full object-cover opacity-60" data-alt="A wide horizontal banner for an electronic music remix battle, showcasing retro-futuristic synthwave aesthetics. The image features a digital sun setting over a wireframe grid landscape with vibrant neon purples, pinks, and deep blues. The mood is high-energy, nostalgic, and professional, perfectly suited for a high-tech audio platform." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDxV1Mm2ab5erfovSezU3dIOYcFmWMJ3_GPgxhw-jbilHxq0TRcapAiCaAqRZeGc47hoZHkQhh98373iCXYjbOyioNmnMPh7JDJNZXbELzVQZ2PF6qBvyZ2p9v4-pVgKq_nHevbcJaIxJLC5hSZJ02cKULQCXLia2RU0ByOCxIV6XJwoRThgVLxe0ekwlK7yqeWBbV_1gFzViRIc1ew39uAu6rPCW2jTSAVMHrvV3AtUGBAww-OVK-Azq61SpU68rCAB_geaMpGpnuO"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container-low to-transparent"></div>
+<div class="absolute bottom-4 left-6">
+<h2 class="font-headline-lg text-headline-lg text-white">Synthwave Remix Battle #12</h2>
+<p class="font-body-md text-body-md text-secondary">Submit your remix entry before May 30th</p>
+</div>
+</div>
+<div class="p-6">
+<div class="overflow-x-auto">
+<table class="w-full text-left">
+<thead>
+<tr class="border-b border-outline-variant/30 font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">
+<th class="pb-4 font-normal">Rank</th>
+<th class="pb-4 font-normal">Remix Title</th>
+<th class="pb-4 font-normal">Creator</th>
+<th class="pb-4 font-normal text-right">Votes</th>
+<th class="pb-4 font-normal text-right">Action</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/10 font-body-sm text-body-sm">
+<tr class="hover:bg-primary/5 transition-colors group">
+<td class="py-4 font-bold text-tertiary">01</td>
+<td class="py-4 font-medium text-on-surface">Neon Horizon [Extended Mix]</td>
+<td class="py-4">VaporWave_Master</td>
+<td class="py-4 text-right">1,240</td>
+<td class="py-4 text-right">
+<button class="bg-surface-variant hover:bg-primary/20 text-primary p-2 rounded-lg transition-all active:scale-90">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">thumb_up</span>
+</button>
+</td>
+</tr>
+<tr class="hover:bg-primary/5 transition-colors group">
+<td class="py-4 font-bold text-outline">02</td>
+<td class="py-4 font-medium text-on-surface">Midnight Arcade</td>
+<td class="py-4">PixelBeats</td>
+<td class="py-4 text-right">982</td>
+<td class="py-4 text-right">
+<button class="bg-surface-variant hover:bg-primary/20 text-primary p-2 rounded-lg transition-all active:scale-90">
+<span class="material-symbols-outlined text-sm">thumb_up</span>
+</button>
+</td>
+</tr>
+<tr class="hover:bg-primary/5 transition-colors group">
+<td class="py-4 font-bold text-outline">03</td>
+<td class="py-4 font-medium text-on-surface">Laser Grid Runner</td>
+<td class="py-4">SynthLord</td>
+<td class="py-4 text-right">756</td>
+<td class="py-4 text-right">
+<button class="bg-surface-variant hover:bg-primary/20 text-primary p-2 rounded-lg transition-all active:scale-90">
+<span class="material-symbols-outlined text-sm">thumb_up</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<button class="w-full mt-6 py-3 border border-outline-variant/30 rounded-xl font-label-md text-label-md text-on-surface-variant hover:bg-surface-variant transition-colors">
+               View Full Leaderboard
+             </button>
+</div>
+</div>
+<!-- Right Side: AI Suggestions & Chat (Bento Style) -->
+<div class="lg:col-span-4 space-y-gutter flex flex-col h-full">
+<div class="glass-panel p-6 rounded-2xl flex-1 flex flex-col">
+<h3 class="font-label-md text-label-md text-primary uppercase tracking-widest mb-4">AI Remix Engine</h3>
+<div class="space-y-4 flex-1">
+<div class="bg-primary/10 border border-primary/20 rounded-xl p-4">
+<p class="font-body-sm text-body-sm text-primary-fixed mb-3">Suggested: Enhance the high-end frequencies on Track 3 to cut through the bass.</p>
+<button class="bg-primary text-on-primary px-4 py-2 rounded-lg font-label-sm text-label-sm w-full">Apply AI EQ</button>
+</div>
+<div class="bg-secondary/10 border border-secondary/20 rounded-xl p-4">
+<p class="font-body-sm text-body-sm text-secondary-fixed mb-3">New matching stem found: "Cyberpunk Lead Synth 04"</p>
+<button class="border border-secondary text-secondary px-4 py-2 rounded-lg font-label-sm text-label-sm w-full">Preview &amp; Import</button>
+</div>
+</div>
+</div>
+<div class="glass-panel p-4 rounded-2xl h-64 flex flex-col">
+<h3 class="font-label-md text-label-md text-on-surface-variant uppercase tracking-widest mb-3">Live Session Chat</h3>
+<div class="flex-1 overflow-y-auto space-y-3 mb-3 pr-2">
+<div class="text-[12px]"><span class="text-secondary font-bold">User A:</span> loving the new drum fill!</div>
+<div class="text-[12px]"><span class="text-primary-container font-bold">User B:</span> working on the reverb now...</div>
+<div class="text-[12px] opacity-50"><span class="font-bold">System:</span> AI generated a new synth line.</div>
+</div>
+<div class="relative">
+<input class="w-full bg-surface-container-low border-outline-variant/30 rounded-lg py-2 px-3 text-body-sm focus:ring-1 focus:ring-primary" placeholder="Send message..." type="text"/>
+<span class="material-symbols-outlined absolute right-2 top-2 text-primary cursor-pointer">send</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Bottom Player / Navigation -->
+<footer class="fixed bottom-0 left-0 w-full h-player-height bg-surface-container-lowest/80 backdrop-blur-[20px] border-t border-outline-variant/30 flex items-center justify-between px-container-margin z-[60]">
+<!-- Player Info -->
+<div class="flex items-center gap-4 w-1/4">
+<div class="w-14 h-14 bg-surface-variant rounded-lg overflow-hidden border border-outline-variant/30">
+<img class="w-full h-full object-cover" data-alt="Small square album artwork for a futuristic electronic track called 'Neon Horizon'. The image shows a glowing geometric portal in deep violet and emerald green colors, set against a dark starry background. The aesthetic is crisp, technical, and professional, matching the high-end producer vibe of the application." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCdR3m1FC1KHNdicU6Ixu6x5IsAAXayiTdItTI8TTcCbKQ3P01Q5Xnz0dL2MwC477el90KXfFIuQfacyBRGLbjTvYTmP6zh5rlw23lqe7eLjOwF7W9Uwasldqyo4Ae9KMCtwCq6_M-uH_ZEnECBjCTO-rXimYJRysi0nv8fZgxpYOmmkt5Eu6VyKP1-medMqG25p0uBQpYg8Weju0MglVu5k8mTbQ8Po1KgNghvLNvfl8EpbPoKQkRuMGu2eHcqOzkneEzFe7_VvHpN"/>
+</div>
+<div>
+<h4 class="font-label-md text-label-md text-on-surface">Neon Horizon</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant opacity-60">Collab Session #42</p>
+</div>
+</div>
+<!-- Controls -->
+<div class="flex flex-col items-center gap-2 flex-1 max-w-xl">
+<div class="flex items-center gap-6 text-on-surface">
+<button class="material-symbols-outlined opacity-60 hover:opacity-100 transition-all">shuffle</button>
+<button class="material-symbols-outlined scale-110 hover:text-primary transition-all">skip_previous</button>
+<button class="material-symbols-outlined text-4xl text-primary bg-primary/10 rounded-full p-2 hover:scale-105 active:scale-95 transition-all">play_arrow</button>
+<button class="material-symbols-outlined scale-110 hover:text-primary transition-all">skip_next</button>
+<button class="material-symbols-outlined opacity-60 hover:opacity-100 transition-all">repeat</button>
+</div>
+<!-- Progress Bar -->
+<div class="w-full flex items-center gap-3">
+<span class="font-label-sm text-label-sm opacity-40">1:24</span>
+<div class="h-1.5 flex-1 bg-outline-variant/30 rounded-full relative group cursor-pointer">
+<div class="h-full w-1/3 bg-primary rounded-full relative">
+<div class="absolute -right-1.5 -top-1 w-3.5 h-3.5 bg-white rounded-full opacity-0 group-hover:opacity-100 transition-opacity shadow-lg shadow-white/40"></div>
+</div>
+</div>
+<span class="font-label-sm text-label-sm opacity-40">3:45</span>
+</div>
+</div>
+<!-- Volume / Actions -->
+<div class="flex items-center justify-end gap-6 w-1/4">
+<button class="material-symbols-outlined text-on-surface-variant hover:text-primary transition-colors">lyrics</button>
+<button class="material-symbols-outlined text-on-surface-variant hover:text-primary transition-colors">playlist_play</button>
+<div class="flex items-center gap-2 group w-32">
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary">volume_up</span>
+<div class="h-1 flex-1 bg-outline-variant/30 rounded-full overflow-hidden">
+<div class="h-full w-3/4 bg-on-surface-variant group-hover:bg-primary"></div>
+</div>
+</div>
+</div>
+</footer>
+</main>
+<script>
+    // Lightweight atmospheric interaction for user cursors
+    document.addEventListener('mousemove', (e) => {
+      // Logic could go here to update own cursor presence for others
+    });
+
+    // Handle play button toggle
+    const playBtn = document.querySelector('footer .text-4xl');
+    let isPlaying = false;
+    playBtn.addEventListener('click', () => {
+      isPlaying = !isPlaying;
+      playBtn.textContent = isPlaying ? 'pause' : 'play_arrow';
+    });
+
+    // Smooth hover effects for list items
+    const rows = document.querySelectorAll('tbody tr');
+    rows.forEach(row => {
+      row.addEventListener('mouseenter', () => {
+        row.style.transform = 'translateX(4px)';
+      });
+      row.addEventListener('mouseleave', () => {
+        row.style.transform = 'translateX(0)';
+      });
+    });
+  </script>
+</body></html>

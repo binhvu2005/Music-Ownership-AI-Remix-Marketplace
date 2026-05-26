@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>StemVerse | Profile &amp; Settings</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&amp;family=Geist:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-panel {
+            background: rgba(31, 41, 55, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid #2D3748;
+        }
+        .neon-glow:hover {
+            box-shadow: 0 0 15px rgba(139, 92, 246, 0.4);
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #0B0F19;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #2D3748;
+            border-radius: 10px;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "surface-container": "#211e27",
+                      "background": "#15121b",
+                      "surface": "#15121b",
+                      "secondary-fixed": "#6ffbbe",
+                      "secondary": "#4edea3",
+                      "tertiary": "#ffb869",
+                      "on-background": "#e7e0ed",
+                      "surface-variant": "#37333d",
+                      "primary-container": "#a078ff",
+                      "outline": "#958ea0",
+                      "surface-dim": "#15121b",
+                      "on-secondary-container": "#00311f",
+                      "inverse-surface": "#e7e0ed",
+                      "error": "#ffb4ab",
+                      "on-tertiary": "#482900",
+                      "surface-container-low": "#1d1a23",
+                      "primary-fixed-dim": "#d0bcff",
+                      "on-primary-fixed": "#23005c",
+                      "on-error-container": "#ffdad6",
+                      "secondary-fixed-dim": "#4edea3",
+                      "surface-container-lowest": "#0f0d15",
+                      "tertiary-container": "#ca801e",
+                      "on-primary-fixed-variant": "#5516be",
+                      "error-container": "#93000a",
+                      "on-surface-variant": "#cbc3d7",
+                      "on-secondary-fixed": "#002113",
+                      "on-error": "#690005",
+                      "primary-fixed": "#e9ddff",
+                      "on-secondary-fixed-variant": "#005236",
+                      "on-primary-container": "#340080",
+                      "on-surface": "#e7e0ed",
+                      "primary": "#d0bcff",
+                      "outline-variant": "#494454",
+                      "surface-tint": "#d0bcff",
+                      "tertiary-fixed-dim": "#ffb869",
+                      "on-tertiary-container": "#3f2300",
+                      "surface-bright": "#3b3742",
+                      "surface-container-high": "#2c2832",
+                      "surface-container-highest": "#37333d",
+                      "on-tertiary-fixed-variant": "#673d00",
+                      "on-tertiary-fixed": "#2c1700",
+                      "inverse-on-surface": "#322f39",
+                      "tertiary-fixed": "#ffdcbb",
+                      "on-primary": "#3c0091",
+                      "secondary-container": "#00a572",
+                      "inverse-primary": "#6d3bd7",
+                      "on-secondary": "#003824"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "base": "8px",
+                      "player-height": "96px",
+                      "container-margin": "32px",
+                      "sidebar-width": "280px",
+                      "gutter": "24px"
+              },
+              "fontFamily": {
+                      "label-sm": ["Geist"],
+                      "body-sm": ["Geist"],
+                      "headline-md": ["Hanken Grotesk"],
+                      "headline-lg-mobile": ["Hanken Grotesk"],
+                      "body-lg": ["Geist"],
+                      "label-md": ["Geist"],
+                      "headline-display": ["Hanken Grotesk"],
+                      "headline-lg": ["Hanken Grotesk"],
+                      "body-md": ["Geist"]
+              },
+              "fontSize": {
+                      "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                      "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                      "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                      "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                      "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                      "label-md": ["14px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                      "headline-display": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                      "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+              }
+            },
+          },
+        }
+      </script>
+</head>
+<body class="bg-background text-on-surface font-body-md custom-scrollbar selection:bg-primary-container selection:text-on-primary-container">
+<!-- Sidebar Navigation -->
+<aside class="fixed left-0 top-0 h-full w-[280px] bg-surface/80 backdrop-blur-[20px] border-r border-outline-variant/30 flex flex-col py-8 px-4 z-40 hidden md:flex">
+<div class="mb-10 px-4">
+<h1 class="font-headline-md text-headline-md font-bold text-primary">StemVerse</h1>
+<p class="font-body-md text-body-md text-on-surface-variant opacity-70">AI Remix Studio</p>
+</div>
+<nav class="flex-1 space-y-2">
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant font-medium hover:bg-primary/10 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="explore">explore</span>
+<span class="font-label-md text-label-md">Explore</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant font-medium hover:bg-primary/10 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="graphic_eq">graphic_eq</span>
+<span class="font-label-md text-label-md">Studio</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant font-medium hover:bg-primary/10 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="shopping_cart">shopping_cart</span>
+<span class="font-label-md text-label-md">Marketplace</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant font-medium hover:bg-primary/10 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="account_balance_wallet">account_balance_wallet</span>
+<span class="font-label-md text-label-md">Wallet</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-primary font-bold border-r-2 border-primary bg-primary/5" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="font-label-md text-label-md">Settings</span>
+</a>
+</nav>
+<div class="mt-auto px-4">
+<button class="w-full py-3 bg-primary text-on-primary rounded-xl font-label-md text-label-md font-bold neon-glow transition-all active:scale-95">
+                Create New Remix
+            </button>
+</div>
+</aside>
+<!-- Top Navigation Bar -->
+<header class="fixed top-0 right-0 left-0 md:left-[280px] h-20 flex justify-between items-center px-container-margin z-30 bg-background/50 backdrop-blur-md">
+<div class="flex items-center flex-1 max-w-xl">
+<div class="relative w-full group">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+<input class="w-full bg-surface-container-low border border-outline-variant/30 rounded-full py-2 pl-10 pr-4 focus:ring-1 focus:ring-primary focus:outline-none transition-all font-body-sm text-body-sm" placeholder="Search remixable stems..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<button class="relative text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+<span class="absolute top-0 right-0 w-2 h-2 bg-error rounded-full"></span>
+</button>
+<div class="flex items-center gap-3 cursor-pointer group">
+<img alt="User Profile" class="w-10 h-10 rounded-full border border-primary/30" data-alt="A close-up high-detail portrait of a futuristic cyberpunk music producer, wearing glowing neon-accented headphones and a sleek dark visor. The background is a blurred high-tech studio with purple and cyan lighting. The aesthetic is professional, clean, and highly sophisticated, matching a dark mode UI palette." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA7wypwKwzdHpuyz7TywXPvNBca3Rg0i_BY9qsOal-LsRiTu2hH4bCkUkAFA51ByEvK6w_nWAJeet6QHooDa6Lo4kKBht1RVyKW5ebDmYS6Zd5dJyz6InFw2KFMuijO_SihoLnLBcXsKTmLkbKhJpD5a03xxeLbJ2iURke_uz1fHCLL8Ex0DarKpO-A3pFmTqlu44w1QkrnRvujRQWUrDo4F_Er7HPySwMw55Y7wf99dS1Wl2TEQ8GEY8Pb2ftaSn5LpA9WnfAk8q8m"/>
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary">expand_more</span>
+</div>
+</div>
+</header>
+<!-- Main Content Area -->
+<main class="pt-20 md:ml-[280px] min-h-screen pb-player-height">
+<div class="max-w-[1400px] mx-auto p-gutter lg:p-container-margin">
+<!-- Profile Header Banner -->
+<section class="relative overflow-hidden rounded-2xl mb-8">
+<div class="h-48 md:h-64 bg-gradient-to-r from-surface-container-highest via-surface-container to-background flex items-end">
+<div class="absolute inset-0 opacity-20 pointer-events-none" style="background-image: radial-gradient(circle at 20% 50%, #8B5CF6 0%, transparent 50%);"></div>
+</div>
+<div class="relative px-8 pb-8 -mt-12 flex flex-col md:flex-row items-end gap-6">
+<div class="relative group">
+<div class="w-24 h-24 md:w-32 md:h-32 rounded-full border-4 border-background overflow-hidden glass-panel">
+<img alt="Cyber Producer Avatar" class="w-full h-full object-cover" data-alt="A macro shot of a stylized high-tech avatar for a music platform. The subject wears iridescent streetwear and glowing tech accessories. Soft cinematic lighting with deep shadows and vibrant violet highlights creates a professional, futuristic producer persona. High resolution, minimalist tech aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBw8YNvw-SwiLvv0dHqLYOv0UVYpOSKZmfclmwPVOCp-Q2ycE5cEsXNxdlsYLV7CXeOBiVsYvDQAOsaF0LMtEfMzzD3EJGshW6A_jv_1s_O-WPyxJZWQEkMT8_bGCme9Hxjvdy0X5RlXCMdg6iPpSx_cyTJ19AxUgn6fL32Qju9E2XAvIsk83LBeUvD3TTuP_gMzy5yd9eKfr-Zdl_8PjJwq7ugmFpJx5LmWrW2nQ9DqviJCSKllIkEf-2QYaI2jQ804OvR4Qhw-Yep"/>
+</div>
+<button class="absolute bottom-0 right-0 p-2 bg-primary text-on-primary rounded-full shadow-lg hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-[18px]" data-icon="photo_camera">photo_camera</span>
+</button>
+</div>
+<div class="flex-1 space-y-2">
+<div class="flex items-center gap-3">
+<h2 class="font-headline-lg text-headline-lg font-bold">Cyber Producer</h2>
+<span class="material-symbols-outlined text-secondary text-[24px]" data-icon="verified" style="font-variation-settings: 'FILL' 1;">verified</span>
+<span class="bg-surface-variant text-on-surface-variant px-3 py-1 rounded-full font-label-sm text-label-sm uppercase tracking-wider">Creator</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-xl">
+                            Electronic music producer exploring AI-driven stems and modular ownership. 🎧
+                        </p>
+<div class="flex flex-wrap gap-6 pt-4">
+<div class="flex flex-col">
+<span class="font-headline-md text-headline-md font-bold text-on-surface">14</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Songs Uploaded</span>
+</div>
+<div class="w-px h-10 bg-outline-variant/30 hidden md:block"></div>
+<div class="flex flex-col">
+<span class="font-headline-md text-headline-md font-bold text-on-surface">154</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Remixes Spawned</span>
+</div>
+<div class="w-px h-10 bg-outline-variant/30 hidden md:block"></div>
+<div class="flex flex-col">
+<span class="font-headline-md text-headline-md font-bold text-on-surface">8.2K</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Followers</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Settings Content Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+<!-- Left Column: Settings Form -->
+<div class="lg:col-span-8 space-y-gutter">
+<!-- Profile Information Section -->
+<div class="glass-panel p-8 rounded-2xl">
+<h3 class="font-headline-md text-headline-md mb-6">Profile Information</h3>
+<div class="space-y-6">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="space-y-2">
+<label class="font-label-md text-label-md text-on-surface-variant">Display Name</label>
+<input class="w-full bg-surface-container-lowest border border-outline-variant/50 rounded-lg px-4 py-3 focus:ring-1 focus:ring-primary focus:outline-none text-on-surface" type="text" value="Cyber Producer"/>
+</div>
+<div class="space-y-2">
+<label class="font-label-md text-label-md text-on-surface-variant">Public Email</label>
+<input class="w-full bg-surface-container-lowest border border-outline-variant/50 rounded-lg px-4 py-3 focus:ring-1 focus:ring-primary focus:outline-none text-on-surface" type="email" value="producer@stemverse.io"/>
+</div>
+</div>
+<div class="space-y-2">
+<label class="font-label-md text-label-md text-on-surface-variant">Bio</label>
+<textarea class="w-full bg-surface-container-lowest border border-outline-variant/50 rounded-lg px-4 py-3 focus:ring-1 focus:ring-primary focus:outline-none text-on-surface" rows="4">Electronic music producer exploring AI-driven stems and modular ownership. 🎧</textarea>
+<p class="font-body-sm text-body-sm text-on-surface-variant opacity-60">Brief description for your profile. URLs and @mentions are allowed.</p>
+</div>
+</div>
+</div>
+<!-- Wallet Settings Card -->
+<div class="glass-panel p-8 rounded-2xl">
+<h3 class="font-headline-md text-headline-md mb-6 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary" data-icon="account_balance_wallet">account_balance_wallet</span>
+                            Wallet Settings
+                        </h3>
+<div class="space-y-6">
+<div class="p-6 bg-surface-container-lowest rounded-xl border border-outline-variant/30 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+<div class="space-y-1">
+<p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Connected Wallet Address</p>
+<p class="font-body-md text-body-md font-mono text-primary">0x71C...897</p>
+</div>
+<button class="px-6 py-2 border border-error/50 text-error hover:bg-error/10 rounded-lg font-label-md text-label-md transition-colors">
+                                    Disconnect
+                                </button>
+</div>
+<div class="p-6 bg-surface-container-lowest rounded-xl border border-outline-variant/30 flex justify-between items-center">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 bg-[#635BFF] rounded-lg flex items-center justify-center">
+<span class="material-symbols-outlined text-white" data-icon="payments">payments</span>
+</div>
+<div>
+<p class="font-body-md text-body-md font-bold">Stripe Connect</p>
+<p class="font-body-sm text-body-sm text-secondary flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]" data-icon="check_circle" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+                                            Connected
+                                        </p>
+</div>
+</div>
+<button class="text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Action Bar -->
+<div class="flex justify-end pt-4">
+<button class="bg-primary text-on-primary px-10 py-4 rounded-xl font-headline-md text-label-md font-bold neon-glow transition-all active:scale-95 shadow-xl shadow-primary/20">
+                            Save All Changes
+                        </button>
+</div>
+</div>
+<!-- Right Column: Sidebar Widgets -->
+<div class="lg:col-span-4 space-y-gutter">
+<!-- Notifications Card -->
+<div class="glass-panel p-6 rounded-2xl">
+<div class="flex justify-between items-center mb-6">
+<h4 class="font-label-md text-label-md uppercase text-on-surface-variant">Recent Activity</h4>
+<a class="text-primary font-label-sm text-label-sm hover:underline" href="#">View All</a>
+</div>
+<div class="space-y-4">
+<div class="flex gap-4 items-start p-3 hover:bg-surface-variant/20 rounded-lg transition-colors">
+<div class="w-10 h-10 rounded-lg bg-secondary/20 flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined" data-icon="token">token</span>
+</div>
+<div>
+<p class="font-body-sm text-body-sm text-on-surface">You received 0.45 ETH for "Bass Stem #4"</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant opacity-60">2 hours ago</p>
+</div>
+</div>
+<div class="flex gap-4 items-start p-3 hover:bg-surface-variant/20 rounded-lg transition-colors">
+<div class="w-10 h-10 rounded-lg bg-primary/20 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined" data-icon="favorite">favorite</span>
+</div>
+<div>
+<p class="font-body-sm text-body-sm text-on-surface">Alex.wav liked your "Atmospheric Pads" pack</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant opacity-60">5 hours ago</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Security Tips Card -->
+<div class="bg-primary-container/10 border border-primary/20 p-6 rounded-2xl">
+<h4 class="font-label-md text-label-md uppercase text-primary mb-4">Security Tip</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-4">
+                            Always ensure your 2FA is enabled when connecting new wallets to protect your creative assets and earnings.
+                        </p>
+<button class="w-full py-2 bg-surface border border-primary/30 text-primary rounded-lg font-label-md text-label-md hover:bg-primary/5 transition-colors">
+                            Manage 2FA
+                        </button>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Global Player (Bottom Nav) -->
+<footer class="fixed bottom-0 w-full h-player-height bg-surface-container-lowest/80 backdrop-blur-[20px] border-t border-outline-variant/30 shadow-2xl z-50 flex items-center justify-between px-container-margin">
+<div class="flex items-center gap-4 w-1/3">
+<div class="w-14 h-14 rounded-lg overflow-hidden border border-outline-variant/20">
+<img alt="Now Playing Cover" class="w-full h-full object-cover" data-alt="A moody, high-contrast photograph of a sleek vintage synthesizer in a dark room illuminated only by neon emerald green LEDs. The composition is artistic and professional, with shallow depth of field focusing on the tactile controls. The vibe is sophisticated, moody, and deep-tech audio focused." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCxyAWo5ynwBpdOIktwqZlMrAjSxmIC2w8vB_lopqMCbB6FgXtDlalVmxvEL6DvLrOHOAun6_et1UzVQT5VnHj2mMg-LdZUMxhaf4ShxoXr0iR3rBsCN130QBu-yiytCzmQVbOuvFhccLeG5fUADhVtnAWj_polMYdio6ixMO_HxNHT8C0QIcZB7hHNa3PGE737tJZSuVK4pk2ex20kYYr8VLFahXI2zs3YFaAglC7T2mufqvQYfmDqmzLu-qbtAb0A_MVCUXTdjmkU"/>
+</div>
+<div>
+<p class="font-body-md text-body-md font-bold text-on-surface">Synthesized Echoes</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Cyber Producer</p>
+</div>
+</div>
+<div class="flex flex-col items-center gap-2 w-1/3">
+<div class="flex items-center gap-6">
+<button class="text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined" data-icon="shuffle">shuffle</span>
+</button>
+<button class="text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined" data-icon="skip_previous">skip_previous</span>
+</button>
+<button class="w-12 h-12 rounded-full bg-on-surface text-background flex items-center justify-center hover:scale-105 active:scale-95 transition-all">
+<span class="material-symbols-outlined text-[32px]" data-icon="play_arrow" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+</button>
+<button class="text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined" data-icon="skip_next">skip_next</span>
+</button>
+<button class="text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined" data-icon="repeat">repeat</span>
+</button>
+</div>
+<div class="w-full max-w-md flex items-center gap-3">
+<span class="font-label-sm text-label-sm text-on-surface-variant">1:24</span>
+<div class="flex-1 h-1.5 bg-outline-variant/30 rounded-full relative group cursor-pointer">
+<div class="absolute left-0 top-0 h-full w-[40%] bg-primary rounded-full"></div>
+<div class="absolute left-[40%] top-1/2 -translate-y-1/2 w-3 h-3 bg-white rounded-full opacity-0 group-hover:opacity-100 transition-opacity shadow-lg"></div>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">3:45</span>
+</div>
+</div>
+<div class="flex items-center justify-end gap-6 w-1/3">
+<button class="text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined" data-icon="queue_music">queue_music</span>
+</button>
+<div class="flex items-center gap-3 group w-32">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="volume_up">volume_up</span>
+<div class="flex-1 h-1 bg-outline-variant/30 rounded-full relative">
+<div class="absolute left-0 top-0 h-full w-[70%] bg-on-surface-variant group-hover:bg-primary rounded-full transition-colors"></div>
+</div>
+</div>
+<button class="text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined" data-icon="fullscreen">fullscreen</span>
+</button>
+</div>
+</footer>
+<!-- Mobile Navigation Toggle (Simple implementation) -->
+<button class="fixed bottom-24 right-6 md:hidden w-14 h-14 bg-primary text-on-primary rounded-full shadow-2xl flex items-center justify-center z-50">
+<span class="material-symbols-outlined" data-icon="menu">menu</span>
+</button>
+<script>
+        // Simple micro-interaction for input glow
+        const inputs = document.querySelectorAll('input, textarea');
+        inputs.forEach(input => {
+            input.addEventListener('focus', () => {
+                input.parentElement.classList.add('scale-[1.01]');
+                input.parentElement.style.transition = 'all 0.3s ease';
+            });
+            input.addEventListener('blur', () => {
+                input.parentElement.classList.remove('scale-[1.01]');
+            });
+        });
+
+        // Toggle Active State for Sidebar (Simulated)
+        const navItems = document.querySelectorAll('nav a');
+        navItems.forEach(item => {
+            item.addEventListener('click', (e) => {
+                navItems.forEach(i => {
+                    i.classList.remove('text-primary', 'font-bold', 'border-r-2', 'border-primary', 'bg-primary/5');
+                    i.classList.add('text-on-surface-variant', 'font-medium');
+                });
+                item.classList.add('text-primary', 'font-bold', 'border-r-2', 'border-primary', 'bg-primary/5');
+                item.classList.remove('text-on-surface-variant', 'font-medium');
+            });
+        });
+    </script>
+</body></html>
