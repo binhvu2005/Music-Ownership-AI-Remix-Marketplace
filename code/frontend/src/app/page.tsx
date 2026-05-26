@@ -26,7 +26,7 @@ export default function Home() {
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-primary/10 rounded-full blur-[120px] pointer-events-none" />
         <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight mb-6 text-text-primary">
           {t("explore.hero_title").split("GitHub + Spotify")[0]}
-          <span className="text-primary">GitHub + Spotify</span>
+          <span className="bg-gradient-to-r from-primary to-primary-hover bg-clip-text text-transparent">GitHub + Spotify</span>
           {t("explore.hero_title").split("GitHub + Spotify")[1] || " for Music Creators"}
         </h1>
         <p className="text-text-secondary text-lg md:text-xl max-w-2xl mb-10 leading-relaxed">
@@ -36,17 +36,17 @@ export default function Home() {
         </p>
 
         {/* Quick AI Remix Prompt Box */}
-        <div className="w-full max-w-xl bg-glass-bg border border-glass-border p-2 rounded-2xl flex items-center space-x-2 shadow-2xl backdrop-blur-md">
+        <div className="w-full max-w-xl bg-glass-bg border border-glass-border p-2 rounded-full flex items-center space-x-2 shadow-2xl backdrop-blur-md">
           <input
             type="text"
             placeholder={t("explore.search_placeholder")}
             value={remixPrompt}
             onChange={(e) => setRemixPrompt(e.target.value)}
-            className="flex-1 bg-transparent px-4 py-3 text-sm focus:outline-none text-text-primary placeholder-text-muted"
+            className="flex-1 bg-transparent pl-6 pr-4 py-3 text-sm focus:outline-none text-text-primary placeholder-text-muted"
           />
           <Link
             href={`/studio?prompt=${encodeURIComponent(remixPrompt)}`}
-            className="bg-secondary hover:bg-secondary-hover text-white dark:text-background font-bold px-6 py-3 rounded-xl text-sm shadow-lg shadow-secondary/10 transition-all duration-200"
+            className="bg-secondary hover:bg-secondary-hover text-white dark:text-background font-bold px-8 py-3.5 rounded-full text-sm shadow-lg shadow-secondary/15 hover:scale-[1.02] active:scale-[0.98] transition-all duration-200"
           >
             {t("explore.remix_btn")}
           </Link>
@@ -73,8 +73,12 @@ export default function Home() {
             >
               <div>
                 <div className="flex justify-between items-start mb-4">
-                  <div className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center text-primary font-bold text-xl">
-                    📻
+                  <div className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center text-primary">
+                    <svg className="w-6 h-6 stroke-[2.5]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M9 18V5l12-2v13" />
+                      <circle cx="6" cy="18" r="3" fill="currentColor" />
+                      <circle cx="18" cy="16" r="3" fill="currentColor" />
+                    </svg>
                   </div>
                   <span className="text-xs bg-primary/15 text-primary px-2.5 py-1 rounded-full font-semibold">
                     {song.genre}

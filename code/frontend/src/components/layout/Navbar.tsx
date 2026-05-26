@@ -28,8 +28,15 @@ export const Navbar: React.FC = () => {
       <div className="mx-auto flex max-w-7xl h-16 items-center justify-between px-4 sm:px-6 lg:px-8">
         {/* Logo */}
         <div className="flex items-center">
-          <Link href="/" className="flex items-center space-x-2 text-2xl font-bold tracking-wider text-primary">
-            <span className="hover:scale-105 transition-transform duration-200">🎵 StemVerse</span>
+          <Link href="/" className="flex items-center space-x-3 text-2xl font-extrabold tracking-wider text-primary">
+            <div className="hover:scale-110 transition-transform duration-200 flex items-center justify-center text-primary">
+              <svg className="w-7 h-7 stroke-[2.5]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M9 18V5l12-2v13" />
+                <circle cx="6" cy="18" r="3" fill="currentColor" />
+                <circle cx="18" cy="16" r="3" fill="currentColor" />
+              </svg>
+            </div>
+            <span className="bg-gradient-to-r from-primary to-primary-hover bg-clip-text text-transparent">StemVerse</span>
           </Link>
         </div>
 
@@ -63,11 +70,19 @@ export const Navbar: React.FC = () => {
           {/* Theme Toggle */}
           <button
             onClick={toggleTheme}
-            className="flex h-9 w-9 items-center justify-center rounded-full text-base transition-all hover:bg-glass-border hover:scale-105 border border-glass-border"
-            style={{ color: "var(--foreground)" }}
+            className="flex h-9 w-9 items-center justify-center rounded-full transition-all hover:bg-glass-border hover:scale-105 border border-glass-border text-text-primary"
             title={theme === "dark" ? "Chuyển sang Giao diện Sáng" : "Switch to Dark Theme"}
           >
-            {theme === "dark" ? "🌙" : "☀️"}
+            {theme === "dark" ? (
+              <svg className="w-4 h-4 stroke-[2]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" />
+              </svg>
+            ) : (
+              <svg className="w-4 h-4 stroke-[2]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round">
+                <circle cx="12" cy="12" r="4" />
+                <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41" />
+              </svg>
+            )}
           </button>
 
           {/* Divider */}
@@ -79,15 +94,17 @@ export const Navbar: React.FC = () => {
               {/* User Dropdown Button */}
               <button
                 onClick={() => setUserDropdownOpen(!userDropdownOpen)}
-                className="flex items-center space-x-2 rounded-full border border-glass-border p-1 pr-3 hover:bg-glass-border/40 transition-colors duration-200"
+                className="flex items-center space-x-2 rounded-full border border-glass-border p-1 pr-3 hover:bg-glass-border/40 hover:scale-[1.01] active:scale-[0.99] transition-all duration-200"
               >
-                <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary/20 text-primary font-bold text-sm">
+                <div className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-tr from-primary to-primary-hover text-white dark:text-background font-extrabold text-sm shadow-sm">
                   {session.user?.name ? session.user.name[0].toUpperCase() : "U"}
                 </div>
                 <span className="max-w-[120px] truncate text-sm font-semibold text-text-primary">
                   {session.user?.name}
                 </span>
-                <span className="text-xs text-text-muted">▼</span>
+                <svg className="w-3 h-3 text-text-muted stroke-[2.5]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="m6 9 6 6 6-6" />
+                </svg>
               </button>
 
               {/* Dropdown Menu */}
@@ -146,9 +163,18 @@ export const Navbar: React.FC = () => {
           {/* Mobile Theme Toggle */}
           <button
             onClick={toggleTheme}
-            className="flex h-9 w-9 items-center justify-center rounded-full border border-glass-border bg-glass-bg"
+            className="flex h-9 w-9 items-center justify-center rounded-full border border-glass-border bg-glass-bg text-text-primary"
           >
-            {theme === "dark" ? "🌙" : "☀️"}
+            {theme === "dark" ? (
+              <svg className="w-4 h-4 stroke-[2]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" />
+              </svg>
+            ) : (
+              <svg className="w-4 h-4 stroke-[2]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round">
+                <circle cx="12" cy="12" r="4" />
+                <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41" />
+              </svg>
+            )}
           </button>
 
           <button
