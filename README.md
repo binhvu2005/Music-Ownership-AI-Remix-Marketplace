@@ -1,108 +1,85 @@
 # 🎵 StemVerse
 
-> **"GitHub + Spotify + AI Remix Engine cho âm nhạc"**
-
-AI-powered Music Ownership & Remix Marketplace
-
----
-
-## What is StemVerse?
-
-StemVerse là nền tảng cho phép:
-- 🎵 **Upload** bài nhạc gốc (full track + stems)
-- 🤖 **AI Remix** — text prompt → derivative track
-- 📊 **Ownership Graph** — GitHub-style derivative tracking
-- 💰 **Auto Royalty** — chia tiền tự động theo ownership chain
-- 🏪 **Marketplace** — mua/bán license, stems, loops
+> **"GitHub + Spotify + AI Remix Engine cho âm nhạc"**  
+> Nền tảng Quản lý Sở hữu Âm nhạc & Chợ Remix Tích hợp Trí tuệ Nhân tạo.
 
 ---
 
-## Tech Stack
-
-| Layer | Technology |
-|-------|-----------|
-| Frontend | Next.js 15 + TypeScript + Tailwind CSS |
-| Backend | NestJS (TypeScript) |
-| AI Service | FastAPI (Python) + Demucs + MusicGen |
-| Database | PostgreSQL 16 + Prisma |
-| Cache/Queue | Redis + BullMQ |
-| Storage | Cloudflare R2 |
-| Payment | Stripe + MoMo + VNPay |
-| Search | Meilisearch |
+## 🚀 Giới thiệu về StemVerse
+StemVerse giải quyết các vấn đề bản quyền và phân chia doanh thu trong văn hóa nhạc remix bằng giải pháp **Sơ đồ quan hệ sở hữu dạng đồ thị (GitHub-style Ownership Graph)**. Nền tảng cho phép:
+- 🎵 **Upload** bài nhạc gốc (Full Track + các Stems riêng lẻ như vocal, drums, bass, melody).
+- 🤖 **AI Remix** — Chuyển đổi thể loại, tempo, pitch của nhạc bằng Text Prompt thông qua AI.
+- 📊 **Ownership Graph** — Tự động thiết lập đồ thị kế thừa khi có bản remix phái sinh.
+- 💰 **Auto Royalty** — Tự động phân chia doanh thu trực tiếp cho các nút sở hữu (Creator 70%, Remixer 20%, Platform 10%).
+- 🏪 **Marketplace** — Mua bán bản quyền thương mại hoặc phi thương mại cho các bài hát gốc/stems.
 
 ---
 
-## Project Documentation
+## 📁 Cấu trúc Thư mục Monorepo
 
-📁 `.obsidian-vault/` — Knowledge base (open in Obsidian)
-- `00-Dashboard/Project-Dashboard.md` — **Start here**
-- `01-Business/` — StemVerse Overview, User Roles, Business Rules, User Flows
-- `02-SRS/` — Software Requirements (12 modules)
-- `03-Architecture/` — System design, microservices, DB design, AI pipeline
-- `04-ADR/` — 8 Architecture Decision Records
-- `05-API/` — API contracts
-- `06-Database/` — ERD + table schemas
-- `07-Superpowers/` — AI agent specs, plans, TDD, reviews
-- `08-Testing/` — Test strategy + test cases
-- `09-MVP-Roadmap/` — Phase 1, 2, 3 plans
-- `10-Prompt-Library/` — AI prompts for spec/plan/review
-
-📁 `.superpowers/` — AI coding agent rules
-- `project-context.md` — **AI reads this first**
-- `coding-rules.md` — Iron Laws + code standards
-- `testing-rules.md` — TDD methodology
-- `security-rules.md` — Security requirements
-- `review-checklist.md` — Quality gate
-- `workflows/` — Feature, bug fix, refactor, release workflows
-
-📄 `.cursorrules` — Config for AI agents (Cursor, Claude, Gemini)
-
----
-
-## Development Workflow
-
-```bash
-# 1. Read .superpowers/project-context.md first!
-
-# 2. Check if Spec exists for your feature
-# .obsidian-vault/02-SRS/SRS-{module}.md
-
-# 3. Write failing test first (TDD Red Phase)
-npm test -- --testNamePattern="your test"
-
-# 4. Implement minimal code (Green Phase)
-
-# 5. Refactor + full test suite
-npm test -- --coverage
-
-# 6. Review checklist
-# .superpowers/review-checklist.md
+```
+Music-Ownership+AI-Remix-Marketplace/
+├── docs/                           # Tài liệu dự án tập trung
+│   ├── srs.md                      # Đặc tả yêu cầu phần mềm (Hợp nhất)
+│   ├── convention.md               # Quy tắc code chuẩn (Coding Conventions)
+│   ├── backlogs/                   # Quản lý backlog và nhiệm vụ theo Sprint
+│   ├── DB-erd/                     # Thiết kế Database, thực thể & quan hệ
+│   └── UI-UX-style-guideline/      # Hướng dẫn thiết kế giao diện (Design System)
+│
+├── code/                           # Mã nguồn dự án
+│   ├── frontend/                   # Ứng dụng Next.js 15 (App Router, TS, Tailwind)
+│   └── backend/                    # Ứng dụng NestJS + Prisma ORM
+│
+├── .agent/                         # Cấu hình AI Coding Agent (Superpowers)
+│   ├── rules/                      # Luật code, ngữ cảnh dự án cho AI
+│   ├── workflows/                  # Quy trình phát triển (Feature, Bug, Refactor)
+│   └── skills/                     # 14 kỹ năng tự động của coding agent
+│
+├── test/                           # Kiểm thử tích hợp hệ thống
+│   └── test-plan.md
+│
+├── .cursorrules                    # File chỉ dẫn bắt buộc cho AI Assistant
+├── .gitignore                      # File cấu hình bỏ qua git của monorepo
+└── README.md                       # Tài liệu tổng quan dự án (File này)
 ```
 
 ---
 
-## MVP Phases
+## ⚙️ Hướng dẫn Khởi chạy (Quick Start)
 
-| Phase | Status | Features |
-|-------|--------|---------|
-| **Phase 1** | 🔴 In Progress | Upload, AI Analysis, Ownership Graph, AI Remix, Royalty, Licensing |
-| **Phase 2** | ⬜ Planning | Realtime Collab, AI Voice, Full Marketplace |
-| **Phase 3** | ⬜ Future | Mobile, Blockchain, Investor Royalties |
+### 1. Khởi động môi trường Database & Services phụ trợ
+Dự án sử dụng Docker để chạy PostgreSQL, Redis và Meilisearch:
+```bash
+docker compose up -d
+```
+
+### 2. Chạy Backend (NestJS API)
+```bash
+cd code/backend
+npm install
+npx prisma db push
+npx prisma db seed # Nạp dữ liệu mẫu
+npm run start:dev
+```
+Dịch vụ backend sẽ chạy tại cổng mặc định `http://localhost:3001` (hoặc cổng được định nghĩa trong `.env`).
+
+### 3. Chạy Frontend (Next.js 15)
+```bash
+cd code/frontend
+npm install
+npm run dev
+```
+Dịch vụ frontend sẽ chạy tại `http://localhost:3000`.
 
 ---
 
-## Iron Laws (Non-Negotiable)
-
-1. **NO SPEC → NO CODE** — Read `.obsidian-vault/02-SRS/` first
-2. **NO FAILING TEST → NO PRODUCTION CODE** — TDD mandatory
-3. **EVIDENCE BEFORE REPORT** — Show test output, not feelings
-
----
-
-## Solo Developer
-
-Dự án do 1 developer xây dựng. Dùng AI agent (Cursor/Claude/Gemini) để code theo Superpowers methodology.
+## ⚔️ 3 Điều Luật Sắt (Iron Laws) cho Nhà Phát Triển / AI Agent
+Mọi thành viên tham gia code dự án bắt buộc phải tuân thủ:
+1. **KHÔNG CÓ SPEC → KHÔNG CÓ CODE**: Tuyệt đối không viết code logic nếu chưa có file thiết kế/đặc tả được mô tả trong [srs.md](file:///c:/Users/PC/Desktop/Music-Ownership+AI-Remix-Marketplace/docs/srs.md).
+2. **KHÔNG CÓ TEST LỖI → KHÔNG CÓ CODE PRODUCTION**: Sử dụng phương pháp phát triển hướng kiểm thử (TDD). Viết test lỗi trước, viết code sau.
+3. **BẰNG CHỨNG TRƯỚC - BÁO CÁO SAU**: Mọi báo cáo hoàn thành tính năng phải đính kèm nhật ký chạy test suite thành công 100%.
 
 ---
 
-*Made with ❤️ and way too many stem separations*
+## 👥 Solo Developer
+Dự án được xây dựng bởi **Solo Developer** kết hợp với **AI Coding Agent** tuân thủ quy trình phát triển kỷ luật của Superpowers framework.
