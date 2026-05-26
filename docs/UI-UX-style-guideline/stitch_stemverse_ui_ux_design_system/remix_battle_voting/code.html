@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>StemVerse | Synthwave Remix Battle #12</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&amp;family=Geist:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "outline": "#958ea0",
+                    "on-primary-fixed-variant": "#5516be",
+                    "on-surface": "#e7e0ed",
+                    "tertiary-fixed": "#ffdcbb",
+                    "on-error-container": "#ffdad6",
+                    "surface-container-highest": "#37333d",
+                    "primary-fixed-dim": "#d0bcff",
+                    "on-surface-variant": "#cbc3d7",
+                    "secondary-fixed-dim": "#4edea3",
+                    "secondary": "#4edea3",
+                    "tertiary-container": "#ca801e",
+                    "background": "#15121b",
+                    "surface-dim": "#15121b",
+                    "on-secondary-fixed": "#002113",
+                    "on-secondary-fixed-variant": "#005236",
+                    "error": "#ffb4ab",
+                    "surface-variant": "#37333d",
+                    "surface-container-lowest": "#0f0d15",
+                    "on-primary-container": "#340080",
+                    "on-tertiary-fixed-variant": "#673d00",
+                    "secondary-container": "#00a572",
+                    "on-tertiary-container": "#3f2300",
+                    "on-secondary-container": "#00311f",
+                    "surface-tint": "#d0bcff",
+                    "primary-fixed": "#e9ddff",
+                    "secondary-fixed": "#6ffbbe",
+                    "on-tertiary": "#482900",
+                    "on-primary-fixed": "#23005c",
+                    "inverse-on-surface": "#322f39",
+                    "primary": "#d0bcff",
+                    "on-primary": "#3c0091",
+                    "surface-bright": "#3b3742",
+                    "surface-container-high": "#2c2832",
+                    "inverse-primary": "#6d3bd7",
+                    "surface": "#15121b",
+                    "tertiary-fixed-dim": "#ffb869",
+                    "surface-container": "#211e27",
+                    "primary-container": "#a078ff",
+                    "on-error": "#690005",
+                    "tertiary": "#ffb869",
+                    "surface-container-low": "#1d1a23",
+                    "error-container": "#93000a",
+                    "on-background": "#e7e0ed",
+                    "on-tertiary-fixed": "#2c1700",
+                    "outline-variant": "#494454",
+                    "on-secondary": "#003824",
+                    "inverse-surface": "#e7e0ed"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "sidebar-width": "280px",
+                    "gutter": "24px",
+                    "container-margin": "32px",
+                    "player-height": "96px",
+                    "base": "8px"
+            },
+            "fontFamily": {
+                    "headline-display": ["Hanken Grotesk"],
+                    "body-lg": ["Geist"],
+                    "headline-lg-mobile": ["Hanken Grotesk"],
+                    "body-md": ["Geist"],
+                    "headline-lg": ["Hanken Grotesk"],
+                    "body-sm": ["Geist"],
+                    "label-md": ["Geist"],
+                    "label-sm": ["Geist"],
+                    "headline-md": ["Hanken Grotesk"]
+            },
+            "fontSize": {
+                    "headline-display": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "label-md": ["14px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            background-color: #0B0F19; /* Canvas Layer */
+            color: #e7e0ed;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        .waveform-bar {
+            background-color: #2D3748;
+            height: 100%;
+            width: 2px;
+            margin-right: 1px;
+            border-radius: 1px;
+            transition: height 0.2s ease;
+        }
+        .waveform-bar.active {
+            background-color: #10B981;
+        }
+        .glass-panel {
+            background: rgba(31, 41, 55, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid #2D3748;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #494454;
+            border-radius: 10px;
+        }
+        .hero-glow {
+            box-shadow: 0 0 40px rgba(139, 92, 246, 0.15);
+        }
+    </style>
+</head>
+<body class="font-body-md text-body-md overflow-x-hidden">
+<!-- Side Navigation Shell -->
+<aside class="fixed left-0 top-0 h-full w-sidebar-width bg-surface dark:bg-surface/80 backdrop-blur-xl border-r border-outline-variant flex flex-col py-base z-50">
+<div class="px-6 py-4 mb-6">
+<h1 class="font-headline-md text-headline-md font-bold text-primary">StemVerse</h1>
+<p class="text-label-sm text-outline opacity-70">Pro Audio Engine</p>
+</div>
+<nav class="flex-1 px-4 space-y-2">
+<a class="flex items-center gap-4 px-4 py-3 rounded-lg text-secondary font-bold border-r-2 border-secondary bg-surface-container-high transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="explore">explore</span>
+<span>Explore</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="mic_external_on">mic_external_on</span>
+<span>Studio</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="storefront">storefront</span>
+<span>Market</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="account_balance_wallet">account_balance_wallet</span>
+<span>Wallet</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span>Settings</span>
+</a>
+</nav>
+<div class="px-6 py-4 mt-auto">
+<button class="w-full py-3 bg-primary text-on-primary font-label-md text-label-md rounded-xl hover:shadow-[0_0_15px_rgba(139,92,246,0.5)] transition-all active:scale-95">
+                New Project
+            </button>
+</div>
+</aside>
+<!-- Top App Bar Shell -->
+<header class="fixed top-0 right-0 w-[calc(100%-var(--sidebar-width))] h-16 bg-surface/80 dark:bg-surface/80 backdrop-blur-md border-b border-outline-variant flex justify-between items-center px-gutter ml-sidebar-width z-40">
+<div class="flex items-center gap-4 bg-surface-container-low px-4 py-2 rounded-full border border-outline-variant focus-within:ring-1 focus-within:ring-primary min-w-[320px]">
+<span class="material-symbols-outlined text-outline" data-icon="search">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-sm w-full" placeholder="Search remixers, tracks, or stems..." type="text"/>
+</div>
+<div class="flex items-center gap-6">
+<button class="text-on-surface-variant hover:text-primary transition-opacity relative">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+<span class="absolute -top-1 -right-1 w-2 h-2 bg-secondary rounded-full"></span>
+</button>
+<button class="text-on-surface-variant hover:text-primary transition-opacity">
+<span class="material-symbols-outlined" data-icon="dynamic_feed">dynamic_feed</span>
+</button>
+<div class="flex items-center gap-3 pl-4 border-l border-outline-variant">
+<div class="text-right">
+<p class="text-label-sm font-bold">Alex Chen</p>
+<p class="text-[10px] text-outline">Producer Pro</p>
+</div>
+<img alt="Avatar" class="w-10 h-10 rounded-full border border-primary/20" data-alt="A professional close-up headshot of a creative individual with sharp features, wearing modern studio headphones. The background is a blurred music studio with warm neon blue and violet lighting. The aesthetic is sleek, corporate-modern, and tech-focused, matching a high-end audio software environment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBu1vYcogLRhGNXgwQTQaXDrbzYP2cuOETi--kPDhPBxelglfgZtmd5ztKBHIIY-3w5XkUcV9bEkfqKZw4rBz5csfO3HBVFMQ_IBXMoP6I3Y99cK4sKjAbErQn6gHehA9cqK2-xcOH99tHIqXv1rPlYAYmzVDS8N6JBOZRY7P3md23QoIXsdmJ0RzqgQA4l7WIdJhkv-n-N7N69rrkVt5lTCvUDf3Nf36-EBGu_QnNp_ttamUsnEaAwBHdjj7S8p2pEPg613reX2zWw"/>
+</div>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="ml-sidebar-width pt-16 pb-player-height min-h-screen">
+<div class="px-container-margin py-8">
+<!-- Hero Banner Section -->
+<section class="relative w-full h-[320px] rounded-3xl overflow-hidden mb-gutter hero-glow group">
+<img class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="A cinematic wide shot of a futuristic synthwave landscape featuring a digital sun setting over an endless wireframe grid. Neon violet, electric pink, and deep midnight blue dominate the color palette. Atmospheric fog and light streaks create a high-tech audio infrastructure aesthetic, glowing with intense digital energy and precision." src="https://lh3.googleusercontent.com/aida-public/AB6AXuChQBmUwPOOc6lkaa2fODxe1sgpWkjKg_cAEnx5hdqlF4Ja7lzwQ4K4nEcKbLmng4LPhcVxv-guLMKOZ-5oGiOVnBuOoIogUekMX6zLguQYOmujA-8McWC7nEkURSIRi7UhgL4P8x127OPs7xkKwE9EsA-YyBWGZDHkcKG-3B0C6a3F8FifvrC8pnm8P7NTbHXzrdJZfI-DV_3bVFWJQPelFJCT1qy1o8sEPXBQxjJwEJcaCJ_gqJkqDnBfDvmJOsasGc8V6R9Fl8ho"/>
+<div class="absolute inset-0 bg-gradient-to-r from-[#0B0F19] via-[#0B0F19]/60 to-transparent"></div>
+<div class="absolute inset-0 p-12 flex flex-col justify-center">
+<div class="flex items-center gap-3 mb-4">
+<span class="bg-primary/20 text-primary px-3 py-1 rounded-full text-label-sm border border-primary/30 backdrop-blur-md">ACTIVE BATTLE</span>
+<span class="bg-secondary/20 text-secondary px-3 py-1 rounded-full text-label-sm border border-secondary/30 backdrop-blur-md flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]" data-icon="timer">timer</span>
+                            Ends in: 3d 12h 45m
+                        </span>
+</div>
+<h2 class="font-headline-display text-headline-display mb-2">Synthwave Remix Battle #12</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-xl mb-6">Reimagine the retro-future. Slice the stems, layer the synths, and define the sound of the next decade.</p>
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-2 bg-surface-container-highest/60 backdrop-blur-xl border border-outline-variant px-5 py-3 rounded-2xl">
+<span class="material-symbols-outlined text-tertiary" data-icon="payments">payments</span>
+<div>
+<p class="text-label-sm text-outline uppercase tracking-wider">Prize Pool</p>
+<p class="text-headline-md font-bold text-on-surface">$1,000 + 50% Platform Fee Share</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Grid Layout -->
+<div class="grid grid-cols-12 gap-gutter">
+<!-- Left Panel: Rules & Track -->
+<div class="col-span-12 lg:col-span-5 space-y-gutter">
+<!-- Battle Rules -->
+<div class="glass-panel p-6 rounded-2xl">
+<div class="flex items-center gap-3 mb-6">
+<span class="material-symbols-outlined text-primary" data-icon="gavel">gavel</span>
+<h3 class="font-headline-md text-headline-md">Battle Rules</h3>
+</div>
+<ul class="space-y-4">
+<li class="flex gap-4">
+<span class="material-symbols-outlined text-secondary text-[20px] mt-1" data-icon="check_circle">check_circle</span>
+<p class="text-on-surface-variant">Must use original vocals from <span class="text-on-surface font-bold">"Dreaming Out Loud"</span> stems provided in the pack.</p>
+</li>
+<li class="flex gap-4">
+<span class="material-symbols-outlined text-secondary text-[20px] mt-1" data-icon="check_circle">check_circle</span>
+<p class="text-on-surface-variant">Submissions close <span class="text-on-surface font-bold">May 30th at 11:59 PM PST</span>. No late entries accepted.</p>
+</li>
+<li class="flex gap-4">
+<span class="material-symbols-outlined text-secondary text-[20px] mt-1" data-icon="check_circle">check_circle</span>
+<p class="text-on-surface-variant">Winner chosen by <span class="text-on-surface font-bold">Community Vote (60%)</span> and <span class="text-on-surface font-bold">Staff Pick (40%)</span>.</p>
+</li>
+<li class="flex gap-4">
+<span class="material-symbols-outlined text-secondary text-[20px] mt-1" data-icon="check_circle">check_circle</span>
+<p class="text-on-surface-variant">Max track length: 5:00. Must be uploaded in 24-bit WAV format.</p>
+</li>
+</ul>
+</div>
+<!-- Target Track Card -->
+<div class="glass-panel p-6 rounded-2xl relative overflow-hidden">
+<div class="absolute top-0 right-0 w-32 h-32 bg-secondary/5 rounded-full blur-3xl -mr-16 -mt-16"></div>
+<div class="flex gap-6 mb-8">
+<div class="relative group w-32 h-32 flex-shrink-0">
+<img alt="Original Track" class="w-full h-full object-cover rounded-xl" data-alt="An album cover artwork featuring a vibrant, glowing geometric heart floating in a sea of liquid mercury. Neon teal and violet light reflects off the metallic surfaces. The style is abstract music art, clean and modern with sharp focus and professional-grade digital rendering." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCsEB1jXJoeVbd0HHTkAXMNu1RdJ4FljNjT-ihz41sOq7Os6bTEMfv4364_VUAbWnUXXWdGgyqUuPMCx-V1j5AEXvcKmUph1mv2PoMwTDj7mx4XYTaIVrQr29lxygIhIhPWf6ugK0HGNq_BdB0-FcbDIQz0b1b8zUFq_KuOyWqFKMTM-6iOVUm2O1ZHkD0Hpt9Cq4h69SrVJO2jAcp4uki6m-F9u-ZBANndwe-7rpT7uv4E9maL3duNDvgZXHDW6UrmC-7kxntI4XZw"/>
+<button class="absolute inset-0 m-auto w-12 h-12 bg-white/10 backdrop-blur-md rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-white" data-icon="play_arrow" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+</button>
+</div>
+<div class="flex flex-col justify-center">
+<span class="text-label-sm text-secondary uppercase tracking-widest mb-1">Source Material</span>
+<h4 class="text-headline-md font-bold mb-1">Dreaming Out Loud</h4>
+<p class="text-on-surface-variant">Original by <span class="text-primary hover:underline cursor-pointer">LUNA RAYS</span></p>
+<div class="flex items-center gap-4 mt-3">
+<span class="flex items-center gap-1 text-label-sm text-outline"><span class="material-symbols-outlined text-[14px]" data-icon="graphic_eq">graphic_eq</span> 124 BPM</span>
+<span class="flex items-center gap-1 text-label-sm text-outline"><span class="material-symbols-outlined text-[14px]" data-icon="key">key</span> E Minor</span>
+</div>
+</div>
+</div>
+<button class="w-full py-4 bg-secondary text-on-secondary-container font-bold rounded-xl flex items-center justify-center gap-3 hover:shadow-[0_0_20px_rgba(78,222,163,0.3)] transition-all transform active:scale-[0.98]">
+<span class="material-symbols-outlined" data-icon="bolt" style="font-variation-settings: 'FILL' 1;">bolt</span>
+                            Remix This Song in Studio
+                        </button>
+</div>
+</div>
+<!-- Right Panel: Submissions -->
+<div class="col-span-12 lg:col-span-7">
+<div class="glass-panel flex flex-col h-full rounded-2xl overflow-hidden">
+<div class="p-6 border-b border-outline-variant flex flex-col md:flex-row md:items-center justify-between gap-4">
+<div class="flex items-baseline gap-2">
+<h3 class="font-headline-md text-headline-md">Entries</h3>
+<span class="text-outline">(142)</span>
+</div>
+<div class="flex bg-surface-container p-1 rounded-xl">
+<button class="px-4 py-2 text-label-sm rounded-lg bg-surface-container-highest text-primary shadow-sm">Trending</button>
+<button class="px-4 py-2 text-label-sm rounded-lg text-outline hover:text-on-surface transition-colors">Top Voted</button>
+<button class="px-4 py-2 text-label-sm rounded-lg text-outline hover:text-on-surface transition-colors">Recent</button>
+</div>
+</div>
+<!-- Scrollable Entries List -->
+<div class="flex-1 overflow-y-auto custom-scrollbar p-6 space-y-4 max-h-[700px]">
+<!-- Entry Item #1 -->
+<div class="flex items-center gap-6 p-4 rounded-xl bg-surface-container-low border border-transparent hover:border-outline-variant transition-all group">
+<div class="w-8 text-center">
+<span class="font-headline-md text-secondary font-bold">#1</span>
+</div>
+<img class="w-12 h-12 rounded-full ring-2 ring-primary/20" data-alt="Close-up of a producer's profile picture. They are wearing a cool neon beanie and glasses. Background is softly out of focus with studio lights in dark purple." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDGX_a6BvRBBnhyM7NbDjB8sls9RKa5VagGRDbxyn_67B2B-jbpU4xuB5hYsAbyAN5fdrWh0ZBqyiGEPrKTG9CcyaPBU9Z3IiRVKH0Qx26H6ys9mCKj8iFooa8GrytWoHOUPpt7aimZnyrkFQilt9xjo0Fpcs_qFzfZH3yn3uIChgaeSNbD-7Ly7a932sOrrh3Yl93PpK25yy9N_9nZIawr1LxAUWYoBt5IqVid7WJVfKaCvfXQ5nZYwFwWoEmJ7Ce0TObaCvfXiaxZ"/>
+<div class="flex-1 min-w-0">
+<div class="flex items-center gap-2 mb-2">
+<p class="font-bold truncate">NeonPulse_99</p>
+<span class="text-[10px] bg-outline-variant/30 text-outline px-2 py-0.5 rounded uppercase">Vocal Focus</span>
+</div>
+<!-- Waveform Component -->
+<div class="h-8 flex items-end gap-0.5 w-full opacity-60 group-hover:opacity-100 transition-opacity">
+<script>
+                                            for(let i=0; i<40; i++) {
+                                                const h = Math.floor(Math.random() * 80) + 20;
+                                                const isActive = i < 15;
+                                                document.write(`<div class="waveform-bar ${isActive ? 'active' : ''}" style="height: ${h}%"></div>`);
+                                            }
+                                        </script>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="text-center">
+<p class="font-bold text-headline-md">1,402</p>
+<p class="text-[10px] text-outline uppercase">Votes</p>
+</div>
+<button class="w-12 h-12 rounded-xl border border-outline-variant flex items-center justify-center transition-all hover:bg-surface-container-highest" onclick="this.classList.toggle('bg-tertiary-container'); this.classList.toggle('shadow-[0_0_15px_rgba(255,184,105,0.4)]')">
+<span class="material-symbols-outlined text-tertiary" data-icon="thumb_up">thumb_up</span>
+</button>
+</div>
+</div>
+<!-- Entry Item #2 -->
+<div class="flex items-center gap-6 p-4 rounded-xl bg-surface-container-low border border-transparent hover:border-outline-variant transition-all group">
+<div class="w-8 text-center">
+<span class="font-headline-md text-on-surface-variant font-bold">#2</span>
+</div>
+<img class="w-12 h-12 rounded-full ring-2 ring-primary/20" data-alt="A portrait of a female music producer with vibrant blue hair and glowing LED accessories. The setting is a darkened studio space with professional equipment dimly visible. Neon lighting accents the scene in cyan and magenta." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCyHlcnKRhevKXOK0iT3G9X36lLU_iMMy9ivq8QXAaipPuMTuBPgo6t2-wBx6y_aqOfA6RmIfAWXmD4KBeC0Z_sHBAYGZRPWYTfTRaErSr6uNxX5mDf4Jw4Gy92r_AhMwOa1TWAZz9EqvunBe3PeSgW8lawM6cr--MzVGfFQFVjKnJXPD8LD3d9dOZor2g7kkQr9SwFNgiexKzSCPp4vKHPwfqIOXYN2CeW00c3a1cc65rMBIh8ruXGFrAWFiuW5p52mszBWuIFXtHz"/>
+<div class="flex-1 min-w-0">
+<div class="flex items-center gap-2 mb-2">
+<p class="font-bold truncate">Cyber_Daze</p>
+<span class="text-[10px] bg-outline-variant/30 text-outline px-2 py-0.5 rounded uppercase">Experimental</span>
+</div>
+<div class="h-8 flex items-end gap-0.5 w-full opacity-60 group-hover:opacity-100 transition-opacity">
+<script>
+                                            for(let i=0; i<40; i++) {
+                                                const h = Math.floor(Math.random() * 80) + 20;
+                                                document.write(`<div class="waveform-bar" style="height: ${h}%"></div>`);
+                                            }
+                                        </script>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="text-center">
+<p class="font-bold text-headline-md">985</p>
+<p class="text-[10px] text-outline uppercase">Votes</p>
+</div>
+<button class="w-12 h-12 rounded-xl border border-outline-variant flex items-center justify-center transition-all hover:bg-surface-container-highest">
+<span class="material-symbols-outlined text-tertiary" data-icon="thumb_up">thumb_up</span>
+</button>
+</div>
+</div>
+<!-- Entry Item #3 -->
+<div class="flex items-center gap-6 p-4 rounded-xl bg-surface-container-low border border-transparent hover:border-outline-variant transition-all group">
+<div class="w-8 text-center">
+<span class="font-headline-md text-on-surface-variant font-bold">#3</span>
+</div>
+<img class="w-12 h-12 rounded-full ring-2 ring-primary/20" data-alt="A profile photo of a male artist in a minimalist studio environment. Subtle cool gray tones with sharp, architectural lighting. Modern creative aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBjVor6y1U_gVrDqyune7NGbnsK131VF0V0RARl6u_LYWy4pnrHZ3YXIrXZxFbS8f-yWeH44qC6oVXtHE5eQ-mCmHYa8SS-hhAv9M60s3CurUn3_k_KZ5IMXKohsPeLE4vec7pvXc8xX34DzFpZIistBs3FDLaCt4fU0Bk7fZjJU7HvOyUeqrUjXemHTHsNfKYe0BEYVxfrsouAS_MX5xRfUE7ZHsd8N7CsFGHInsbMVk3vm3nBx3RL8k0McNafv22QKAJpA1ujzPxN"/>
+<div class="flex-1 min-w-0">
+<div class="flex items-center gap-2 mb-2">
+<p class="font-bold truncate">Analog_Ghost</p>
+<span class="text-[10px] bg-outline-variant/30 text-outline px-2 py-0.5 rounded uppercase">Retro-Wave</span>
+</div>
+<div class="h-8 flex items-end gap-0.5 w-full opacity-60 group-hover:opacity-100 transition-opacity">
+<script>
+                                            for(let i=0; i<40; i++) {
+                                                const h = Math.floor(Math.random() * 80) + 20;
+                                                document.write(`<div class="waveform-bar" style="height: ${h}%"></div>`);
+                                            }
+                                        </script>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="text-center">
+<p class="font-bold text-headline-md">721</p>
+<p class="text-[10px] text-outline uppercase">Votes</p>
+</div>
+<button class="w-12 h-12 rounded-xl border border-outline-variant flex items-center justify-center transition-all hover:bg-surface-container-highest">
+<span class="material-symbols-outlined text-tertiary" data-icon="thumb_up">thumb_up</span>
+</button>
+</div>
+</div>
+<!-- Filler items for list feel -->
+<div class="text-center py-4 text-outline text-label-sm uppercase tracking-widest">Scroll for more entries</div>
+</div>
+<!-- Sticky Bottom CTA for Submissions -->
+<div class="p-6 bg-surface-container-highest/80 backdrop-blur-md border-t border-outline-variant">
+<button class="w-full py-4 bg-primary text-on-primary font-bold rounded-xl flex items-center justify-center gap-3 hover:scale-[1.02] transition-transform shadow-lg shadow-primary/10">
+<span class="material-symbols-outlined" data-icon="cloud_upload">cloud_upload</span>
+                                Submit Your Entry
+                            </button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Bottom Player Shell -->
+<footer class="fixed bottom-0 left-0 w-full h-player-height bg-surface-container-lowest/80 dark:bg-surface-container-lowest/80 backdrop-blur-lg border-t border-outline-variant flex items-center justify-between px-gutter z-50">
+<!-- Track Info -->
+<div class="flex items-center gap-4 w-1/4">
+<img alt="Playing" class="w-14 h-14 rounded-lg" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAb2FJolUGipv7c42Zs5nNR4jZ2jFGtxHdF22ujMdsiL5uHdmj35pUzHSoP6OJCcJdQCwzgS3rAiZYnd_p3Cm8QzbHdIITv_2r4564g9z5iexldHoJt0BXSjKh4ikK8-eziGExp4j9xJng-eL4mgt2bnJRSonP-3qImVh6Xg3Kq1tRAaTSs_FTYxsoPgtqansr-TqAky8hbiTPMjowXnTh7UHgMPPrd363I6QWCfn4dqQ9yGWGR9fVWSEl9Np_tb-SZ80fCy3qcHntp"/>
+<div>
+<p class="font-body-md text-on-surface font-bold truncate">Dreaming Out Loud (NeonPulse Remix)</p>
+<p class="text-body-sm text-outline">NeonPulse_99</p>
+</div>
+<button class="text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined" data-icon="favorite">favorite</span>
+</button>
+</div>
+<!-- Controls -->
+<div class="flex flex-col items-center gap-2 flex-1 max-w-2xl">
+<div class="flex items-center gap-8">
+<button class="text-on-surface-variant hover:text-on-surface"><span class="material-symbols-outlined" data-icon="shuffle">shuffle</span></button>
+<button class="text-on-surface-variant hover:text-on-surface"><span class="material-symbols-outlined" data-icon="skip_previous" style="font-variation-settings: 'FILL' 1;">skip_previous</span></button>
+<button class="w-10 h-10 bg-on-surface text-background rounded-full flex items-center justify-center hover:scale-110 transition-transform">
+<span class="material-symbols-outlined" data-icon="pause" style="font-variation-settings: 'FILL' 1;">pause</span>
+</button>
+<button class="text-on-surface-variant hover:text-on-surface"><span class="material-symbols-outlined" data-icon="skip_next" style="font-variation-settings: 'FILL' 1;">skip_next</span></button>
+<button class="text-on-surface-variant hover:text-on-surface"><span class="material-symbols-outlined" data-icon="repeat">repeat</span></button>
+</div>
+<div class="flex items-center gap-4 w-full px-8">
+<span class="text-[10px] font-mono text-outline">1:24</span>
+<div class="flex-1 h-1 bg-outline-variant/30 rounded-full relative group cursor-pointer">
+<div class="absolute top-0 left-0 h-full w-[35%] bg-primary rounded-full"></div>
+<div class="absolute top-1/2 left-[35%] -translate-y-1/2 w-3 h-3 bg-white rounded-full opacity-0 group-hover:opacity-100 transition-opacity shadow-[0_0_10px_rgba(255,255,255,0.8)]"></div>
+</div>
+<span class="text-[10px] font-mono text-outline">3:45</span>
+</div>
+</div>
+<!-- Volume & Tools -->
+<div class="flex items-center justify-end gap-6 w-1/4">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="lyrics">lyrics</span>
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="queue_music">queue_music</span>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="volume_up">volume_up</span>
+<div class="w-24 h-1 bg-outline-variant/30 rounded-full overflow-hidden">
+<div class="h-full w-[70%] bg-on-surface-variant"></div>
+</div>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="open_in_full">open_in_full</span>
+</div>
+</footer>
+<script>
+        // Simple micro-interaction for entry hover states
+        document.querySelectorAll('.waveform-bar').forEach(bar => {
+            bar.addEventListener('mouseover', () => {
+                bar.style.height = (parseInt(bar.style.height) + 10) + '%';
+            });
+        });
+    </script>
+</body></html>

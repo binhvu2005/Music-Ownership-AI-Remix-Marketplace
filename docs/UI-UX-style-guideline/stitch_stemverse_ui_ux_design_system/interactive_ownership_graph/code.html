@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>StemVerse | Song Lineage &amp; Ownership Graph Explorer</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&amp;family=Geist:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        :root {
+            --sidebar-width: 280px;
+            --player-height: 96px;
+        }
+        body {
+            background-color: #0B0F19;
+            color: #e7e0ed;
+            overflow: hidden;
+            font-family: 'Geist', sans-serif;
+        }
+        .glass-panel {
+            background: rgba(31, 41, 55, 0.6);
+            backdrop-filter: blur(20px);
+            border: 1px solid #2D3748;
+        }
+        .node-glow-root {
+            box-shadow: 0 0 20px rgba(16, 185, 129, 0.2);
+            border: 1px solid #10B981;
+        }
+        .node-glow-derivative {
+            box-shadow: 0 0 15px rgba(139, 92, 246, 0.15);
+            border: 1px solid #494454;
+        }
+        .node-glow-derivative:hover {
+            border-color: #d0bcff;
+            box-shadow: 0 0 20px rgba(139, 92, 246, 0.3);
+        }
+        .connection-line {
+            stroke: #494454;
+            stroke-width: 2;
+            fill: none;
+            transition: stroke 0.3s ease;
+        }
+        .connection-line.active {
+            stroke: #8B5CF6;
+            filter: drop-shadow(0 0 4px #8B5CF6);
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+            height: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #2D3748;
+            border-radius: 10px;
+        }
+        .tooltip-enter {
+            animation: tooltipAppear 0.2s ease-out forwards;
+        }
+        @keyframes tooltipAppear {
+            from { opacity: 0; transform: scale(0.95) translateY(10px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
+        }
+    </style>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "outline": "#958ea0",
+                    "on-primary-fixed-variant": "#5516be",
+                    "on-surface": "#e7e0ed",
+                    "tertiary-fixed": "#ffdcbb",
+                    "on-error-container": "#ffdad6",
+                    "surface-container-highest": "#37333d",
+                    "primary-fixed-dim": "#d0bcff",
+                    "on-surface-variant": "#cbc3d7",
+                    "secondary-fixed-dim": "#4edea3",
+                    "secondary": "#4edea3",
+                    "tertiary-container": "#ca801e",
+                    "background": "#15121b",
+                    "surface-dim": "#15121b",
+                    "on-secondary-fixed": "#002113",
+                    "on-secondary-fixed-variant": "#005236",
+                    "error": "#ffb4ab",
+                    "surface-variant": "#37333d",
+                    "surface-container-lowest": "#0f0d15",
+                    "on-primary-container": "#340080",
+                    "on-tertiary-fixed-variant": "#673d00",
+                    "secondary-container": "#00a572",
+                    "on-tertiary-container": "#3f2300",
+                    "on-secondary-container": "#00311f",
+                    "surface-tint": "#d0bcff",
+                    "primary-fixed": "#e9ddff",
+                    "secondary-fixed": "#6ffbbe",
+                    "on-tertiary": "#482900",
+                    "on-primary-fixed": "#23005c",
+                    "inverse-on-surface": "#322f39",
+                    "primary": "#d0bcff",
+                    "on-primary": "#3c0091",
+                    "surface-bright": "#3b3742",
+                    "surface-container-high": "#2c2832",
+                    "inverse-primary": "#6d3bd7",
+                    "surface": "#15121b",
+                    "tertiary-fixed-dim": "#ffb869",
+                    "surface-container": "#211e27",
+                    "primary-container": "#a078ff",
+                    "on-error": "#690005",
+                    "tertiary": "#ffb869",
+                    "surface-container-low": "#1d1a23",
+                    "error-container": "#93000a",
+                    "on-background": "#e7e0ed",
+                    "on-tertiary-fixed": "#2c1700",
+                    "outline-variant": "#494454",
+                    "on-secondary": "#003824",
+                    "inverse-surface": "#e7e0ed"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "sidebar-width": "280px",
+                    "gutter": "24px",
+                    "container-margin": "32px",
+                    "player-height": "96px",
+                    "base": "8px"
+            },
+            "fontFamily": {
+                    "headline-display": ["Hanken Grotesk"],
+                    "body-lg": ["Geist"],
+                    "headline-lg-mobile": ["Hanken Grotesk"],
+                    "body-md": ["Geist"],
+                    "headline-lg": ["Hanken Grotesk"],
+                    "body-sm": ["Geist"],
+                    "label-md": ["Geist"],
+                    "label-sm": ["Geist"],
+                    "headline-md": ["Hanken Grotesk"]
+            },
+            "fontSize": {
+                    "headline-display": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "label-md": ["14px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+</head>
+<body class="bg-surface select-none">
+<!-- Sidebar (Shared Component: SideNavBar) -->
+<aside class="fixed left-0 top-0 h-full w-sidebar-width border-r border-outline-variant bg-surface dark:bg-surface/80 backdrop-blur-xl flex flex-col py-base z-50">
+<div class="px-6 py-8 flex flex-col items-start gap-1">
+<h1 class="font-headline-md text-headline-md font-bold text-primary">StemVerse</h1>
+<p class="font-body-md text-body-sm text-on-surface-variant">Pro Audio Engine</p>
+</div>
+<nav class="flex-1 px-4 space-y-1">
+<!-- Explore Tab (Active for general browsing) -->
+<a class="flex items-center gap-3 px-4 py-3 text-secondary font-bold border-r-2 border-secondary hover:bg-surface-container-high transition-colors active:scale-95 duration-200" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">explore</span>
+<span class="font-body-md text-body-md">Explore</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high transition-colors active:scale-95 duration-200" href="#">
+<span class="material-symbols-outlined">mic_external_on</span>
+<span class="font-body-md text-body-md">Studio</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high transition-colors active:scale-95 duration-200" href="#">
+<span class="material-symbols-outlined">storefront</span>
+<span class="font-body-md text-body-md">Market</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high transition-colors active:scale-95 duration-200" href="#">
+<span class="material-symbols-outlined">account_balance_wallet</span>
+<span class="font-body-md text-body-md">Wallet</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high transition-colors active:scale-95 duration-200" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-body-md text-body-md">Settings</span>
+</a>
+</nav>
+<div class="px-4 py-6 mt-auto">
+<button class="w-full py-3 px-4 bg-primary text-on-primary font-bold rounded-lg flex items-center justify-center gap-2 hover:opacity-90 active:scale-95 transition-all">
+<span class="material-symbols-outlined">add</span>
+<span>New Project</span>
+</button>
+<div class="mt-6 flex items-center gap-3 px-2">
+<img alt="User Profile Avatar" class="w-10 h-10 rounded-full border border-outline-variant" data-alt="A professional studio portrait of a modern music producer with short hair and creative attire. The lighting is moody and dramatic with subtle purple and teal rim lights, consistent with a high-end dark-themed music workstation interface. The image has a clean, premium digital aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBtc5Eh3jdMBv7aPB6fDgHfIZlwRURONP7dPR_OncqyW5XyZfUAIBUtf-wfXYABtAZCAp2cK-dC5GkIfnY6YXMJWLlsTtT19nphgqiA0SKf_HI9wIV-dR-lNNci-7vtPjNWXJZ15vgmr9TXjVUA3fNnK4UnZKhB4vICzUBcnj3mlVyO24KTArKDoIrCSRCP9fVgZTsO07WvuxTlMDp0QQWOJ7oHvjOwioudgnoGWYdwlprR2teMcq6xoAH95ocNzFmaouFiOh8FTVVT"/>
+<div class="overflow-hidden">
+<p class="font-label-md text-on-surface truncate">Creator X</p>
+<p class="font-label-sm text-on-surface-variant truncate">Pro Developer</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- Top Navigation Bar (Shared Component: TopNavBar) -->
+<header class="fixed top-0 right-0 w-[calc(100%-var(--sidebar-width))] border-b border-outline-variant bg-surface/80 dark:bg-surface/80 backdrop-blur-md flex justify-between items-center h-16 px-gutter ml-sidebar-width z-40">
+<div class="flex items-center gap-6">
+<div class="relative w-64">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-sm">search</span>
+<input class="w-full bg-surface-container-lowest border border-outline-variant rounded-full pl-10 pr-4 py-1.5 text-sm focus:ring-1 focus:ring-primary focus:border-primary outline-none" placeholder="Search lineage..." type="text"/>
+</div>
+<nav class="hidden md:flex gap-6">
+<a class="font-label-md text-label-md text-primary" href="#">Overview</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-opacity" href="#">Rights Explorer</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-opacity" href="#">Financials</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined text-on-surface-variant hover:text-primary">notifications</button>
+<button class="material-symbols-outlined text-on-surface-variant hover:text-primary">dynamic_feed</button>
+<div class="h-8 w-8 rounded-full bg-surface-container-high border border-outline-variant flex items-center justify-center">
+<span class="material-symbols-outlined text-on-surface-variant">account_circle</span>
+</div>
+</div>
+</header>
+<!-- Main Content: Graph Explorer Canvas -->
+<main class="ml-sidebar-width pt-16 pb-player-height h-screen w-[calc(100%-var(--sidebar-width))] overflow-hidden relative bg-background">
+<!-- Header Info Overlay -->
+<div class="absolute top-8 left-8 z-10">
+<div class="flex flex-col gap-1">
+<h2 class="font-headline-lg text-on-surface flex items-center gap-3">
+                    Summer Breeze (Original)
+                    <span class="px-2 py-0.5 rounded text-label-sm bg-secondary-container text-on-secondary-container">ROOT</span>
+</h2>
+<p class="font-body-md text-on-surface-variant">by <span class="text-primary font-bold">Creator X</span></p>
+<div class="flex gap-4 mt-2">
+<div class="bg-surface-container-high border border-outline-variant px-4 py-2 rounded-xl">
+<p class="text-label-sm text-on-surface-variant uppercase tracking-wider">Derivatives</p>
+<p class="font-headline-md text-secondary">28 derivatives</p>
+</div>
+<div class="bg-surface-container-high border border-outline-variant px-4 py-2 rounded-xl">
+<p class="text-label-sm text-on-surface-variant uppercase tracking-wider">Total Royalty</p>
+<p class="font-headline-md text-primary">$3,200.00</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Canvas Controls -->
+<div class="absolute top-8 right-8 z-10 flex flex-col gap-2">
+<button class="p-2 glass-panel rounded-lg hover:bg-surface-container-highest transition-colors">
+<span class="material-symbols-outlined">zoom_in</span>
+</button>
+<button class="p-2 glass-panel rounded-lg hover:bg-surface-container-highest transition-colors">
+<span class="material-symbols-outlined">zoom_out</span>
+</button>
+<button class="p-2 glass-panel rounded-lg hover:bg-surface-container-highest transition-colors">
+<span class="material-symbols-outlined">filter_center_focus</span>
+</button>
+</div>
+<!-- The Interactive Graph Canvas -->
+<div class="w-full h-full cursor-grab active:cursor-grabbing overflow-auto custom-scrollbar flex items-center justify-center" id="graph-container">
+<div class="relative min-w-[2000px] min-h-[1000px] p-24">
+<!-- SVG Connections Layer -->
+<svg class="absolute inset-0 w-full h-full pointer-events-none">
+<!-- Root to Derivatives -->
+<path class="connection-line active" d="M 320,500 C 450,500 450,250 580,250"></path>
+<path class="connection-line active" d="M 320,500 C 450,500 450,500 580,500"></path>
+<path class="connection-line active" d="M 320,500 C 450,500 450,750 580,750"></path>
+<!-- Derivative to Sub-derivatives -->
+<path class="connection-line" d="M 880,500 C 950,500 950,400 1020,400"></path>
+<path class="connection-line" d="M 880,500 C 950,500 950,600 1020,600"></path>
+</svg>
+<!-- Root Node -->
+<div class="absolute left-80 top-[450px] -translate-y-1/2 w-80 z-20">
+<div class="node-glow-root bg-surface-container-lowest p-6 rounded-2xl relative overflow-hidden group">
+<div class="absolute top-0 right-0 w-24 h-24 bg-secondary/5 rounded-full -translate-y-1/2 translate-x-1/2 blur-2xl"></div>
+<div class="flex items-center gap-4 mb-4">
+<img class="w-16 h-16 rounded-xl object-cover" data-alt="A vibrant digital album cover with abstract glowing green sound waves on a deep charcoal background. The artwork has a professional, high-fidelity music studio look with subtle grain and glass-like reflections. It perfectly captures the energy of an electronic music master track." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC3a6Izyhmr9jWK0fLsTKD1dFDHC2DTU3urvghveSCh9lQevCtpMNLzqfzmbncIMKNCxRunmTa9T-_Ig6YFIi3fmbPoyD9msZao_c_6Nagy4lWe00PBFqH69txhE8VHJaJQ2Z1YT9SG0FY-msKXnPt7LG_x99Kk_FVVQXDns0Rr11i70HIsaLzLXkR-fedffRqa4FCcgVQ94-y6CZtC4rT71Ft9t2_J2s_UcgVt_ecG3PzKN1780X2pUxf42inIl2jc96Hmo8wNu2B-"/>
+<div>
+<h3 class="font-headline-md text-on-surface leading-tight">Master Stem</h3>
+<p class="text-label-sm text-secondary uppercase font-bold">100% Core Rights</p>
+</div>
+</div>
+<div class="flex justify-between items-center text-on-surface-variant pt-4 border-t border-outline-variant/30">
+<span class="text-sm">Owner: Creator X</span>
+<span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">verified</span>
+</div>
+</div>
+</div>
+<!-- Child Nodes (Level 1) -->
+<div class="absolute left-[580px] top-[250px] -translate-y-1/2 w-72">
+<div class="node-glow-derivative bg-surface-container-low p-5 rounded-xl hover:scale-105 transition-all duration-300 cursor-pointer" onclick="toggleTooltip(event, 'phonk')">
+<p class="text-xs text-on-surface-variant mb-1">DERIVATIVE V.1</p>
+<h4 class="font-label-md text-on-surface">Summer Phonk Remix</h4>
+<p class="text-xs text-on-surface-variant mb-3">by User B</p>
+<div class="flex flex-wrap gap-1 mb-4">
+<span class="px-2 py-0.5 rounded-full bg-surface-container-high text-[10px] text-primary">20% Remixer</span>
+<span class="px-2 py-0.5 rounded-full bg-surface-container-high text-[10px] text-on-surface-variant">70% Creator</span>
+<span class="px-2 py-0.5 rounded-full bg-surface-container-high text-[10px] text-on-surface-variant">10% Platform</span>
+</div>
+<div class="bg-surface-container-lowest px-3 py-2 rounded-lg flex justify-between items-center">
+<span class="text-[10px] uppercase text-on-surface-variant">Revenue</span>
+<span class="font-label-md text-secondary">$450.00</span>
+</div>
+</div>
+</div>
+<div class="absolute left-[580px] top-[500px] -translate-y-1/2 w-72">
+<div class="node-glow-derivative bg-surface-container-low p-5 rounded-xl hover:scale-105 transition-all duration-300 cursor-pointer">
+<p class="text-xs text-on-surface-variant mb-1">DERIVATIVE V.2</p>
+<h4 class="font-label-md text-on-surface">Ambient Lofi Session</h4>
+<p class="text-xs text-on-surface-variant mb-3">by Lofi_Girl_X</p>
+<div class="flex flex-wrap gap-1 mb-4">
+<span class="px-2 py-0.5 rounded-full bg-surface-container-high text-[10px] text-primary">15% Remixer</span>
+<span class="px-2 py-0.5 rounded-full bg-surface-container-high text-[10px] text-on-surface-variant">85% Creator</span>
+</div>
+<div class="bg-surface-container-lowest px-3 py-2 rounded-lg flex justify-between items-center">
+<span class="text-[10px] uppercase text-on-surface-variant">Revenue</span>
+<span class="font-label-md text-secondary">$1,120.00</span>
+</div>
+</div>
+</div>
+<div class="absolute left-[580px] top-[750px] -translate-y-1/2 w-72">
+<div class="node-glow-derivative bg-surface-container-low p-5 rounded-xl hover:scale-105 transition-all duration-300 cursor-pointer">
+<p class="text-xs text-on-surface-variant mb-1">DERIVATIVE V.3</p>
+<h4 class="font-label-md text-on-surface">8-Bit Retro Flip</h4>
+<p class="text-xs text-on-surface-variant mb-3">by GameDev99</p>
+<div class="flex flex-wrap gap-1 mb-4">
+<span class="px-2 py-0.5 rounded-full bg-surface-container-high text-[10px] text-primary">30% Remixer</span>
+</div>
+<div class="bg-surface-container-lowest px-3 py-2 rounded-lg flex justify-between items-center">
+<span class="text-[10px] uppercase text-on-surface-variant">Revenue</span>
+<span class="font-label-md text-secondary">$85.00</span>
+</div>
+</div>
+</div>
+<!-- Sub-Child Nodes (Level 2) -->
+<div class="absolute left-[1020px] top-[400px] -translate-y-1/2 w-64">
+<div class="node-glow-derivative bg-surface-container-low p-4 rounded-xl opacity-60 hover:opacity-100 transition-all duration-300 cursor-pointer">
+<p class="text-[10px] text-on-surface-variant mb-1">SUB-DERIVATIVE</p>
+<h4 class="font-label-md text-on-surface">Nightcore Edit of Phonk</h4>
+<p class="text-xs text-on-surface-variant mb-3">by SpeedUp_Master</p>
+<div class="bg-surface-container-lowest px-3 py-1.5 rounded-lg flex justify-between items-center">
+<span class="text-[10px] text-on-surface-variant">Earnings</span>
+<span class="font-label-md text-secondary">$22.00</span>
+</div>
+</div>
+</div>
+<div class="absolute left-[1020px] top-[600px] -translate-y-1/2 w-64">
+<div class="node-glow-derivative bg-surface-container-low p-4 rounded-xl opacity-60 hover:opacity-100 transition-all duration-300 cursor-pointer">
+<p class="text-[10px] text-on-surface-variant mb-1">SUB-DERIVATIVE</p>
+<h4 class="font-label-md text-on-surface">Deep Bass Extension</h4>
+<p class="text-xs text-on-surface-variant mb-3">by SubWoof_Audio</p>
+<div class="bg-surface-container-lowest px-3 py-1.5 rounded-lg flex justify-between items-center">
+<span class="text-[10px] text-on-surface-variant">Earnings</span>
+<span class="font-label-md text-secondary">$12.00</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Tooltip Mockup (Hidden by default) -->
+<div class="fixed hidden z-[100] w-72 glass-panel rounded-2xl shadow-2xl p-6 tooltip-enter" id="node-tooltip">
+<div class="flex justify-between items-start mb-4">
+<div>
+<h5 class="font-headline-md text-on-surface text-base">Phonk Remix Details</h5>
+<p class="text-xs text-on-surface-variant">Created Aug 24, 2024</p>
+</div>
+<button class="material-symbols-outlined text-sm text-on-surface-variant hover:text-white" onclick="hideTooltip()">close</button>
+</div>
+<div class="space-y-4">
+<div>
+<p class="text-[10px] uppercase tracking-widest text-on-surface-variant mb-1">Generation Prompt</p>
+<div class="p-3 bg-surface-container-lowest rounded-lg border border-outline-variant">
+<p class="text-xs italic text-on-surface">"Aggressive drift phonk cowbells, 808 distortion, maintain summer breeze melody..."</p>
+</div>
+</div>
+<div>
+<p class="text-[10px] uppercase tracking-widest text-on-surface-variant mb-1">Active Licenses</p>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary text-sm">shopping_bag</span>
+<p class="text-xs text-on-surface font-medium">12 Commercial Syncs</p>
+</div>
+</div>
+<button class="w-full py-3 bg-primary text-on-primary font-bold rounded-xl flex items-center justify-center gap-2 hover:opacity-90 active:scale-95 transition-all">
+<span class="material-symbols-outlined">play_circle</span>
+<span>Preview Remix</span>
+</button>
+</div>
+</div>
+</main>
+<!-- Bottom Player (Shared Component: BottomPlayer) -->
+<footer class="fixed bottom-0 left-0 w-full h-player-height z-50 border-t border-outline-variant bg-surface-container-lowest/80 dark:bg-surface-container-lowest/80 backdrop-blur-lg flex items-center justify-between px-gutter">
+<!-- Track Info -->
+<div class="flex items-center gap-4 w-1/4">
+<div class="w-14 h-14 rounded-lg bg-surface-container-high overflow-hidden border border-outline-variant relative group cursor-pointer">
+<img alt="Album Art" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDKsMMCnH-B7yGX6r2lmBmmEBbAaRDu_0e1Y2E3YY_KPcBqZR-lb7taNkCxWP20xICr88drXUkNbm-A-kWemiNI0oK8BVuxqKiJ6gQh1MtWvhBV9kMrSlIBcFgqUcooNz1zQbG_K0rkbHudQLgWzb-bkn9_MSLSxUvn35BUHW2-SS8ydd4V2xR6fwRWJX470rr0QUIsdkDWw6WSngVPgtpLnr3UbATyQJd0GjLW4B-p6WdimqlshndonkKw-e3A3GrWkdmpTR_jyd4u"/>
+<div class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-white">keyboard_arrow_up</span>
+</div>
+</div>
+<div class="overflow-hidden">
+<h4 class="font-label-md text-on-surface truncate">Summer Breeze (Original)</h4>
+<p class="text-[12px] text-on-surface-variant truncate">Creator X</p>
+</div>
+</div>
+<!-- Player Controls -->
+<div class="flex flex-col items-center gap-2 w-1/2 max-w-xl">
+<div class="flex items-center gap-6">
+<button class="material-symbols-outlined text-on-surface-variant hover:text-white transition-colors">shuffle</button>
+<button class="material-symbols-outlined text-on-surface hover:text-white transition-colors">skip_previous</button>
+<button class="w-10 h-10 rounded-full bg-on-surface text-background flex items-center justify-center hover:scale-105 active:scale-95 transition-all">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+</button>
+<button class="material-symbols-outlined text-on-surface hover:text-white transition-colors">skip_next</button>
+<button class="material-symbols-outlined text-on-surface-variant hover:text-white transition-colors">repeat</button>
+</div>
+<div class="w-full flex items-center gap-3">
+<span class="text-[10px] text-on-surface-variant w-8">1:24</span>
+<div class="flex-1 h-1 bg-outline-variant rounded-full relative group cursor-pointer">
+<div class="absolute left-0 top-0 h-full w-[40%] bg-primary rounded-full group-hover:bg-primary-fixed-dim transition-colors"></div>
+<div class="absolute left-[40%] top-1/2 -translate-y-1/2 w-3 h-3 bg-white rounded-full opacity-0 group-hover:opacity-100 shadow-lg"></div>
+</div>
+<span class="text-[10px] text-on-surface-variant w-8">3:42</span>
+</div>
+</div>
+<!-- Volume & Actions -->
+<div class="flex items-center justify-end gap-4 w-1/4">
+<button class="material-symbols-outlined text-on-surface-variant hover:text-white">lyrics</button>
+<button class="material-symbols-outlined text-on-surface-variant hover:text-white">queue_music</button>
+<div class="flex items-center gap-2 group w-32">
+<span class="material-symbols-outlined text-on-surface-variant">volume_up</span>
+<div class="flex-1 h-1 bg-outline-variant rounded-full overflow-hidden">
+<div class="h-full w-[80%] bg-on-surface-variant group-hover:bg-secondary transition-colors"></div>
+</div>
+</div>
+<button class="material-symbols-outlined text-on-surface-variant hover:text-white">fullscreen</button>
+</div>
+</footer>
+<script>
+        function toggleTooltip(event, type) {
+            event.stopPropagation();
+            const tooltip = document.getElementById('node-tooltip');
+            const rect = event.currentTarget.getBoundingClientRect();
+            
+            tooltip.style.left = (rect.right + 20) + 'px';
+            tooltip.style.top = (rect.top - 20) + 'px';
+            tooltip.classList.remove('hidden');
+        }
+
+        function hideTooltip() {
+            document.getElementById('node-tooltip').classList.add('hidden');
+        }
+
+        window.onclick = function(event) {
+            if (!event.target.closest('.node-glow-derivative')) {
+                hideTooltip();
+            }
+        }
+
+        // Draggable container logic (simplified)
+        const container = document.getElementById('graph-container');
+        let isDown = false;
+        let startX;
+        let scrollLeft;
+        let startY;
+        let scrollTop;
+
+        container.addEventListener('mousedown', (e) => {
+            isDown = true;
+            container.classList.add('active');
+            startX = e.pageX - container.offsetLeft;
+            startY = e.pageY - container.offsetTop;
+            scrollLeft = container.scrollLeft;
+            scrollTop = container.scrollTop;
+        });
+        container.addEventListener('mouseleave', () => {
+            isDown = false;
+        });
+        container.addEventListener('mouseup', () => {
+            isDown = false;
+        });
+        container.addEventListener('mousemove', (e) => {
+            if(!isDown) return;
+            e.preventDefault();
+            const x = e.pageX - container.offsetLeft;
+            const y = e.pageY - container.offsetTop;
+            const walkX = (x - startX) * 2;
+            const walkY = (y - startY) * 2;
+            container.scrollLeft = scrollLeft - walkX;
+            container.scrollTop = scrollTop - walkY;
+        });
+
+        // Center initially
+        window.onload = () => {
+            container.scrollLeft = 100;
+            container.scrollTop = 50;
+        }
+    </script>
+</body></html>

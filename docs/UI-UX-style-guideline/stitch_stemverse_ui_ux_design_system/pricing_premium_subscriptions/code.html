@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>StemVerse - Pricing Plans</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;600;700;800&amp;family=Geist:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        :root {
+            --sidebar-width: 280px;
+            --player-height: 96px;
+        }
+        body {
+            background-color: #15121b;
+            color: #e7e0ed;
+            overflow-x: hidden;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-card {
+            background: rgba(31, 41, 55, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid #2D3748;
+        }
+        .glow-purple {
+            box-shadow: 0 0 20px rgba(139, 92, 246, 0.15);
+        }
+        .glow-purple-active {
+            box-shadow: 0 0 30px rgba(139, 92, 246, 0.4);
+            border-color: #8B5CF6;
+        }
+        .premium-gradient {
+            background: linear-gradient(135deg, #d0bcff 0%, #a078ff 100%);
+        }
+        .neon-border {
+            position: relative;
+        }
+        .neon-border::after {
+            content: '';
+            position: absolute;
+            inset: -1px;
+            background: linear-gradient(45deg, #8B5CF6, #4edea3, #8B5CF6);
+            z-index: -1;
+            border-radius: inherit;
+            opacity: 0.5;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "outline": "#958ea0",
+                        "on-primary-fixed-variant": "#5516be",
+                        "on-surface": "#e7e0ed",
+                        "tertiary-fixed": "#ffdcbb",
+                        "on-error-container": "#ffdad6",
+                        "surface-container-highest": "#37333d",
+                        "primary-fixed-dim": "#d0bcff",
+                        "on-surface-variant": "#cbc3d7",
+                        "secondary-fixed-dim": "#4edea3",
+                        "secondary": "#4edea3",
+                        "tertiary-container": "#ca801e",
+                        "background": "#15121b",
+                        "surface-dim": "#15121b",
+                        "on-secondary-fixed": "#002113",
+                        "on-secondary-fixed-variant": "#005236",
+                        "error": "#ffb4ab",
+                        "surface-variant": "#37333d",
+                        "surface-container-lowest": "#0f0d15",
+                        "on-primary-container": "#340080",
+                        "on-tertiary-fixed-variant": "#673d00",
+                        "secondary-container": "#00a572",
+                        "on-tertiary-container": "#3f2300",
+                        "on-secondary-container": "#00311f",
+                        "surface-tint": "#d0bcff",
+                        "primary-fixed": "#e9ddff",
+                        "secondary-fixed": "#6ffbbe",
+                        "on-tertiary": "#482900",
+                        "on-primary-fixed": "#23005c",
+                        "inverse-on-surface": "#322f39",
+                        "primary": "#d0bcff",
+                        "on-primary": "#3c0091",
+                        "surface-bright": "#3b3742",
+                        "surface-container-high": "#2c2832",
+                        "inverse-primary": "#6d3bd7",
+                        "surface": "#15121b",
+                        "tertiary-fixed-dim": "#ffb869",
+                        "surface-container": "#211e27",
+                        "primary-container": "#a078ff",
+                        "on-error": "#690005",
+                        "tertiary": "#ffb869",
+                        "surface-container-low": "#1d1a23",
+                        "error-container": "#93000a",
+                        "on-background": "#e7e0ed",
+                        "on-tertiary-fixed": "#2c1700",
+                        "outline-variant": "#494454",
+                        "on-secondary": "#003824",
+                        "inverse-surface": "#e7e0ed"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "sidebar-width": "280px",
+                        "gutter": "24px",
+                        "container-margin": "32px",
+                        "player-height": "96px",
+                        "base": "8px"
+                    },
+                    "fontFamily": {
+                        "headline-display": ["Hanken Grotesk"],
+                        "body-lg": ["Geist"],
+                        "headline-lg-mobile": ["Hanken Grotesk"],
+                        "body-md": ["Geist"],
+                        "headline-lg": ["Hanken Grotesk"],
+                        "body-sm": ["Geist"],
+                        "label-md": ["Geist"],
+                        "label-sm": ["Geist"],
+                        "headline-md": ["Hanken Grotesk"]
+                    },
+                    "fontSize": {
+                        "headline-display": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "label-md": ["14px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}]
+                    }
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background text-on-surface">
+<!-- TopNavBar -->
+<nav class="fixed top-0 right-0 w-full md:w-[calc(100%-var(--sidebar-width))] flex justify-between items-center h-16 px-gutter ml-sidebar-width bg-surface/80 dark:bg-surface/80 backdrop-blur-md border-b border-outline-variant z-40">
+<div class="flex items-center gap-4">
+<span class="md:hidden material-symbols-outlined text-primary cursor-pointer">menu</span>
+<div class="relative hidden sm:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-sm">search</span>
+<input class="bg-surface-container-lowest border border-outline-variant rounded-full py-1.5 pl-10 pr-4 text-body-sm focus:ring-1 focus:ring-primary outline-none transition-all w-64" placeholder="Search components..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<span class="material-symbols-outlined text-on-surface-variant hover:text-primary transition-opacity cursor-pointer">notifications</span>
+<span class="material-symbols-outlined text-on-surface-variant hover:text-primary transition-opacity cursor-pointer">dynamic_feed</span>
+<div class="h-8 w-8 rounded-full bg-primary-container flex items-center justify-center overflow-hidden border border-outline-variant">
+<img alt="Profile" class="w-full h-full object-cover" data-alt="A professional high-resolution headshot of a young creative professional with a modern hairstyle. The lighting is soft and cinematic, coming from the side to create subtle shadows. The background is a dark, out-of-focus studio environment with hints of neon purple light, consistent with a high-tech audio engineering aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAFFL-Jw4Yh_PaVjJ7JRNhhlYI8pr71HMYS-eptBkdwkZF42feWC4tK1B8xFpmH7OkulcmrvytiaZAQM514tXqWHyioTtGQisGHRTuxGYHFxJqabmF6HlewEzSA5xUAei5-DTpIHKGz-eVXttMbfrHlKac9jVMnkW6ucE3sjjUiyn2qgY1wLHwvH8oNTLkM4Az9o9Ax1TTVH-m9npLEviv5F0NeJaCl6Pb-XZH4N4GNk3LMmG8kyzxtcvh1n450oiN1gSAv4zHFRIHK"/>
+</div>
+</div>
+</nav>
+<!-- SideNavBar -->
+<aside class="fixed left-0 top-0 h-full w-sidebar-width hidden md:flex flex-col py-base bg-surface dark:bg-surface/80 backdrop-blur-xl border-r border-outline-variant z-50">
+<div class="px-gutter mb-10 mt-4">
+<h1 class="font-headline-md text-headline-md font-bold text-primary tracking-tight">StemVerse</h1>
+<p class="text-label-sm text-on-surface-variant uppercase tracking-widest mt-1">Pro Audio Engine</p>
+</div>
+<nav class="flex-1 px-4 space-y-1">
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-colors group" href="#">
+<span class="material-symbols-outlined">explore</span>
+<span class="font-body-md">Explore</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-colors group" href="#">
+<span class="material-symbols-outlined">mic_external_on</span>
+<span class="font-body-md">Studio</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-colors group" href="#">
+<span class="material-symbols-outlined">storefront</span>
+<span class="font-body-md">Market</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-colors group" href="#">
+<span class="material-symbols-outlined">account_balance_wallet</span>
+<span class="font-body-md">Wallet</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-secondary font-bold border-r-2 border-secondary bg-surface-container-high transition-colors group" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-body-md">Settings</span>
+</a>
+</nav>
+<div class="px-gutter mt-auto pb-4">
+<button class="w-full py-3 px-4 bg-primary text-on-primary rounded-xl font-bold flex items-center justify-center gap-2 active:scale-95 transition-transform">
+<span class="material-symbols-outlined">add</span>
+                New Project
+            </button>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="md:ml-sidebar-width pt-24 pb-32 px-gutter min-h-screen">
+<div class="max-w-6xl mx-auto">
+<!-- Header Section -->
+<header class="text-center mb-16 space-y-4">
+<h2 class="font-headline-display text-headline-display text-on-surface max-w-3xl mx-auto">
+                    Choose Your Creative Power
+                </h2>
+<p class="text-body-lg text-on-surface-variant max-w-2xl mx-auto">
+                    Upgrade to unlock advanced AI remix credits, lossless audio stems, and private voice cloning models.
+                </p>
+<!-- Billing Toggle -->
+<div class="flex items-center justify-center gap-4 pt-6">
+<span class="text-label-md text-on-surface">Billed Monthly</span>
+<button class="relative w-14 h-7 bg-surface-container-highest rounded-full transition-colors border border-outline-variant" id="billing-toggle">
+<div class="absolute left-1 top-1 w-5 h-5 bg-primary rounded-full transition-all duration-300 transform" id="toggle-thumb"></div>
+</button>
+<div class="flex items-center gap-2">
+<span class="text-label-md text-on-surface-variant">Billed Yearly</span>
+<span class="bg-secondary-container text-on-secondary-container text-[10px] px-2 py-0.5 rounded-full font-bold uppercase tracking-wider">Save 20%</span>
+</div>
+</div>
+</header>
+<!-- Pricing Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
+<!-- Plan 1: Listener / Fan -->
+<div class="glass-card rounded-2xl p-8 flex flex-col h-full hover:border-outline transition-colors group">
+<div class="mb-8">
+<h3 class="font-headline-md text-headline-md text-on-surface mb-2">Listener / Fan</h3>
+<p class="text-body-sm text-on-surface-variant">For the music enthusiasts.</p>
+</div>
+<div class="mb-8">
+<span class="text-[40px] font-bold text-on-surface">$0</span>
+<span class="text-on-surface-variant text-label-md">/ forever</span>
+</div>
+<ul class="space-y-4 flex-1 mb-10">
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-secondary text-lg" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="text-body-md text-on-surface-variant">Standard streaming quality</span>
+</li>
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-secondary text-lg" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="text-body-md text-on-surface-variant">Follow your favorite creators</span>
+</li>
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-secondary text-lg" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="text-body-md text-on-surface-variant">Write comments &amp; feedback</span>
+</li>
+</ul>
+<button class="w-full py-4 border border-outline-variant rounded-xl font-bold text-on-surface hover:bg-surface-container-highest transition-colors active:scale-95">
+                        Get Started
+                    </button>
+</div>
+<!-- Plan 2: Creator Pro (Most Popular) -->
+<div class="glass-card rounded-2xl p-8 flex flex-col h-full relative glow-purple-active border-primary/50 overflow-hidden lg:scale-105 z-10">
+<div class="absolute top-0 right-0 bg-primary text-on-primary px-4 py-1 rounded-bl-xl text-[11px] font-bold uppercase tracking-widest">
+                        Most Popular
+                    </div>
+<div class="mb-8">
+<h3 class="font-headline-md text-headline-md text-primary mb-2">Creator Pro</h3>
+<p class="text-body-sm text-on-surface-variant">Advanced tools for serious producers.</p>
+</div>
+<div class="mb-8">
+<span class="text-[40px] font-bold text-on-surface">$14.99</span>
+<span class="text-on-surface-variant text-label-md">/ mo</span>
+</div>
+<ul class="space-y-4 flex-1 mb-10">
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-primary text-lg" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="text-body-md text-on-surface">100 AI Remix Credits/mo</span>
+</li>
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-primary text-lg" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="text-body-md text-on-surface">Lossless WAV Stem uploads</span>
+</li>
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-primary text-lg" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="text-body-md text-on-surface">1 Custom AI Voice Model training</span>
+</li>
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-primary text-lg" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="text-body-md text-on-surface">Auto-Stripe royalty splits</span>
+</li>
+</ul>
+<button class="w-full py-4 bg-primary text-on-primary rounded-xl font-bold shadow-[0_0_15px_rgba(139,92,246,0.4)] hover:shadow-[0_0_25px_rgba(139,92,246,0.6)] transition-all active:scale-95">
+                        Start 7-Day Free Trial
+                    </button>
+</div>
+<!-- Plan 3: Studio Master -->
+<div class="glass-card rounded-2xl p-8 flex flex-col h-full hover:border-outline transition-colors group">
+<div class="mb-8">
+<h3 class="font-headline-md text-headline-md text-on-surface mb-2">Studio Master</h3>
+<p class="text-body-sm text-on-surface-variant">For labs and professional studios.</p>
+</div>
+<div class="mb-8">
+<span class="text-[40px] font-bold text-on-surface">$49.99</span>
+<span class="text-on-surface-variant text-label-md">/ mo</span>
+</div>
+<ul class="space-y-4 flex-1 mb-10">
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-secondary text-lg" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="text-body-md text-on-surface-variant">Unlimited AI Remix Credits</span>
+</li>
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-secondary text-lg" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="text-body-md text-on-surface-variant">API Access for batch separations</span>
+</li>
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-secondary text-lg" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="text-body-md text-on-surface-variant">5 Custom AI Voice Models</span>
+</li>
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-secondary text-lg" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="text-body-md text-on-surface-variant">Priority GPU processing</span>
+</li>
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-secondary text-lg" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="text-body-md text-on-surface-variant">Premium support</span>
+</li>
+</ul>
+<button class="w-full py-4 border border-outline rounded-xl font-bold text-on-surface hover:bg-surface-container-highest transition-colors active:scale-95">
+                        Contact Sales
+                    </button>
+</div>
+</div>
+<!-- Comparison Section (Bento Style) -->
+<section class="mt-24">
+<h4 class="font-headline-lg text-headline-lg text-center mb-12">Engineered for Excellence</h4>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+<div class="glass-card p-6 rounded-xl space-y-4 col-span-1 md:col-span-2 lg:col-span-1">
+<span class="material-symbols-outlined text-secondary text-3xl">waves</span>
+<h5 class="font-headline-md text-headline-md">Advanced Waveform AI</h5>
+<p class="text-body-md text-on-surface-variant">Separate vocals, drums, bass, and melodic instruments with unmatched clinical precision using our proprietary stem extraction engine.</p>
+</div>
+<div class="glass-card p-6 rounded-xl space-y-4 bg-primary-container/10 border-primary/20">
+<span class="material-symbols-outlined text-primary text-3xl">security</span>
+<h5 class="font-headline-md text-headline-md text-primary">Private Voice Vault</h5>
+<p class="text-body-md text-on-surface-variant">Train custom voice models that stay on our encrypted private servers. Your data is never used for global model training.</p>
+</div>
+<div class="glass-card p-6 rounded-xl space-y-4">
+<span class="material-symbols-outlined text-secondary text-3xl">bolt</span>
+<h5 class="font-headline-md text-headline-md">Zero-Latency Sync</h5>
+<p class="text-body-md text-on-surface-variant">Collaborate in real-time with ultra-low latency audio streaming directly into your favorite DAW environment.</p>
+</div>
+</div>
+</section>
+</div>
+</main>
+<!-- BottomPlayer -->
+<footer class="fixed bottom-0 left-0 w-full h-player-height z-50 bg-surface-container-lowest/80 dark:bg-surface-container-lowest/80 backdrop-blur-lg border-t border-outline-variant flex items-center justify-between px-gutter">
+<div class="flex items-center gap-4 w-1/3">
+<div class="h-14 w-14 rounded-lg bg-surface-container-high overflow-hidden border border-outline-variant group relative cursor-pointer">
+<img alt="Current Track" class="w-full h-full object-cover" data-alt="A dark, moody macro photography shot of an glowing green audio waveform on a professional studio monitor. The room is dark with purple ambient lighting reflecting off the glass of the screen. The aesthetic is high-tech, futuristic, and professional music production focused." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBDigbk24QdSumXSV1YTiYlXFx5CejB2lQlpWc3x_BNcx4xdpjTYs75LD8gGoxeNX-qGHn2QJW7Q86oauYVQYl9UtPCh24oEeP_1v17cUEh1P6aObTbkhtkHEe4UjROT4ya6a_15bkH6iaGpDqcByHEyjKm4y78QYhQcH4o58tMsTPrFPfJ5c3WF6NGwDOf-l_IhgBAvDttWFFpyo8pqjvLgdy0aeMQBQfhpl6kUUaM0aWVioVgiDX0eh6tiRD3yV2K-_NDQUfWOEzg"/>
+<div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity">
+<span class="material-symbols-outlined text-white">expand_less</span>
+</div>
+</div>
+<div class="hidden sm:block">
+<p class="text-body-md font-bold text-on-surface truncate">Neural Remix v4</p>
+<p class="text-body-sm text-on-surface-variant">AI Engine Preview</p>
+</div>
+</div>
+<div class="flex flex-col items-center gap-2 w-1/3">
+<div class="flex items-center gap-6">
+<span class="material-symbols-outlined text-on-surface-variant hover:text-on-surface cursor-pointer text-xl">shuffle</span>
+<span class="material-symbols-outlined text-on-surface hover:text-primary cursor-pointer text-2xl">skip_previous</span>
+<div class="h-10 w-10 bg-on-surface rounded-full flex items-center justify-center text-background cursor-pointer hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-2xl" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+</div>
+<span class="material-symbols-outlined text-on-surface hover:text-primary cursor-pointer text-2xl">skip_next</span>
+<span class="material-symbols-outlined text-on-surface-variant hover:text-on-surface cursor-pointer text-xl">repeat</span>
+</div>
+<div class="w-full max-w-md flex items-center gap-3">
+<span class="text-[10px] text-on-surface-variant font-mono">0:45</span>
+<div class="flex-1 h-1 bg-outline-variant rounded-full relative overflow-hidden group cursor-pointer">
+<div class="absolute top-0 left-0 h-full w-1/3 bg-secondary"></div>
+</div>
+<span class="text-[10px] text-on-surface-variant font-mono">3:24</span>
+</div>
+</div>
+<div class="flex items-center justify-end gap-4 w-1/3">
+<span class="material-symbols-outlined text-on-surface-variant hover:text-on-surface cursor-pointer hidden sm:block">lyrics</span>
+<span class="material-symbols-outlined text-on-surface-variant hover:text-on-surface cursor-pointer hidden sm:block">queue_music</span>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-on-surface-variant text-xl">volume_up</span>
+<div class="w-24 h-1 bg-outline-variant rounded-full relative overflow-hidden">
+<div class="absolute top-0 left-0 h-full w-3/4 bg-on-surface"></div>
+</div>
+</div>
+</div>
+</footer>
+<script>
+        // Billing Toggle Logic
+        const toggleBtn = document.getElementById('billing-toggle');
+        const toggleThumb = document.getElementById('toggle-thumb');
+        let isYearly = false;
+
+        toggleBtn.addEventListener('click', () => {
+            isYearly = !isYearly;
+            if (isYearly) {
+                toggleThumb.style.transform = 'translateX(28px)';
+                toggleBtn.classList.add('bg-primary-container');
+            } else {
+                toggleThumb.style.transform = 'translateX(0px)';
+                toggleBtn.classList.remove('bg-primary-container');
+            }
+        });
+
+        // Simple button interaction feedback
+        document.querySelectorAll('button').forEach(btn => {
+            btn.addEventListener('mousedown', () => btn.classList.add('scale-95'));
+            btn.addEventListener('mouseup', () => btn.classList.remove('scale-95'));
+            btn.addEventListener('mouseleave', () => btn.classList.remove('scale-95'));
+        });
+    </script>
+</body></html>

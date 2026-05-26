@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>StemVerse Dispute Investigation</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&amp;family=Hanken+Grotesk:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        :root {
+            --sidebar-width: 280px;
+            --player-height: 96px;
+        }
+        body {
+            background-color: #15121b; /* surface-dim */
+            color: #e7e0ed; /* on-surface */
+            overflow-x: hidden;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .waveform-container {
+            height: 80px;
+            position: relative;
+            background: rgba(45, 55, 72, 0.2);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        .waveform-bar {
+            width: 3px;
+            margin-right: 1px;
+            border-radius: 1px;
+        }
+        .dispute-highlight {
+            position: absolute;
+            height: 100%;
+            background: rgba(202, 128, 30, 0.2);
+            border-left: 2px solid #ffb869;
+            border-right: 2px solid #ffb869;
+            z-index: 10;
+        }
+        .glass-panel {
+            background: rgba(31, 41, 55, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid #494454;
+        }
+    </style>
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        "colors": {
+                "outline": "#958ea0",
+                "on-primary-fixed-variant": "#5516be",
+                "on-surface": "#e7e0ed",
+                "tertiary-fixed": "#ffdcbb",
+                "on-error-container": "#ffdad6",
+                "surface-container-highest": "#37333d",
+                "primary-fixed-dim": "#d0bcff",
+                "on-surface-variant": "#cbc3d7",
+                "secondary-fixed-dim": "#4edea3",
+                "secondary": "#4edea3",
+                "tertiary-container": "#ca801e",
+                "background": "#15121b",
+                "surface-dim": "#15121b",
+                "on-secondary-fixed": "#002113",
+                "on-secondary-fixed-variant": "#005236",
+                "error": "#ffb4ab",
+                "surface-variant": "#37333d",
+                "surface-container-lowest": "#0f0d15",
+                "on-primary-container": "#340080",
+                "on-tertiary-fixed-variant": "#673d00",
+                "secondary-container": "#00a572",
+                "on-tertiary-container": "#3f2300",
+                "on-secondary-container": "#00311f",
+                "surface-tint": "#d0bcff",
+                "primary-fixed": "#e9ddff",
+                "secondary-fixed": "#6ffbbe",
+                "on-tertiary": "#482900",
+                "on-primary-fixed": "#23005c",
+                "inverse-on-surface": "#322f39",
+                "primary": "#d0bcff",
+                "on-primary": "#3c0091",
+                "surface-bright": "#3b3742",
+                "surface-container-high": "#2c2832",
+                "inverse-primary": "#6d3bd7",
+                "surface": "#15121b",
+                "tertiary-fixed-dim": "#ffb869",
+                "surface-container": "#211e27",
+                "primary-container": "#a078ff",
+                "on-error": "#690005",
+                "tertiary": "#ffb869",
+                "surface-container-low": "#1d1a23",
+                "error-container": "#93000a",
+                "on-background": "#e7e0ed",
+                "on-tertiary-fixed": "#2c1700",
+                "outline-variant": "#494454",
+                "on-secondary": "#003824",
+                "inverse-surface": "#e7e0ed"
+        },
+        "borderRadius": {
+                "DEFAULT": "0.25rem",
+                "lg": "0.5rem",
+                "xl": "0.75rem",
+                "full": "9999px"
+        },
+        "spacing": {
+                "sidebar-width": "280px",
+                "gutter": "24px",
+                "container-margin": "32px",
+                "player-height": "96px",
+                "base": "8px"
+        },
+        "fontFamily": {
+                "headline-display": ["Hanken Grotesk"],
+                "body-lg": ["Geist"],
+                "headline-lg-mobile": ["Hanken Grotesk"],
+                "body-md": ["Geist"],
+                "headline-lg": ["Hanken Grotesk"],
+                "body-sm": ["Geist"],
+                "label-md": ["Geist"],
+                "label-sm": ["Geist"],
+                "headline-md": ["Hanken Grotesk"]
+        },
+        "fontSize": {
+                "headline-display": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                "label-md": ["14px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}]
+        }
+      },
+    },
+  }
+</script>
+</head>
+<body class="flex min-h-screen">
+<!-- SideNavBar -->
+<aside class="fixed left-0 top-0 h-full w-sidebar-width bg-surface dark:bg-surface/80 backdrop-blur-xl border-r border-outline-variant flex flex-col h-full py-base z-50">
+<div class="px-gutter mb-12">
+<h1 class="font-headline-md text-headline-md font-bold text-primary">StemVerse</h1>
+<p class="text-on-surface-variant font-label-sm">Pro Audio Engine</p>
+</div>
+<nav class="flex-1 px-4 space-y-2">
+<div class="flex items-center gap-4 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high transition-colors active:scale-95 duration-200 cursor-pointer">
+<span class="material-symbols-outlined">explore</span>
+<span class="font-body-md">Explore</span>
+</div>
+<div class="flex items-center gap-4 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high transition-colors active:scale-95 duration-200 cursor-pointer">
+<span class="material-symbols-outlined">mic_external_on</span>
+<span class="font-body-md">Studio</span>
+</div>
+<div class="flex items-center gap-4 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high transition-colors active:scale-95 duration-200 cursor-pointer">
+<span class="material-symbols-outlined">storefront</span>
+<span class="font-body-md">Market</span>
+</div>
+<div class="flex items-center gap-4 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high transition-colors active:scale-95 duration-200 cursor-pointer">
+<span class="material-symbols-outlined">account_balance_wallet</span>
+<span class="font-body-md">Wallet</span>
+</div>
+<div class="flex items-center gap-4 px-4 py-3 text-secondary font-bold border-r-2 border-secondary hover:bg-surface-container-high transition-colors active:scale-95 duration-200 cursor-pointer">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-body-md">Settings</span>
+</div>
+</nav>
+<div class="px- gutter p-4 mt-auto">
+<button class="w-full py-3 bg-primary text-on-primary rounded-lg font-label-md flex items-center justify-center gap-2 hover:opacity-90 transition-opacity">
+<span class="material-symbols-outlined">add</span>
+                New Project
+            </button>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="ml-sidebar-width flex-1 flex flex-col min-h-screen">
+<!-- TopNavBar -->
+<header class="fixed top-0 right-0 w-[calc(100%-var(--sidebar-width))] h-16 px-gutter bg-surface/80 dark:bg-surface/80 backdrop-blur-md border-b border-outline-variant flex justify-between items-center z-40">
+<div class="flex items-center flex-1 max-w-md">
+<div class="relative w-full group">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+<input class="w-full bg-surface-container-low border border-outline-variant rounded-full py-2 pl-10 pr-4 text-body-sm focus:outline-none focus:ring-1 focus:ring-primary transition-all" placeholder="Search incidents..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<span class="material-symbols-outlined text-on-surface-variant hover:text-primary cursor-pointer transition-opacity">notifications</span>
+<span class="material-symbols-outlined text-on-surface-variant hover:text-primary cursor-pointer transition-opacity">dynamic_feed</span>
+<div class="flex items-center gap-3 pl-4 border-l border-outline-variant">
+<span class="material-symbols-outlined text-on-surface-variant text-3xl">account_circle</span>
+</div>
+</div>
+</header>
+<!-- Main Body Grid -->
+<div class="mt-16 p-gutter pb-player-height flex-1">
+<!-- Case Header -->
+<div class="mb-8 flex items-end justify-between">
+<div>
+<div class="flex items-center gap-4 mb-2">
+<h2 class="font-headline-lg text-headline-lg">Dispute Case #98231 - Copyright Infringement Claim</h2>
+<span class="px-3 py-1 bg-tertiary-container text-on-tertiary-container rounded-full text-label-sm font-bold flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">potted_plant</span>
+                            Under Investigation
+                        </span>
+</div>
+<p class="text-on-surface-variant font-body-md">Initiated by <span class="text-secondary font-bold">Arcane Records</span> • Feb 24, 2024</p>
+</div>
+<div class="flex gap-3">
+<button class="px-4 py-2 border border-outline-variant rounded-lg text-label-md hover:bg-surface-container-high transition-colors">Export Logs</button>
+<button class="px-4 py-2 border border-outline-variant rounded-lg text-label-md hover:bg-surface-container-high transition-colors">Contact Parties</button>
+</div>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-gutter">
+<!-- Left Column (Claimant) -->
+<section class="space-y-gutter">
+<div class="glass-panel p-gutter rounded-xl">
+<div class="flex items-center justify-between mb-6">
+<span class="text-label-sm text-primary uppercase tracking-widest font-bold">Claimant Property</span>
+<span class="text-label-sm text-on-surface-variant">Uploaded 3 years ago</span>
+</div>
+<div class="flex gap-6 mb-8">
+<div class="w-32 h-32 rounded-lg bg-surface-container overflow-hidden shrink-0 border border-outline-variant">
+<img class="w-full h-full object-cover" data-alt="A cinematic, high-contrast digital art album cover for a song titled Ocean Waves. The artwork features deep indigo ocean swells beneath a vibrant magenta sunset. The visual style is professional, featuring clean lines, high-tech neon lighting accents, and a deep, moody atmosphere suited for a premium audio infrastructure interface." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC-WxlaBUrn5-27PrSi0uAdSw4G_f9xE7wrjx66TZ-Z0EIeWUUlqVmlZ4P7L70E3xvejkOhb_6XOnbTF42Rwy5zxCmDJUYweDXxA1IhuLDim4nGIeXxhC7k0Nf_zwlLAZjT4VYlCKNHQocVTS7s52iGf2sCZaSuP8NGsvR8zUDLQPyI5aZ6cf36QP2SMlrsSIryDrAt8l0KMUmjkdwQTzlyrydQw1DzyQHpwXM_ETHQGCdYHgJW_hSv478bQ1TmePd7G-wTX3DSndWV"/>
+</div>
+<div class="flex flex-col justify-center">
+<h3 class="font-headline-md text-headline-md text-on-surface">Ocean Waves</h3>
+<p class="text-on-surface-variant font-body-md mb-2">by Marcus 'Synth' Vane</p>
+<div class="flex gap-2">
+<span class="px-2 py-0.5 bg-surface-container-high text-on-surface-variant rounded text-label-sm">.WAV</span>
+<span class="px-2 py-0.5 bg-surface-container-high text-on-surface-variant rounded text-label-sm">44.1kHz</span>
+<span class="px-2 py-0.5 bg-surface-container-high text-on-surface-variant rounded text-label-sm">Original Master</span>
+</div>
+</div>
+</div>
+<!-- Waveform Player -->
+<div class="space-y-3">
+<div class="flex justify-between text-label-sm text-on-surface-variant">
+<span>0:45 - 1:12 <span class="text-tertiary">(Identified Segment)</span></span>
+<span>3:42 Total</span>
+</div>
+<div class="waveform-container flex items-center px-1">
+<div class="dispute-highlight" style="left: 20%; width: 12%;"></div>
+<div class="flex items-center gap-[1px] w-full" id="wave-claimant"></div>
+</div>
+<div class="flex items-center gap-4">
+<button class="w-10 h-10 rounded-full bg-primary text-on-primary flex items-center justify-center hover:scale-105 transition-transform active:scale-95">
+<span class="material-symbols-outlined">play_arrow</span>
+</button>
+<div class="h-1 flex-1 bg-outline-variant rounded-full overflow-hidden">
+<div class="h-full bg-secondary w-[20%]"></div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Right Column (Disputed) -->
+<section class="space-y-gutter">
+<div class="glass-panel p-gutter rounded-xl">
+<div class="flex items-center justify-between mb-6">
+<span class="text-label-sm text-error uppercase tracking-widest font-bold">Disputed Content</span>
+<span class="text-label-sm text-on-surface-variant">Uploaded 2 days ago</span>
+</div>
+<div class="flex gap-6 mb-8">
+<div class="w-32 h-32 rounded-lg bg-surface-container overflow-hidden shrink-0 border border-outline-variant">
+<img class="w-full h-full object-cover" data-alt="A gritty, high-energy album cover for a song titled Tsunami Beats. The visual features distorted electric green sound waves crashing into a dark charcoal cityscape. The mood is intense and futuristic, utilizing high-contrast lighting and luminous neon accents that match the tech-focused corporate modern aesthetic of the StemVerse brand." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBicO6Yy3Mr0aqSgND17fBu1iN_2_21WXmNKzCAqUfsZIgeVaKrxN4JaELQGgVHnrRVPtaYQnNc4PpEmMFixck0AZ1yWrJ2MjYFO0s36rYJYSOPMPORxq3N-A1r89_JmyyHnI2p_gdXeqOW_MXcgZAqQov4w681C4muoyRmbU8xS_GYtzuale6_gzsL-dEzCWvr2hsqcRkY0kyGrYG7larmOez_72A2xx8Di3xFULJ0qlv9Sw-wKuJuSftpSalvmSuY9j_y60r3QdAY"/>
+</div>
+<div class="flex flex-col justify-center">
+<h3 class="font-headline-md text-headline-md text-on-surface">Tsunami Beats</h3>
+<p class="text-on-surface-variant font-body-md mb-2">by DJ Surge</p>
+<div class="flex gap-2">
+<span class="px-2 py-0.5 bg-surface-container-high text-on-surface-variant rounded text-label-sm">.MP3</span>
+<span class="px-2 py-0.5 bg-surface-container-high text-on-surface-variant rounded text-label-sm">320kbps</span>
+<span class="px-2 py-0.5 bg-surface-container-high text-on-surface-variant rounded text-label-sm">Monetized</span>
+</div>
+</div>
+</div>
+<!-- Waveform Player -->
+<div class="space-y-3">
+<div class="flex justify-between text-label-sm text-on-surface-variant">
+<span>1:15 - 1:42 <span class="text-tertiary">(Identified Segment)</span></span>
+<span>4:01 Total</span>
+</div>
+<div class="waveform-container flex items-center px-1">
+<div class="dispute-highlight" style="left: 31%; width: 12%;"></div>
+<div class="flex items-center gap-[1px] w-full" id="wave-disputed"></div>
+</div>
+<div class="flex items-center gap-4">
+<button class="w-10 h-10 rounded-full bg-primary text-on-primary flex items-center justify-center hover:scale-105 transition-transform active:scale-95">
+<span class="material-symbols-outlined">play_arrow</span>
+</button>
+<div class="h-1 flex-1 bg-outline-variant rounded-full overflow-hidden">
+<div class="h-full bg-secondary w-[31%]"></div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- AI Similarity Analyzer Panel (Full Width Span) -->
+<section class="lg:col-span-2">
+<div class="bg-surface-container-high border border-outline-variant p-gutter rounded-xl shadow-lg relative overflow-hidden">
+<div class="absolute top-0 left-0 w-1 h-full bg-secondary"></div>
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
+<div class="flex items-center gap-4">
+<div class="w-16 h-16 rounded-full border-4 border-secondary/30 flex items-center justify-center">
+<span class="font-headline-md text-secondary">84%</span>
+</div>
+<div>
+<h4 class="font-headline-md text-headline-md flex items-center gap-2">
+                                        AI Match Confirmed
+                                        <span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">verified</span>
+</h4>
+<p class="text-on-surface-variant font-body-md">High-confidence melodic and structural similarity detected across core motif.</p>
+</div>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-gutter text-center">
+<div class="p-3 bg-surface-container rounded-lg border border-outline-variant/30">
+<p class="text-label-sm text-on-surface-variant uppercase">BPM Match</p>
+<p class="font-headline-md text-on-surface">120/120</p>
+</div>
+<div class="p-3 bg-surface-container rounded-lg border border-outline-variant/30">
+<p class="text-label-sm text-on-surface-variant uppercase">Key Match</p>
+<p class="font-headline-md text-on-surface">E Minor</p>
+</div>
+<div class="p-3 bg-surface-container rounded-lg border border-outline-variant/30">
+<p class="text-label-sm text-on-surface-variant uppercase">Timbre Shift</p>
+<p class="font-headline-md text-on-surface">-1.2%</p>
+</div>
+<div class="p-3 bg-surface-container rounded-lg border border-outline-variant/30">
+<p class="text-label-sm text-on-surface-variant uppercase">Duration</p>
+<p class="font-headline-md text-on-surface">27s</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Mediator Actions Panel -->
+<section class="lg:col-span-2">
+<div class="glass-panel p-gutter rounded-xl">
+<h4 class="font-headline-md text-headline-md mb-6">Mediator Conclusion</h4>
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-gutter">
+<div class="lg:col-span-2">
+<label class="block text-label-md text-on-surface-variant mb-2">Investigation Notes</label>
+<textarea class="w-full bg-surface-container-low border border-outline-variant rounded-xl p-4 text-body-md min-h-[140px] focus:ring-1 focus:ring-primary focus:outline-none" placeholder="Detailed analysis of the melodic overlap and forensic findings..."></textarea>
+</div>
+<div class="flex flex-col gap-3 justify-end">
+<button class="w-full py-4 bg-outline-variant text-on-surface rounded-lg font-label-md hover:bg-surface-variant transition-colors flex items-center justify-center gap-2">
+                                    Reject Claim
+                                </button>
+<button class="w-full py-4 bg-error text-on-error rounded-lg font-label-md hover:opacity-90 transition-opacity flex items-center justify-center gap-2">
+<span class="material-symbols-outlined">block</span>
+                                    Issue Takedown
+                                </button>
+<button class="w-full py-4 bg-primary text-on-primary rounded-lg font-label-md hover:opacity-90 transition-opacity flex items-center justify-center gap-2">
+<span class="material-symbols-outlined">published_with_changes</span>
+                                    Adjust Royalty Split (50/50)
+                                </button>
+</div>
+</div>
+</div>
+</section>
+</div>
+</div>
+</main>
+<!-- BottomPlayer -->
+<footer class="fixed bottom-0 left-0 w-full h-player-height bg-surface-container-lowest/80 dark:bg-surface-container-lowest/80 backdrop-blur-lg border-t border-outline-variant z-50 flex items-center justify-between px-gutter">
+<div class="flex items-center gap-4 w-1/3">
+<div class="w-12 h-12 bg-surface-container-high rounded overflow-hidden">
+<img class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBCFe7fRonEomrSIiW4zxzxjOIQQPIZPaHEQbq6y3s1Uey1jPIowOsjBymDELNh2odDSLKNBIhvdrE4v5ecwPY7xlK5g3ezLwksPrkcWezScNkVtR-VjuIL960xXZwMKQKfP6nRHOk00BdKjWkdT8ItKAP2dvh-w_eeCBC5cOwQ4dQZu0YUyww_52USdrWU_iaStHqqMoE0sqvgP28CTPHStC5dFyKUXUj5R3EZjnDfV5d2obNo9XFL0gxmLEUhP_MKn_QTEOlqv8zo"/>
+</div>
+<div>
+<p class="font-body-sm font-bold text-on-surface">Comparing Tracks</p>
+<p class="font-label-sm text-on-surface-variant">Ocean Waves vs Tsunami Beats</p>
+</div>
+</div>
+<div class="flex flex-col items-center gap-2 w-1/3">
+<div class="flex items-center gap-6">
+<span class="material-symbols-outlined text-on-surface-variant hover:text-on-surface cursor-pointer">shuffle</span>
+<span class="material-symbols-outlined text-on-surface-variant hover:text-on-surface cursor-pointer">skip_previous</span>
+<div class="w-10 h-10 rounded-full bg-on-surface text-surface-dim flex items-center justify-center cursor-pointer hover:scale-105 transition-transform">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant hover:text-on-surface cursor-pointer">skip_next</span>
+<span class="material-symbols-outlined text-on-surface-variant hover:text-on-surface cursor-pointer">repeat</span>
+</div>
+<div class="w-full flex items-center gap-3">
+<span class="text-label-sm text-on-surface-variant">1:15</span>
+<div class="h-1 flex-1 bg-outline-variant rounded-full relative">
+<div class="absolute h-full bg-primary w-[40%]"></div>
+<div class="absolute w-3 h-3 bg-on-surface rounded-full -top-1 left-[40%] shadow-md opacity-0 hover:opacity-100 transition-opacity"></div>
+</div>
+<span class="text-label-sm text-on-surface-variant">3:42</span>
+</div>
+</div>
+<div class="flex items-center justify-end gap-4 w-1/3">
+<span class="material-symbols-outlined text-on-surface-variant hover:text-on-surface cursor-pointer">lyrics</span>
+<span class="material-symbols-outlined text-on-surface-variant hover:text-on-surface cursor-pointer">queue_music</span>
+<div class="flex items-center gap-2 w-24">
+<span class="material-symbols-outlined text-on-surface-variant text-sm">volume_up</span>
+<div class="h-1 flex-1 bg-outline-variant rounded-full overflow-hidden">
+<div class="h-full bg-on-surface w-[80%]"></div>
+</div>
+</div>
+</div>
+</footer>
+<script>
+        // Waveform Generator
+        function generateWaveform(id, count) {
+            const container = document.getElementById(id);
+            if (!container) return;
+            for (let i = 0; i < count; i++) {
+                const bar = document.createElement('div');
+                bar.className = 'waveform-bar bg-outline-variant hover:bg-secondary transition-colors cursor-pointer';
+                const height = Math.random() * 80 + 20;
+                bar.style.height = height + '%';
+                container.appendChild(bar);
+            }
+        }
+
+        generateWaveform('wave-claimant', 120);
+        generateWaveform('wave-disputed', 120);
+
+        // Atmospheric effects: Subtle parallax on mouse move for the glass panels
+        document.addEventListener('mousemove', (e) => {
+            const panels = document.querySelectorAll('.glass-panel');
+            const mouseX = e.clientX / window.innerWidth;
+            const mouseY = e.clientY / window.innerHeight;
+
+            panels.forEach(panel => {
+                const x = (mouseX - 0.5) * 10;
+                const y = (mouseY - 0.5) * 10;
+                // panel.style.transform = `translate(${x}px, ${y}px)`; // Disabled for stability, but logic is here
+            });
+        });
+    </script>
+</body></html>
