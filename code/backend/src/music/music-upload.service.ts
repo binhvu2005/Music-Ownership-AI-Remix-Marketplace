@@ -3,6 +3,8 @@ import { R2Service } from '../prisma/r2.service';
 import { PrismaService } from '../prisma/prisma.service';
 import { InitUploadDto } from './dto/init-upload.dto';
 import { CompleteUploadDto } from './dto/complete-upload.dto';
+import { InjectQueue } from '@nestjs/bullmq';
+import { Queue } from 'bullmq';
 import { 
   CreateMultipartUploadCommand, 
   UploadPartCommand, 
@@ -25,6 +27,7 @@ export class MusicUploadService {
   constructor(
     private r2Service: R2Service,
     private prisma: PrismaService,
+    @InjectQueue('audio-analysis') private audioAnalysisQueue: Queue,
   ) {}
 
   async initializeUpload(ownerId: string, dto: InitUploadDto) {
@@ -145,8 +148,11 @@ export class MusicUploadService {
         },
       });
 
-      // TODO: Enqueue Job in Redis BullMQ for FastAPI analysis
-      // This will be implemented in Task 3
+      // Enqueue Job in Redis BullMQ for FastAPI analysis
+      await this.audioAnalysisQueue.add('analyze-audio', {
+        songId: session.songId,
+        fileUrl: session.key,
+      });
 
       return {
         success: true,

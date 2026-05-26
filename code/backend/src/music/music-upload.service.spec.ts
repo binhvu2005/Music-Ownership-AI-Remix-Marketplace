@@ -4,6 +4,7 @@ import { R2Service } from '../prisma/r2.service';
 import { PrismaService } from '../prisma/prisma.service';
 import { NotFoundException, BadRequestException } from '@nestjs/common';
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
+import { getQueueToken } from '@nestjs/bullmq';
 
 // Mock getSignedUrl from AWS S3 SDK
 jest.mock('@aws-sdk/s3-request-presigner', () => ({
@@ -37,6 +38,12 @@ describe('MusicUploadService', () => {
               update: jest.fn(),
               delete: jest.fn().mockResolvedValue({}),
             },
+          },
+        },
+        {
+          provide: getQueueToken('audio-analysis'),
+          useValue: {
+            add: jest.fn().mockResolvedValue({}),
           },
         },
       ],
