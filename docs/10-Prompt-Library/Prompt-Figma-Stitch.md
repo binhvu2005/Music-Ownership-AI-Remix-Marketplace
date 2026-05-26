@@ -82,3 +82,65 @@ Design a dashboard analytics page for a music creator's wallet.
 - Royalty Splits Activity: A clean table showing recent earnings. Columns: "Date", "Source Track", "Remix Track", "Event Type" (e.g. license sale, stream), "Gross Amount", and "Net Payout".
 - Ownership Graph Visualization Mock: A clean box displaying a tree graph visual, representing the original song at the root splitting into multiple remix nodes with percentage labels.
 ```
+
+---
+
+### 🔑 Màn hình 5: Sign In / Log In Screen (Xác thực đăng nhập)
+*Mục tiêu: Giao diện đăng nhập tinh tế dạng card nổi trên nền tối, hỗ trợ đăng nhập thường và OAuth.*
+
+```text
+Design a clean, centered sign-in page for StemVerse on a deep slate background.
+- Main Container: A central glassmorphic card with a neon purple border gradient.
+- Logo: Display the StemVerse brand logo at the top (abstract waveform icon + "StemVerse" text).
+- Header: Text reading "Welcome back" with a subtitle "Sign in to access your studio".
+- Form Fields: 
+  - An email input field with a placeholder "name@example.com" and a mail icon.
+  - A password input field with a show/hide password toggle eye icon.
+- Actions:
+  - A "Forgot password?" link aligned to the right.
+  - A full-width primary button "Sign In" in vibrant neon purple.
+- Divider: A horizontal line with text "or continue with" in the middle.
+- OAuth Buttons: A grid of 3 icon buttons: Google (colored G logo), Spotify (green circle logo), and Discord (blurple logo).
+- Footer: A text link reading "Don't have an account? Sign up".
+```
+
+---
+
+### 📝 Màn hình 6: Sign Up / Registration Screen (Đăng ký kèm phân vai)
+*Mục tiêu: Giao diện đăng ký tài khoản mới, yêu cầu người dùng lựa chọn vai trò (Creator, Remixer, Fan).*
+
+```text
+Design a sign-up registration page for StemVerse.
+- Main Container: A central glassmorphic card with rounded-2xl corners on a dark slate background.
+- Title: "Create your account" with subtitle "Join the next generation of music ownership".
+- Role Selection Grid: A critical section titled "Select your primary role". Show a horizontal grid of 3 selectable cards with icons:
+  - "Original Creator" (icon of a cassette tape/mic) - for producers and singers.
+  - "AI Remixer" (icon of a lightning/waveform) - for generating derivative tracks.
+  - "Listener / Fan" (icon of headphones) - for discovering and buying licenses.
+- Form Fields: 
+  - Username input field with a placeholder "@username".
+  - Email input field.
+  - Password input field with strength indicator bar.
+- Agreement Checkbox: A small checkbox with text "I agree to the Terms of Service and DRM Licensing Agreement".
+- Button: A full-width primary button "Create Account" in neon purple.
+- Footer: Link to "Already have an account? Sign in".
+```
+
+---
+
+### 👤 Màn hình 7: User Profile & Personal Settings (Thông tin cá nhân & Thiết lập)
+*Mục tiêu: Trang chỉnh sửa thông tin cá nhân, liên kết ví, hiển thị vai trò và thống kê hoạt động.*
+
+```text
+Design a modern user profile and settings dashboard page.
+- Layout: Top header bar with notifications and profile dropdown, main content grid with left-hand sidebar navigation.
+- Profile Header: A wide banner area with a dark gradient. 
+  - A circular avatar frame on the left with a camera edit icon.
+  - User's display name "Cyber Producer" next to an Emerald Green verified checkmark badge and a role label "Creator".
+  - A short bio: "Electronic music producer exploring AI-driven stems and modular ownership. 🎧".
+  - Quick stats row: "14 Songs Uploaded", "154 Remixes Spawned", "8.2K Followers".
+- Settings Form Grid:
+  - "Profile Information" section with fields: Display Name, Public Email, Bio.
+  - "Wallet Settings" card displaying: "Connected Wallet Address" showing a mock crypto address (e.g. 0x71C...897) with a "Disconnect" button, and automatic Stripe Connect status (indicated as "Connected").
+  - Save Changes button at the bottom highlighted in neon purple.
+```
