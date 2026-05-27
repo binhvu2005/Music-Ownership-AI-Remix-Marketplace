@@ -5,6 +5,8 @@ import { MusicService } from './music.service';
 import { MusicController } from './music.controller';
 import { OwnershipService } from './ownership.service';
 import { OwnershipController } from './ownership.controller';
+import { SocialService } from './social.service';
+import { SocialController } from './social.controller';
 import { BullModule } from '@nestjs/bullmq';
 import { AnalysisCompletedProcessor } from './audio-analysis.processor';
 import { MusicGateway } from './music.gateway';
@@ -18,8 +20,8 @@ import { MusicGateway } from './music.gateway';
       name: 'analysis-completed',
     }),
   ],
-  controllers: [MusicUploadController, MusicController, OwnershipController],
-  providers: [MusicUploadService, MusicService, OwnershipService, AnalysisCompletedProcessor, MusicGateway],
-  exports: [MusicUploadService, MusicService, OwnershipService, AnalysisCompletedProcessor, MusicGateway],
+  controllers: [MusicUploadController, MusicController, OwnershipController, SocialController],
+  providers: [MusicUploadService, MusicService, OwnershipService, SocialService, AnalysisCompletedProcessor, MusicGateway],
+  exports: [MusicUploadService, MusicService, OwnershipService, SocialService, AnalysisCompletedProcessor, MusicGateway],
 })
 export class MusicModule {}

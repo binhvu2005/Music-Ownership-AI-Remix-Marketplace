@@ -3,6 +3,21 @@
 import React, { useState, useEffect, use } from 'react';
 import Link from 'next/link';
 import { io } from 'socket.io-client';
+import { useSession } from 'next-auth/react';
+
+interface Comment {
+  id: string;
+  songId: string;
+  userId: string;
+  content: string;
+  createdAt: string;
+  user: {
+    id: string;
+    displayName: string | null;
+    email: string;
+    avatarUrl: string | null;
+  };
+}
 
 interface SongDetails {
   id: string;
@@ -142,6 +157,10 @@ export default function SongDetailsPage({ params }: { params: Promise<{ id: stri
   const resolvedParams = use(params);
   const songId = resolvedParams.id;
 
+  const { data: session } = useSession();
+  const token = (session as { accessToken?: string })?.accessToken;
+  const currentUserId = (session?.user as { id?: string })?.id;
+
   const [song, setSong] = useState<SongDetails | null>(null);
   const [loading, setLoading] = useState(true);
   const [errorMsg, setErrorMsg] = useState('');
@@ -149,6 +168,79 @@ export default function SongDetailsPage({ params }: { params: Promise<{ id: stri
   const [activeTab, setActiveTab] = useState<'stems' | 'ownership'>('stems');
   const [graphData, setGraphData] = useState<{ nodes: any[]; links: any[] } | null>(null);
   const [graphLoading, setGraphLoading] = useState(false);
+
+  const [likeCount, setLikeCount] = useState(0);
+  const [liked, setLiked] = useState(false);
+  const [comments, setComments] = useState<Comment[]>([]);
+  const [commentInput, setCommentInput] = useState('');
+  const [commentsLoading, setCommentsLoading] = useState(false);
+
+  const handleLikeToggle = async () => {
+    if (!session || !token) {
+      alert('Please log in to like this song.');
+      return;
+    }
+
+    try {
+      const res = await fetch(`${API_URL}/music/songs/${songId}/like`, {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (res.ok) {
+        const data = await res.json();
+        setLiked(data.liked);
+        setLikeCount(prev => data.liked ? prev + 1 : prev - 1);
+      }
+    } catch (err) {
+      console.error('Failed to toggle like:', err);
+    }
+  };
+
+  const handlePostComment = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!commentInput.trim() || !token) return;
+
+    try {
+      const res = await fetch(`${API_URL}/music/songs/${songId}/comments`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ content: commentInput }),
+      });
+
+      if (res.ok) {
+        const newComment = await res.json();
+        setComments(prev => [newComment, ...prev]);
+        setCommentInput('');
+      }
+    } catch (err) {
+      console.error('Failed to post comment:', err);
+    }
+  };
+
+  const handleDeleteComment = async (commentId: string) => {
+    if (!token) return;
+
+    try {
+      const res = await fetch(`${API_URL}/music/songs/comments/${commentId}`, {
+        method: 'DELETE',
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (res.ok) {
+        setComments(prev => prev.filter(c => c.id !== commentId));
+      }
+    } catch (err) {
+      console.error('Failed to delete comment:', err);
+    }
+  };
 
   // Fetch song details
   useEffect(() => {
@@ -175,6 +267,33 @@ export default function SongDetailsPage({ params }: { params: Promise<{ id: stri
 
     fetchSongDetails();
   }, [songId]);
+
+  // Fetch like status and comments
+  useEffect(() => {
+    const fetchLikesAndComments = async () => {
+      try {
+        const likeRes = await fetch(`${API_URL}/music/songs/${songId}/like-status?userId=${currentUserId || ''}`);
+        if (likeRes.ok) {
+          const likeData = await likeRes.json();
+          setLikeCount(likeData.count);
+          setLiked(likeData.liked);
+        }
+
+        setCommentsLoading(true);
+        const commentsRes = await fetch(`${API_URL}/music/songs/${songId}/comments`);
+        if (commentsRes.ok) {
+          const commentsData = await commentsRes.json();
+          setComments(commentsData);
+        }
+      } catch (err) {
+        console.error('Failed to fetch likes/comments:', err);
+      } finally {
+        setCommentsLoading(false);
+      }
+    };
+
+    fetchLikesAndComments();
+  }, [songId, currentUserId]);
 
   const processingStatus = song?.processingStatus;
 
@@ -412,7 +531,20 @@ export default function SongDetailsPage({ params }: { params: Promise<{ id: stri
                 📻
               </div>
               <div>
-                <h1 className="text-3xl font-bold mb-1">{song.title}</h1>
+                <div className="flex items-center gap-3">
+                  <h1 className="text-3xl font-bold mb-1">{song.title}</h1>
+                  <button
+                    onClick={handleLikeToggle}
+                    className={`flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold border transition ${
+                      liked
+                        ? 'bg-rose-500/20 border-rose-500 text-rose-500 animate-pulse-subtle'
+                        : 'bg-gray-800/60 border-gray-700 text-gray-400 hover:text-white'
+                    }`}
+                  >
+                    <span>{liked ? '❤️' : '🤍'}</span>
+                    <span>{likeCount}</span>
+                  </button>
+                </div>
                 <p className="text-gray-400">by {displayCreator}</p>
                 <div className="flex space-x-2 mt-2 text-xs font-mono text-gray-500">
                   <span className="bg-gray-800 px-2 py-0.5 rounded">
@@ -543,6 +675,75 @@ export default function SongDetailsPage({ params }: { params: Promise<{ id: stri
               {renderOwnershipGraph()}
             </div>
           )}
+
+          {/* Comments Section */}
+          <div className="mt-12 pt-8 border-t border-gray-850">
+            <h2 className="text-xl font-bold mb-6 font-sans">Discussion ({comments.length})</h2>
+            
+            {/* Post Comment Form */}
+            {session ? (
+              <form onSubmit={handlePostComment} className="mb-8 flex gap-4">
+                <input
+                  type="text"
+                  placeholder="Share your thoughts about this track..."
+                  value={commentInput}
+                  onChange={(e) => setCommentInput(e.target.value)}
+                  className="flex-1 bg-gray-950/60 border border-gray-800 rounded-xl px-4 py-3 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-[#8B5CF6] transition"
+                />
+                <button
+                  type="submit"
+                  disabled={!commentInput.trim()}
+                  className="bg-[#8B5CF6] hover:bg-[#7C3AED] disabled:opacity-50 disabled:cursor-not-allowed text-white font-bold px-6 py-3 rounded-xl transition text-sm"
+                >
+                  Post
+                </button>
+              </form>
+            ) : (
+              <div className="p-4 bg-gray-950/40 border border-gray-800/60 rounded-xl text-center text-sm text-gray-400 mb-8 font-sans">
+                Please <Link href="/login" className="text-[#8B5CF6] hover:underline font-semibold">log in</Link> to join the discussion.
+              </div>
+            )}
+
+            {/* Comments List */}
+            {commentsLoading ? (
+              <div className="text-center py-4 text-gray-500 text-sm">
+                Loading comments...
+              </div>
+            ) : comments.length === 0 ? (
+              <div className="text-center py-8 bg-gray-950/20 border border-gray-800/40 rounded-2xl text-gray-500 text-sm font-sans">
+                No comments yet. Be the first to share your thoughts!
+              </div>
+            ) : (
+              <div className="space-y-4">
+                {comments.map((comment) => {
+                  const authorName = comment.user.displayName || comment.user.email.split('@')[0];
+                  const isOwner = currentUserId === comment.userId;
+                  return (
+                    <div key={comment.id} className="bg-gray-950/40 border border-gray-800/60 rounded-2xl p-4 flex justify-between items-start gap-4">
+                      <div>
+                        <div className="flex items-center gap-2 mb-1.5">
+                          <span className="font-bold text-xs text-white">{authorName}</span>
+                          <span className="text-[10px] text-gray-500">
+                            {new Date(comment.createdAt).toLocaleDateString()}
+                          </span>
+                        </div>
+                        <p className="text-sm text-gray-300 font-sans">{comment.content}</p>
+                      </div>
+
+                      {isOwner && (
+                        <button
+                          onClick={() => handleDeleteComment(comment.id)}
+                          className="text-gray-500 hover:text-rose-500 text-xs font-semibold px-2 py-1 rounded hover:bg-rose-500/10 transition"
+                        >
+                          Delete
+                        </button>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </div>
