@@ -56,11 +56,11 @@ Launch một platform có thể:
 - [x] Frontend: Upload page + progress
 
 ### Sprint 3: AI Analysis + Ownership (2 weeks)
-- [ ] AI Service: Stem separation (Demucs)
-- [ ] BullMQ queue setup
+- [x] AI Service: Stem separation (Demucs)
+- [x] BullMQ queue setup
 - [ ] Royalty Service: Ownership graph
 - [ ] Royalty Service: Basic royalty calculation
-- [ ] Frontend: Waveform player + stems display
+- [x] Frontend: Waveform player + stems display
 - [ ] Frontend: Ownership graph visualization (D3.js)
 
 ### Sprint 4: Licensing + Payments (2 weeks)
