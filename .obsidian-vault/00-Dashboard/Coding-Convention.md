@@ -58,6 +58,17 @@ Mọi component giao diện (Frontend) PHẢI bắt buộc hỗ trợ hai tiêu 
 - `<div>Upload Your File</div>` (Hardcode text tĩnh)
 - `<div className="bg-white text-black">` (Hardcode màu sắc làm gãy hệ thống Theme)
 
+## ⚔️ Iron Law 5: ZERO ERRORS BEFORE REVIEW
+
+Tuyệt đối **KHÔNG** yêu cầu user duyệt code hoặc review khi hệ thống vẫn còn lỗi Build, lỗi Lint, hoặc lỗi hiển thị rành rành trên màn hình.
+
+- **Bắt buộc**: Phải chạy thử ứng dụng (vd: `npm run build`, `npm run lint` hoặc kiểm tra trình duyệt) và đảm bảo **KHÔNG CÒN LỖI** trước khi thông báo hoàn thành.
+- Nếu gặp lỗi trong quá trình tự test, phải tự chủ động tìm cách sửa chứ không được vứt lỗi đó cho user phát hiện hộ.
+
+**Violation examples** (không được làm):
+- Đưa code cho user xem nhưng khi Next.js reload thì văng lỗi màn hình đỏ.
+- Code bị lỗi cú pháp / sai vị trí Import (`@import` sai chỗ).
+
 ---
 
 ## 📐 Code Style Rules

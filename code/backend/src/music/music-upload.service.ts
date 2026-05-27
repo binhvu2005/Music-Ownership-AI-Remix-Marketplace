@@ -53,6 +53,18 @@ export class MusicUploadService {
         licenseType: dto.licenseType || 'personal',
         processingStatus: 'queued',
         isPublished: false,
+        licenseConfig: {
+          create: {
+            personalPrice: 0,
+            personalEnabled: true,
+            commercialPrice: 2999, // $29.99
+            commercialEnabled: true,
+            remixPrice: 1499, // $14.99
+            remixEnabled: true,
+            exclusivePrice: 49900, // $499.00
+            exclusiveEnabled: false,
+          },
+        },
       },
     });
 

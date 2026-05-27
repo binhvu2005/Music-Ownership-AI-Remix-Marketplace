@@ -21,4 +21,6 @@
 
 ## Specs
 
-- *(Chưa có spec nào)*
+- [[Music-Upload-Spec]]: Chi tiết quy trình khởi tạo bài hát và Presigned URL.
+- [[AI-Stem-Separation-Spec]]: Xử lý Background Job với BullMQ và Python FastAPI.
+- [[Payment-System-Spec]]: Chi tiết API tạo Payment Intent và xử lý Webhook Stripe để cấp License.

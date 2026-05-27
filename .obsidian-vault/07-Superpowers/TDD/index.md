@@ -28,8 +28,13 @@
 
 ## TDD Sessions
 
-| Module | Tests | Coverage | Status |
-|--------|-------|----------|--------|
-| AuthService | 12 | 100% | ✅ |
-| AuthController | 4 | 100% | ✅ |
-| RolesGuard | 4 | 100% | ✅ |
+| Module         | Tests | Coverage | Status |
+| -------------- | ----- | -------- | ------ |
+| AuthService    | 12    | 100%     | ✅      |
+| AuthController | 4     | 100%     | ✅      |
+| RolesGuard     | 4     | 100%     | ✅      |
+| StemControlItem| 4     | 100%     | ✅      |
+| MusicUploadSvc | 7     | 100%     | ✅      |
+| AudioAnalysis  | 3     | 100%     | ✅      |
+| MusicService   | 7     | 100%     | ✅      |
+| R2Service      | 3     | 100%     | ✅      |

@@ -132,6 +132,10 @@ model SongLicenseConfig {
   commercialPrice Int      @map("commercial_price") // cents
   remixPrice      Int      @map("remix_price") // cents
   exclusivePrice  Int      @map("exclusive_price") // cents
+  personalEnabled    Boolean  @default(true) @map("personal_enabled")
+  commercialEnabled  Boolean  @default(true) @map("commercial_enabled")
+  remixEnabled       Boolean  @default(true) @map("remix_enabled")
+  exclusiveEnabled   Boolean  @default(false) @map("exclusive_enabled")
   createdAt       DateTime @default(now()) @map("created_at") @db.Timestamptz
   updatedAt       DateTime @updatedAt @map("updated_at") @db.Timestamptz
 
@@ -166,6 +170,8 @@ model UserLicense {
   songId     String    @map("song_id") @db.Uuid
   licenseType String    @map("license_type") @db.VarChar(20)
   pricePaid  Int       @map("price_paid") // cents
+  currency   String    @default("USD") @db.VarChar(3)
+  paymentId  String?   @unique @map("payment_id") @db.VarChar(255)
   licenseKey String    @unique @map("license_key") @db.VarChar(255)
   expiresAt  DateTime? @map("expires_at") @db.Timestamptz
   createdAt  DateTime  @default(now()) @map("created_at") @db.Timestamptz

@@ -22,38 +22,38 @@ Launch một platform có thể:
 
 ## Feature List
 
-| Feature | Status | SRS | ADR | Priority |
-|---------|--------|-----|-----|---------|
-| Auth System | 🔴 TODO | [[SRS-Authentication]] | [[ADR-002-NestJS-Backend]] | P0 |
-| Music Upload | 🔴 TODO | [[SRS-Music-Upload]] | [[ADR-006-Cloudflare-R2-Storage]] | P0 |
-| AI Audio Analysis | 🔴 TODO | [[SRS-AI-Analysis]] | [[ADR-007-Demucs-Stem-Separation]] | P0 |
-| Ownership Graph | 🔴 TODO | [[SRS-Ownership-Graph]] | [[ADR-004-PostgreSQL-Database]] | P0 |
-| Basic AI Remix | 🔴 TODO | [[SRS-AI-Remix-Engine]] | [[ADR-003-FastAPI-AI-Service]] | P1 |
-| Royalty Split Engine | 🔴 TODO | [[SRS-Royalty-Engine]] | [[ADR-008-Stripe-Payment]] | P1 |
-| Licensing System | 🔴 TODO | [[SRS-Licensing]] | | P1 |
-| Basic Marketplace | 🔴 TODO | [[SRS-Marketplace]] | | P2 |
-| Social (Like, Follow) | 🔴 TODO | [[SRS-Social]] | | P2 |
+| Feature               | Status  | SRS                     | ADR                                | Priority |
+| --------------------- | ------- | ----------------------- | ---------------------------------- | -------- |
+| Auth System           | 🟢 DONE | [[SRS-Authentication]]  | [[ADR-002-NestJS-Backend]]         | P0       |
+| Music Upload          | 🟢 DONE | [[SRS-Music-Upload]]    | [[ADR-006-Cloudflare-R2-Storage]]  | P0       |
+| AI Audio Analysis     | 🔴 TODO | [[SRS-AI-Analysis]]     | [[ADR-007-Demucs-Stem-Separation]] | P0       |
+| Ownership Graph       | 🔴 TODO | [[SRS-Ownership-Graph]] | [[ADR-004-PostgreSQL-Database]]    | P0       |
+| Basic AI Remix        | 🔴 TODO | [[SRS-AI-Remix-Engine]] | [[ADR-003-FastAPI-AI-Service]]     | P1       |
+| Royalty Split Engine  | 🔴 TODO | [[SRS-Royalty-Engine]]  | [[ADR-008-Stripe-Payment]]         | P1       |
+| Licensing System      | 🔴 TODO | [[SRS-Licensing]]       |                                    | P1       |
+| Basic Marketplace     | 🔴 TODO | [[SRS-Marketplace]]     |                                    | P2       |
+| Social (Like, Follow) | 🔴 TODO | [[SRS-Social]]          |                                    | P2       |
 
 ---
 
 ## Sprint Plan (1 Person)
 
 ### Sprint 1: Foundation (2 weeks)
-- [ ] Setup monorepo structure
-- [ ] Setup Docker Compose (PostgreSQL + Redis + Meilisearch)
-- [ ] Setup Prisma schema (core tables)
-- [ ] Auth Service: Email/Password + JWT
-- [ ] Auth Service: Google OAuth
-- [ ] Basic Next.js frontend: Layout, Auth pages
+- [x] Setup monorepo structure
+- [x] Setup Docker Compose (PostgreSQL + Redis + Meilisearch)
+- [x] Setup Prisma schema (core tables)
+- [x] Auth Service: Email/Password + JWT
+- [x] Auth Service: Google OAuth
+- [x] Basic Next.js frontend: Layout, Auth pages
 
 ### Sprint 2: Music Upload (2 weeks)
-- [ ] Cloudflare R2 setup
-- [ ] Music Service: Presigned upload URLs
-- [ ] Music Service: Song CRUD
-- [ ] AI Service: FastAPI setup
-- [ ] AI Service: Waveform generation (FFmpeg)
-- [ ] AI Service: BPM + Key detection (Librosa)
-- [ ] Frontend: Upload page + progress
+- [x] Cloudflare R2 setup
+- [x] Music Service: Presigned upload URLs
+- [x] Music Service: Song CRUD
+- [x] AI Service: FastAPI setup
+- [x] AI Service: Waveform generation (FFmpeg)
+- [x] AI Service: BPM + Key detection (Librosa)
+- [x] Frontend: Upload page + progress
 
 ### Sprint 3: AI Analysis + Ownership (2 weeks)
 - [ ] AI Service: Stem separation (Demucs)

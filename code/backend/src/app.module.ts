@@ -6,6 +6,8 @@ import { AuthModule } from './auth/auth.module';
 import { MusicModule } from './music/music.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { BullModule } from '@nestjs/bullmq';
+import { StripeModule } from './payment/stripe.module';
+import { LicensingModule } from './payment/licensing.module';
 
 @Module({
   imports: [
@@ -13,6 +15,8 @@ import { BullModule } from '@nestjs/bullmq';
     PrismaModule,
     AuthModule,
     MusicModule,
+    StripeModule,
+    LicensingModule,
     BullModule.forRootAsync({
       imports: [ConfigModule],
       useFactory: (config: ConfigService) => ({

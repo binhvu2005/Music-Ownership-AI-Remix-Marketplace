@@ -69,7 +69,7 @@ export default function UploadPage() {
       });
       
       if (!initRes.ok) throw new Error("Failed to initialize secure upload session.");
-      const { sessionId, uploadId, key, songId } = await initRes.json();
+      const { sessionId, songId } = await initRes.json();
       
       const totalChunks = Math.ceil(file.size / CHUNK_SIZE);
       const parts = [];
@@ -103,10 +103,10 @@ export default function UploadPage() {
       if (!completeRes.ok) throw new Error("Failed to finalize upload and enqueue AI task.");
       setStatus("success");
       
-    } catch (err: any) {
+    } catch (err) {
       console.error("Upload error:", err);
       setStatus("error");
-      setErrorMsg(err.message || "An unexpected error occurred during the upload process.");
+      setErrorMsg(err instanceof Error ? err.message : "An unexpected error occurred during the upload process.");
     }
   };
 

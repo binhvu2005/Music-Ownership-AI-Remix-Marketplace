@@ -21,7 +21,7 @@ tags:
 
 | Item | Status |
 |------|--------|
-| **Phase** | 🟡 Sprint 1 — Foundation |
+| **Phase** | 🟢 Sprint 2 — Done (Entering Sprint 3) |
 | **MVP Phase 1** | 🔵 In Progress |
 | **MVP Phase 2** | ⬜ Pending |
 | **MVP Phase 3** | ⬜ Pending |
@@ -91,11 +91,12 @@ tags:
 *(Chưa có)*
 
 ### 📥 TODO
-- [ ] Setup Cloudflare R2 Storage (Sprint 2)
-- [ ] Music Upload API (Sprint 2)
-- [ ] FastAPI AI Service Boilerplate (Sprint 2)
-- [ ] Waveform Generation (Sprint 2)
-- [ ] BPM & Key detection (Sprint 2)
+- [x] Setup Cloudflare R2 Storage (Sprint 2)
+- [x] Music Upload API (Sprint 2)
+- [x] FastAPI AI Service Boilerplate (Sprint 2)
+- [x] Waveform Generation (Sprint 2)
+- [x] BPM & Key detection (Sprint 2)
+- [x] Stripe Payment Integration & Licensing System (Sprint 2/3)
 
 ---
 
