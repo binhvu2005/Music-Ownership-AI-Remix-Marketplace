@@ -154,7 +154,10 @@ function LoginContent() {
 
         {/* Google OAuth Button */}
         <button
-          onClick={() => signIn("google", { callbackUrl: "/" })}
+          onClick={() => {
+            document.cookie = "oauth_role=consumer; path=/; max-age=300; SameSite=Lax";
+            signIn("google", { callbackUrl: "/" });
+          }}
           className="w-full border border-glass-border bg-background/50 hover:bg-glass-border/30 text-text-primary font-bold py-3 px-4 rounded-xl flex items-center justify-center gap-3 transition-all duration-200 text-sm hover:scale-[1.01] active:scale-[0.99]"
         >
           {/* Google SVG Icon */}

@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useLanguage } from "../../../context/LanguageContext";
+import { signIn } from "next-auth/react";
 
 type Role = "creator" | "remixer" | "consumer";
 
@@ -263,6 +264,47 @@ export default function RegisterPage() {
             {loading ? t("common.loading") : t("auth.signup.submit_btn")}
           </button>
         </form>
+
+        {/* Divider */}
+        <div className="relative my-6 text-center">
+          <div className="absolute inset-0 flex items-center">
+            <div className="w-full border-t border-glass-border" />
+          </div>
+          <span className="relative bg-surface px-3 text-xs text-text-muted font-medium uppercase tracking-wider">
+            {language === "en" ? "Or sign up with" : "Hoặc đăng ký bằng"}
+          </span>
+        </div>
+
+        {/* Google OAuth Button */}
+        <button
+          type="button"
+          onClick={() => {
+            document.cookie = `oauth_role=${role}; path=/; max-age=300; SameSite=Lax;`;
+            signIn("google", { callbackUrl: "/" });
+          }}
+          className="w-full border border-glass-border bg-background/50 hover:bg-glass-border/30 text-text-primary font-bold py-3 px-4 rounded-xl flex items-center justify-center gap-3 transition-all duration-200 text-sm hover:scale-[1.01] active:scale-[0.99]"
+        >
+          {/* Google SVG Icon */}
+          <svg className="w-5 h-5" viewBox="0 0 24 24">
+            <path
+              fill="#EA4335"
+              d="M12 5.04c1.67 0 3.2.58 4.38 1.69l3.27-3.27C17.68 1.54 14.98 1 12 1 7.35 1 3.37 3.68 1.42 7.6l3.86 3C6.2 7.74 8.87 5.04 12 5.04z"
+            />
+            <path
+              fill="#4285F4"
+              d="M23.49 12.27c0-.81-.07-1.59-.2-2.34H12v4.51h6.43c-.28 1.47-1.11 2.71-2.36 3.55l3.66 2.84c2.14-1.97 3.38-4.88 3.38-8.56z"
+            />
+            <path
+              fill="#FBBC05"
+              d="M5.28 14.6c-.23-.69-.36-1.43-.36-2.2s.13-1.51.36-2.2l-3.86-3C.68 8.88 0 10.36 0 12s.68 3.12 1.42 4.8l3.86-3z"
+            />
+            <path
+              fill="#34A853"
+              d="M12 23c3.24 0 5.97-1.07 7.96-2.92l-3.66-2.84c-1.01.68-2.31 1.08-4.3 1.08-3.13 0-5.8-2.7-6.72-5.56l-3.86 3C3.37 20.32 7.35 23 12 23z"
+            />
+          </svg>
+          <span>Google</span>
+        </button>
 
         {/* Sign In Link */}
         <p className="mt-8 text-center text-sm text-text-secondary">

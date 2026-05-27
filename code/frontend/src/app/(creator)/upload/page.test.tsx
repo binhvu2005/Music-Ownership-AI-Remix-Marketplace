@@ -2,6 +2,17 @@ import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import UploadPage from './page';
 
+// Mock NextAuth
+jest.mock('next-auth/react', () => ({
+  useSession: () => ({
+    data: {
+      user: { id: 'creator-uuid-1', name: 'Test Creator' },
+      accessToken: 'test-token-123'
+    },
+    status: 'authenticated'
+  })
+}));
+
 // Mock Language Context
 jest.mock('../../../context/LanguageContext', () => ({
   useLanguage: () => ({

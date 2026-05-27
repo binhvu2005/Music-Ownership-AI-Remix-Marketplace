@@ -6,6 +6,7 @@ const mockAuthService = {
   register: jest.fn(),
   login: jest.fn(),
   getProfile: jest.fn(),
+  socialLogin: jest.fn(),
 };
 
 const fakeAuthResponse = {
@@ -78,6 +79,18 @@ describe('AuthController', () => {
 
       expect(authService.getProfile).toHaveBeenCalledWith('user-uuid');
       expect(result).toEqual(fakeUser);
+    });
+  });
+
+  describe('POST /auth/social-login', () => {
+    it('should call authService.socialLogin and return result', async () => {
+      const dto = { email: 'google@test.com', displayName: 'G User', role: 'remixer' };
+      authService.socialLogin.mockResolvedValue(fakeAuthResponse);
+
+      const result = await controller.socialLogin(dto);
+
+      expect(authService.socialLogin).toHaveBeenCalledWith(dto);
+      expect(result).toEqual(fakeAuthResponse);
     });
   });
 });

@@ -1,12 +1,16 @@
 "use client";
 
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { useLanguage } from "../../../context/LanguageContext";
+import { useSession } from "next-auth/react";
+import { io } from "socket.io-client";
+import Link from "next/link";
 
 const CHUNK_SIZE = 5 * 1024 * 1024; // 5MB
 
 export default function UploadPage() {
   const { t } = useLanguage();
+  const { data: session, status: sessionStatus } = useSession();
   
   const [file, setFile] = useState<File | null>(null);
   const [metadata, setMetadata] = useState({
@@ -18,7 +22,62 @@ export default function UploadPage() {
   const [progress, setProgress] = useState(0);
   const [errorMsg, setErrorMsg] = useState("");
   
+  // Real-time AI processing status
+  const [uploadedSongId, setUploadedSongId] = useState<string | null>(null);
+  const [aiStatus, setAiStatus] = useState<"idle" | "queued" | "processing" | "done" | "failed">("idle");
+  
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (!uploadedSongId) return;
+
+    const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001';
+    const socket = io(`${API_URL}/music`, { transports: ['websocket'] });
+
+    socket.on('connect', () => {
+      console.log('Connected to WebSocket Music gateway');
+      socket.emit('subscribeToSong', { songId: uploadedSongId });
+      setAiStatus('queued');
+    });
+
+    socket.on('song:status-updated', (data) => {
+      console.log('Received real-time update in upload page:', data);
+      if (data.status === 'done') {
+        setAiStatus('done');
+      } else if (data.status === 'failed') {
+        setAiStatus('failed');
+        setErrorMsg(data.error || 'AI separation failed. Fallbacks exhausted.');
+      } else if (data.status === 'processing') {
+        setAiStatus('processing');
+      }
+    });
+
+    return () => {
+      socket.disconnect();
+    };
+  }, [uploadedSongId]);
+
+  if (sessionStatus === "loading") {
+    return (
+      <div className="min-h-screen bg-background text-text-primary p-8 flex items-center justify-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary"></div>
+      </div>
+    );
+  }
+
+  if (sessionStatus === "unauthenticated") {
+    return (
+      <div className="min-h-screen bg-background text-text-primary p-8 flex items-center justify-center">
+        <div className="max-w-md w-full text-center p-8 bg-surface border border-glass-border rounded-3xl shadow-xl">
+          <div className="w-20 h-20 bg-error/10 rounded-full flex items-center justify-center mx-auto mb-6 border border-error/20">
+            <span className="material-symbols-outlined text-error text-4xl">lock</span>
+          </div>
+          <h2 className="text-2xl font-bold mb-2">Access Denied</h2>
+          <p className="text-text-secondary text-sm mb-6">Please log in to upload music and stems.</p>
+        </div>
+      </div>
+    );
+  }
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
@@ -52,13 +111,22 @@ export default function UploadPage() {
     setStatus("uploading");
     setProgress(0);
     setErrorMsg("");
+    setAiStatus("idle");
+    setUploadedSongId(null);
 
     try {
       const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001';
+      const token = (session as { accessToken?: string })?.accessToken;
+      
+      console.log("Upload: session data is", session);
+      console.log("Upload: JWT token sent is", token);
       
       const initRes = await fetch(`${API_URL}/music/upload/init`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          ...(token && { Authorization: `Bearer ${token}` }),
+        },
         body: JSON.stringify({
           title: metadata.title,
           genre: metadata.genre,
@@ -68,7 +136,11 @@ export default function UploadPage() {
         })
       });
       
-      if (!initRes.ok) throw new Error("Failed to initialize secure upload session.");
+      if (!initRes.ok) {
+        const errText = await initRes.text().catch(() => "");
+        console.error("Upload init error response from backend:", initRes.status, errText);
+        throw new Error(`Failed to initialize secure upload session: ${initRes.status} ${errText}`);
+      }
       const { sessionId, songId } = await initRes.json();
       
       const totalChunks = Math.ceil(file.size / CHUNK_SIZE);
@@ -80,7 +152,11 @@ export default function UploadPage() {
         const chunk = file.slice(start, end);
         const partNumber = i + 1;
         
-        const urlRes = await fetch(`${API_URL}/music/upload/${sessionId}/url?partNumber=${partNumber}`);
+        const urlRes = await fetch(`${API_URL}/music/upload/${sessionId}/url?partNumber=${partNumber}`, {
+          headers: {
+            ...(token && { Authorization: `Bearer ${token}` }),
+          }
+        });
         if (!urlRes.ok) throw new Error(`Failed to authorize chunk ${partNumber}`);
         const { url } = await urlRes.json();
         
@@ -96,11 +172,16 @@ export default function UploadPage() {
       
       const completeRes = await fetch(`${API_URL}/music/upload/${sessionId}/complete`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          ...(token && { Authorization: `Bearer ${token}` }),
+        },
         body: JSON.stringify({ parts, songId })
       });
       
       if (!completeRes.ok) throw new Error("Failed to finalize upload and enqueue AI task.");
+      
+      setUploadedSongId(songId);
       setStatus("success");
       
     } catch (err) {
@@ -122,22 +203,102 @@ export default function UploadPage() {
 
         <div className="bg-surface border border-glass-border rounded-3xl p-8 shadow-xl relative overflow-hidden transition-colors duration-300">
           {status === "success" ? (
-            <div className="text-center py-16 space-y-6 animate-in fade-in zoom-in duration-500">
-              <div className="w-24 h-24 bg-primary/10 rounded-full flex items-center justify-center mx-auto border border-primary/30 shadow-lg shadow-primary/20">
-                <svg className="w-12 h-12 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                </svg>
+            <div className="py-8 space-y-8 animate-in fade-in zoom-in duration-500">
+              <div className="text-center space-y-3">
+                <div className="w-20 h-20 bg-primary/10 rounded-full flex items-center justify-center mx-auto border border-primary/30 shadow-lg shadow-primary/20">
+                  <svg className="w-10 h-10 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                </div>
+                <h2 className="text-2xl font-bold">Upload Complete!</h2>
+                <p className="text-text-secondary text-sm max-w-md mx-auto">
+                  Your audio file is saved in Cloudflare R2 storage. Processing AI Audio pipeline now...
+                </p>
               </div>
-              <h2 className="text-3xl font-bold">{t('common.success')}!</h2>
-              <p className="text-text-secondary max-w-md mx-auto">
-                Your track is securely stored and is now being processed by our AI Engine for tempo, key detection, and waveform extraction.
-              </p>
-              <button 
-                onClick={() => { setFile(null); setStatus("idle"); setProgress(0); }}
-                className="mt-6 px-8 py-3 bg-primary hover:bg-primary-hover text-white dark:text-background font-bold rounded-xl transition shadow-lg shadow-primary/20"
-              >
-                Upload Another Track
-              </button>
+
+              {/* Dynamic WebSockets Stepper */}
+              <div className="max-w-md mx-auto bg-glass-bg border border-glass-border p-6 rounded-2xl space-y-6 shadow-inner">
+                <div className="flex items-center space-x-4">
+                  <div className="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold text-sm">✓</div>
+                  <div>
+                    <p className="text-sm font-semibold text-text-primary">File uploaded to Cloudflare R2</p>
+                    <p className="text-xs text-text-muted">Audio file successfully partitioned and synced</p>
+                  </div>
+                </div>
+
+                <div className="flex items-center space-x-4">
+                  <div className={`w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm transition-all duration-300 ${
+                    aiStatus === 'queued' ? 'bg-primary text-white dark:text-background animate-pulse' :
+                    aiStatus === 'processing' || aiStatus === 'done' ? 'bg-primary/20 text-primary' : 'bg-glass-bg text-text-muted'
+                  }`}>
+                    {aiStatus === 'processing' || aiStatus === 'done' ? '✓' : '2'}
+                  </div>
+                  <div>
+                    <p className="text-sm font-semibold text-text-primary">Queueing in AI Analysis Engine</p>
+                    <p className="text-xs text-text-muted">
+                      {aiStatus === 'queued' ? 'Waiting for FastAPI worker...' : 'Enqueued successfully'}
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex items-center space-x-4">
+                  <div className={`w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm transition-all duration-300 ${
+                    aiStatus === 'processing' ? 'bg-primary text-white dark:text-background animate-pulse' :
+                    aiStatus === 'done' ? 'bg-primary/20 text-primary' : 'bg-glass-bg text-text-muted'
+                  }`}>
+                    {aiStatus === 'done' ? '✓' : '3'}
+                  </div>
+                  <div>
+                    <p className="text-sm font-semibold text-text-primary">Stem Separation & Audio Analysis</p>
+                    <p className="text-xs text-text-muted">
+                      {aiStatus === 'processing' ? 'AI separating vocals, drums, bass, melody...' :
+                       aiStatus === 'done' ? 'BPM, Key & Stems generated' : 'Waiting for previous steps'}
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Status Actions */}
+              <div className="text-center pt-4">
+                {aiStatus === 'done' && (
+                  <div className="space-y-4">
+                    <p className="text-success font-semibold text-sm">🎉 AI audio stem separation complete!</p>
+                    <div className="flex justify-center space-x-4">
+                      <Link 
+                        href={`/song/${uploadedSongId}`}
+                        className="px-6 py-2.5 bg-primary hover:bg-primary-hover text-white dark:text-background font-bold rounded-xl transition shadow-lg shadow-primary/20"
+                      >
+                        Inspect Song & Mixer
+                      </Link>
+                      <button 
+                        onClick={() => { setFile(null); setStatus("idle"); setProgress(0); setAiStatus("idle"); setUploadedSongId(null); }}
+                        className="px-6 py-2.5 bg-glass-bg hover:bg-glass-border border border-glass-border rounded-xl font-semibold transition"
+                      >
+                        Upload Another
+                      </button>
+                    </div>
+                  </div>
+                )}
+
+                {aiStatus === 'failed' && (
+                  <div className="space-y-4">
+                    <p className="text-error font-semibold text-sm">❌ AI Processing failed: {errorMsg}</p>
+                    <button 
+                      onClick={() => { setFile(null); setStatus("idle"); setProgress(0); setAiStatus("idle"); setUploadedSongId(null); }}
+                      className="px-6 py-2.5 bg-error hover:bg-error/80 text-white font-bold rounded-xl transition"
+                    >
+                      Try Uploading Again
+                    </button>
+                  </div>
+                )}
+
+                {(aiStatus === 'queued' || aiStatus === 'processing') && (
+                  <div className="flex items-center justify-center space-x-3 text-sm text-text-secondary">
+                    <div className="animate-spin rounded-full h-4 w-4 border-2 border-primary border-t-transparent"></div>
+                    <span>Processing real-time AI separation... Do not close this page.</span>
+                  </div>
+                )}
+              </div>
             </div>
           ) : (
             <div className="space-y-8 relative z-10">

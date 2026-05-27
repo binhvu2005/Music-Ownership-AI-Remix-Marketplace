@@ -269,4 +269,71 @@ describe('AuthService', () => {
       ).rejects.toThrow(UnauthorizedException);
     });
   });
+
+  describe('socialLogin', () => {
+    const socialDto = {
+      email: 'google@stemverse.com',
+      displayName: 'Google User',
+      avatarUrl: 'https://avatar.url/1',
+      role: 'remixer',
+    };
+
+    it('should auto-register a new social user and return JWT', async () => {
+      // Arrange
+      prisma.user.findUnique.mockResolvedValue(null); // User not registered
+      prisma.user.create = jest.fn().mockResolvedValue({
+        ...fakeUser,
+        email: socialDto.email,
+        displayName: socialDto.displayName,
+        avatarUrl: socialDto.avatarUrl,
+        role: socialDto.role,
+      });
+      jwt.sign.mockReturnValue('social_jwt_token');
+
+      // Act
+      const result = await service.socialLogin(socialDto);
+
+      // Assert
+      expect(prisma.user.create).toHaveBeenCalledWith({
+        data: {
+          email: socialDto.email,
+          displayName: socialDto.displayName,
+          avatarUrl: socialDto.avatarUrl,
+          role: socialDto.role,
+        },
+      });
+      expect(result).toHaveProperty('access_token', 'social_jwt_token');
+      expect(result.user.email).toBe(socialDto.email);
+    });
+
+    it('should return token and update info for existing social user', async () => {
+      // Arrange
+      const existingUser = {
+        ...fakeUser,
+        email: socialDto.email,
+        displayName: socialDto.email.split('@')[0], // placeholder name
+        avatarUrl: null, // missing avatar
+      };
+      prisma.user.findUnique.mockResolvedValue(existingUser);
+      prisma.user.update = jest.fn().mockResolvedValue({
+        ...existingUser,
+        displayName: socialDto.displayName,
+        avatarUrl: socialDto.avatarUrl,
+      });
+      jwt.sign.mockReturnValue('social_jwt_token_2');
+
+      // Act
+      const result = await service.socialLogin(socialDto);
+
+      // Assert
+      expect(prisma.user.update).toHaveBeenCalledWith({
+        where: { id: existingUser.id },
+        data: {
+          avatarUrl: socialDto.avatarUrl,
+          displayName: socialDto.displayName,
+        },
+      });
+      expect(result).toHaveProperty('access_token', 'social_jwt_token_2');
+    });
+  });
 });

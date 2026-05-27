@@ -11,6 +11,7 @@ import {
 import { AuthService, AuthResponse, SafeUser } from './auth.service';
 import { RegisterDto } from './dto/register.dto';
 import { LoginDto } from './dto/login.dto';
+import { SocialLoginDto } from './dto/social-login.dto';
 import { JwtAuthGuard } from './jwt-auth.guard';
 
 interface AuthenticatedRequest {
@@ -42,6 +43,16 @@ export class AuthController {
   @HttpCode(HttpStatus.OK)
   async login(@Body() dto: LoginDto): Promise<AuthResponse> {
     return this.authService.login(dto);
+  }
+
+  /**
+   * POST /auth/social-login
+   * Authenticate or register a user via social login (Google).
+   */
+  @Post('social-login')
+  @HttpCode(HttpStatus.OK)
+  async socialLogin(@Body() dto: SocialLoginDto): Promise<AuthResponse> {
+    return this.authService.socialLogin(dto);
   }
 
   /**

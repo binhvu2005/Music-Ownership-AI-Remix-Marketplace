@@ -1,12 +1,13 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { AudioAnalysisProcessor } from './audio-analysis.processor';
+import { AnalysisCompletedProcessor } from './audio-analysis.processor';
 import { PrismaService } from '../prisma/prisma.service';
-import { ConfigService } from '@nestjs/config';
+import { MusicGateway } from './music.gateway';
 import { Job } from 'bullmq';
 
-describe('AudioAnalysisProcessor', () => {
-  let processor: AudioAnalysisProcessor;
+describe('AnalysisCompletedProcessor', () => {
+  let processor: AnalysisCompletedProcessor;
   let prisma: PrismaService;
+  let musicGateway: MusicGateway;
 
   const mockPrisma = {
     song: {
@@ -15,26 +16,27 @@ describe('AudioAnalysisProcessor', () => {
     songAnalysis: {
       upsert: jest.fn(),
     },
+    stem: {
+      create: jest.fn(),
+    },
   };
 
-  const mockConfig = {
-    get: jest.fn((key: string) => {
-      if (key === 'AI_SERVICE_URL') return 'http://localhost:8000';
-      return null;
-    }),
+  const mockMusicGateway = {
+    emitSongStatusUpdate: jest.fn(),
   };
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
-        AudioAnalysisProcessor,
+        AnalysisCompletedProcessor,
         { provide: PrismaService, useValue: mockPrisma },
-        { provide: ConfigService, useValue: mockConfig },
+        { provide: MusicGateway, useValue: mockMusicGateway },
       ],
     }).compile();
 
-    processor = module.get<AudioAnalysisProcessor>(AudioAnalysisProcessor);
+    processor = module.get<AnalysisCompletedProcessor>(AnalysisCompletedProcessor);
     prisma = module.get<PrismaService>(PrismaService);
+    musicGateway = module.get<MusicGateway>(MusicGateway);
   });
 
   afterEach(() => {
@@ -46,46 +48,44 @@ describe('AudioAnalysisProcessor', () => {
   });
 
   describe('process', () => {
-    it('should successfully analyze audio and save results to db', async () => {
+    it('should successfully process analysis results, update DB and emit WebSocket event', async () => {
       const mockJob = {
         data: {
           songId: 'song-uuid',
-          fileUrl: 'songs/song-uuid/test.mp3',
-        },
-      } as Job;
-
-      // Mock global fetch API
-      const mockFetchResponse = {
-        ok: true,
-        json: jest.fn().mockResolvedValue({
-          songId: 'song-uuid',
+          status: 'success',
           bpm: 120,
           key: 'Am',
           duration: 180,
           waveform: [0.012, 0.045, 0.098],
-        }),
-      };
-      global.fetch = jest.fn().mockResolvedValue(mockFetchResponse);
+          stems: {
+            vocal: 'songs/song-uuid/stems/vocal.wav',
+            drums: 'songs/song-uuid/stems/drums.wav',
+            bass: 'songs/song-uuid/stems/bass.wav',
+            other: 'songs/song-uuid/stems/other.wav',
+          },
+        },
+      } as Job;
 
-      mockPrisma.song.update.mockResolvedValue({ id: 'song-uuid' });
+      mockPrisma.song.update.mockResolvedValue({ id: 'song-uuid', title: 'Test Song' });
       mockPrisma.songAnalysis.upsert.mockResolvedValue({ id: 'analysis-uuid' });
+      mockPrisma.stem.create.mockImplementation((args) => Promise.resolve({ id: 'stem-uuid', ...args.data }));
 
       const result = await processor.process(mockJob);
 
       expect(result).toBeDefined();
-      expect(global.fetch).toHaveBeenCalledWith(
-        'http://localhost:8000/analyze',
-        expect.objectContaining({
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            songId: 'song-uuid',
-            fileUrl: 'songs/song-uuid/test.mp3',
-          }),
-        }),
-      );
+      expect(result.success).toBe(true);
 
-      // Verify DB writes
+      // Verify DB updates
+      expect(prisma.song.update).toHaveBeenCalledWith({
+        where: { id: 'song-uuid' },
+        data: {
+          bpm: 120,
+          key: 'Am',
+          duration: 180,
+          processingStatus: 'done',
+        },
+      });
+
       expect(prisma.songAnalysis.upsert).toHaveBeenCalledWith(
         expect.objectContaining({
           where: { songId: 'song-uuid' },
@@ -98,37 +98,45 @@ describe('AudioAnalysisProcessor', () => {
         }),
       );
 
-      expect(prisma.song.update).toHaveBeenCalledWith({
-        where: { id: 'song-uuid' },
-        data: {
-          bpm: 120,
-          key: 'Am',
-          duration: 180,
-          processingStatus: 'done',
-        },
-      });
+      expect(prisma.stem.create).toHaveBeenCalledTimes(4);
+      expect(musicGateway.emitSongStatusUpdate).toHaveBeenCalledWith(
+        'song-uuid',
+        expect.objectContaining({
+          songId: 'song-uuid',
+          status: 'done',
+        }),
+      );
     });
 
-    it('should update status to failed if FastAPI analysis fails', async () => {
+    it('should handle failed analysis result from AI service', async () => {
       const mockJob = {
         data: {
           songId: 'song-uuid',
-          fileUrl: 'songs/song-uuid/test.mp3',
+          status: 'failed',
+          error: 'GPU OOM',
         },
       } as Job;
 
-      // Mock fetch failure
-      global.fetch = jest.fn().mockRejectedValue(new Error('FastAPI offline'));
       mockPrisma.song.update.mockResolvedValue({ id: 'song-uuid' });
 
-      await expect(processor.process(mockJob)).rejects.toThrow('FastAPI offline');
+      const result = await processor.process(mockJob);
 
+      expect(result).toBeDefined();
       expect(prisma.song.update).toHaveBeenCalledWith({
         where: { id: 'song-uuid' },
         data: {
           processingStatus: 'failed',
         },
       });
+
+      expect(musicGateway.emitSongStatusUpdate).toHaveBeenCalledWith(
+        'song-uuid',
+        expect.objectContaining({
+          songId: 'song-uuid',
+          status: 'failed',
+          error: 'GPU OOM',
+        }),
+      );
     });
   });
 });

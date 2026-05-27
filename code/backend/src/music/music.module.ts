@@ -4,16 +4,20 @@ import { MusicUploadController } from './music-upload.controller';
 import { MusicService } from './music.service';
 import { MusicController } from './music.controller';
 import { BullModule } from '@nestjs/bullmq';
-import { AudioAnalysisProcessor } from './audio-analysis.processor';
+import { AnalysisCompletedProcessor } from './audio-analysis.processor';
+import { MusicGateway } from './music.gateway';
 
 @Module({
   imports: [
     BullModule.registerQueue({
       name: 'audio-analysis',
     }),
+    BullModule.registerQueue({
+      name: 'analysis-completed',
+    }),
   ],
   controllers: [MusicUploadController, MusicController],
-  providers: [MusicUploadService, MusicService, AudioAnalysisProcessor],
-  exports: [MusicUploadService, MusicService, AudioAnalysisProcessor],
+  providers: [MusicUploadService, MusicService, AnalysisCompletedProcessor, MusicGateway],
+  exports: [MusicUploadService, MusicService, AnalysisCompletedProcessor, MusicGateway],
 })
 export class MusicModule {}

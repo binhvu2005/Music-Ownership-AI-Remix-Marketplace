@@ -1,6 +1,7 @@
 import { AuthOptions } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import GoogleProvider from 'next-auth/providers/google';
+import { cookies } from 'next/headers';
 
 export const authOptions: AuthOptions = {
   providers: [
@@ -54,13 +55,45 @@ export const authOptions: AuthOptions = {
     }),
   ],
   callbacks: {
-    async jwt({ token, user }) {
+    async jwt({ token, user, account }) {
       if (user) {
         const extUser = user as { role?: string; accessToken?: string; id: string };
         token.role = extUser.role;
         token.id = extUser.id;
         token.accessToken = extUser.accessToken;
       }
+
+      // Sync Google OAuth with NestJS Backend
+      if (account && account.provider === 'google') {
+        try {
+          const cookieStore = await cookies();
+          const oauthRole = cookieStore.get('oauth_role')?.value || 'consumer';
+
+          const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001';
+          const res = await fetch(`${apiUrl}/auth/social-login`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              email: token.email,
+              displayName: token.name,
+              avatarUrl: token.picture,
+              role: oauthRole,
+            }),
+          });
+
+          if (res.ok) {
+            const data = await res.json();
+            token.accessToken = data.access_token;
+            token.role = data.user.role;
+            token.id = data.user.id;
+          } else {
+            console.error("Backend social login returned status:", res.status);
+          }
+        } catch (error) {
+          console.error("Failed to sync Google user with backend:", error);
+        }
+      }
+
       return token;
     },
     async session({ session, token }) {

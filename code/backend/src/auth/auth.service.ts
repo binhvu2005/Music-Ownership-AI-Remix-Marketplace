@@ -8,6 +8,7 @@ import * as bcrypt from 'bcrypt';
 import { PrismaService } from '../prisma/prisma.service';
 import { RegisterDto } from './dto/register.dto';
 import { LoginDto } from './dto/login.dto';
+import { SocialLoginDto } from './dto/social-login.dto';
 
 /** Cost factor for bcrypt hashing — 12 rounds for production security */
 const BCRYPT_SALT_ROUNDS = 12;
@@ -120,6 +121,56 @@ export class AuthService {
     }
 
     // Generate JWT
+    const accessToken = this.jwtService.sign({
+      sub: user.id,
+      email: user.email,
+      role: user.role,
+    });
+
+    return {
+      access_token: accessToken,
+      user: this.sanitizeUser(user),
+    };
+  }
+
+  /**
+   * Login or auto-register a user via social authentication (Google).
+   * - Checks if user exists.
+   * - If not, creates the user with provided details and role.
+   * - Returns JWT access_token + sanitized user.
+   */
+  async socialLogin(dto: SocialLoginDto): Promise<AuthResponse> {
+    let user = await this.prisma.user.findUnique({
+      where: { email: dto.email },
+    });
+
+    if (!user) {
+      // Auto-register user
+      user = await this.prisma.user.create({
+        data: {
+          email: dto.email,
+          displayName: dto.displayName || dto.email.split('@')[0],
+          avatarUrl: dto.avatarUrl || null,
+          role: dto.role || 'consumer',
+        },
+      });
+    } else {
+      // Update avatarUrl or displayName if they were missing
+      if ((dto.avatarUrl && !user.avatarUrl) || (dto.displayName && user.displayName === user.email.split('@')[0])) {
+        user = await this.prisma.user.update({
+          where: { id: user.id },
+          data: {
+            ...(dto.avatarUrl && !user.avatarUrl && { avatarUrl: dto.avatarUrl }),
+            ...(dto.displayName && user.displayName === user.email.split('@')[0] && { displayName: dto.displayName }),
+          },
+        });
+      }
+    }
+
+    if (user.isBanned) {
+      throw new UnauthorizedException('Account has been suspended');
+    }
+
     const accessToken = this.jwtService.sign({
       sub: user.id,
       email: user.email,
