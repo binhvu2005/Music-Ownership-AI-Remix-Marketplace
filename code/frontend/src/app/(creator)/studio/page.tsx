@@ -1,7 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
-import Link from 'next/link';
+import React, { useState } from 'react';
 
 export default function StudioPage() {
   const [prompt, setPrompt] = useState('');

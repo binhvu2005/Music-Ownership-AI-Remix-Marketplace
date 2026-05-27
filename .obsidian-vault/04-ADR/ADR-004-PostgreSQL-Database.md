@@ -3,7 +3,10 @@ title: ADR-004 — Use PostgreSQL as Primary Database
 status: Accepted
 date: 2026-05-26
 deciders: Solo Developer
-tags: [adr, database, postgresql]
+tags:
+  - adr
+  - database
+  - postgresql
 ---
 
 # ADR-004 — Use PostgreSQL as Primary Database

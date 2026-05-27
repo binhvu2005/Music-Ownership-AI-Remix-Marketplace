@@ -14,6 +14,7 @@ export async function POST(request: Request) {
     const body = await request.json();
     return NextResponse.json({ success: true, song: { id: 'temp-uuid', ...body } }, { status: 201 });
   } catch (error) {
+    console.error('Failed to parse song JSON body:', error);
     return NextResponse.json({ error: 'Invalid JSON body' }, { status: 400 });
   }
 }

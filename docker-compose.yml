@@ -34,6 +34,24 @@ services:
     volumes:
       - meili_data:/meili_data
 
+  ai-service:
+    build:
+      context: ./code/ai-service
+      dockerfile: Dockerfile
+    container_name: stemverse-ai-service
+    restart: always
+    ports:
+      - '8000:8000'
+    volumes:
+      - ./code/ai-service:/app
+    environment:
+      - STORAGE_ENDPOINT=https://7a7c0c77b860c4763bbe740c158511dd.r2.cloudflarestorage.com
+      - STORAGE_ACCESS_KEY_ID=208f6217a63cd8f95d020ef2aaa5fc2d
+      - STORAGE_SECRET_ACCESS_KEY=fbe8eb8e45a4287dbc03e4de2e63e654017a7a032002632c7521ac9b094c5d54
+      - STORAGE_BUCKET_NAME=music
+    depends_on:
+      - redis
+
 volumes:
   postgres_data:
     driver: local
