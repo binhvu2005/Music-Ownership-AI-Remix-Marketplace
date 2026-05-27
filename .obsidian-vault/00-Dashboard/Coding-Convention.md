@@ -48,6 +48,16 @@ Mọi báo cáo hoàn thành PHẢI kèm test output thực tế:
 ❌ WRONG: "The service should be working now"
 ```
 
+## ⚔️ Iron Law 4: UI MUST SUPPORT i18n & THEMES
+
+Mọi component giao diện (Frontend) PHẢI bắt buộc hỗ trợ hai tiêu chuẩn:
+1. **i18n (Đa ngôn ngữ)**: Không hardcode text tĩnh. Phải dùng context/hook đa ngôn ngữ (vd: `t('key')`).
+2. **Sáng/Tối (Dark/Light Mode)**: Phải cấu hình màu sắc bằng hệ thống biến CSS hoặc prefix của Tailwind (`dark:`, `light:` hoặc variables). Không fix cứng màu sắc.
+
+**Violation examples** (không được làm):
+- `<div>Upload Your File</div>` (Hardcode text tĩnh)
+- `<div className="bg-white text-black">` (Hardcode màu sắc làm gãy hệ thống Theme)
+
 ---
 
 ## 📐 Code Style Rules
