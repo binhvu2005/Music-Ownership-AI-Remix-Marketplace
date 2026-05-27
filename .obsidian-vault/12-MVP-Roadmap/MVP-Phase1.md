@@ -74,7 +74,7 @@ Launch một platform có thể:
 - [ ] AI Service: Basic AI remix (MusicGen)
 - [ ] Remix Studio UI
 - [ ] Ownership auto-creation on remix publish
-- [ ] Social: Like + Comment
+- [x] Social: Like + Comment
 - [ ] Search: Meilisearch integration
 - [ ] Admin: Basic dashboard
 - [ ] Bug fixing + polish
