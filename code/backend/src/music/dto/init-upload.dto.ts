@@ -20,4 +20,8 @@ export class InitUploadDto {
   @IsString()
   @IsOptional()
   licenseType?: string;
+
+  @IsString()
+  @IsOptional()
+  parentSongId?: string;
 }

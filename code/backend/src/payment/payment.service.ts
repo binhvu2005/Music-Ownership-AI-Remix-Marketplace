@@ -2,6 +2,7 @@ import { Injectable, BadRequestException, NotFoundException, RawBodyRequest } fr
 import { ConfigService } from '@nestjs/config';
 import Stripe from 'stripe';
 import { PrismaService } from '../prisma/prisma.service';
+import { RoyaltyService } from './royalty.service';
 import { Request } from 'express';
 
 @Injectable()
@@ -12,6 +13,7 @@ export class PaymentService {
   constructor(
     private configService: ConfigService,
     private prisma: PrismaService,
+    private royaltyService: RoyaltyService,
   ) {
     const stripeSecretKey = this.configService.get<string>('STRIPE_API_KEY') || 'sk_test_xxx';
     this.webhookSecret = this.configService.get<string>('STRIPE_WEBHOOK_SECRET') || 'whsec_xxx';
@@ -88,13 +90,15 @@ export class PaymentService {
         return true; // Already processed
       }
 
+      let newLicenseId = '';
+
       await this.prisma.$transaction(async (tx) => {
         // Create License
         const randomStr = Math.random().toString(36).substring(2, 10).toUpperCase();
         const shortSong = songId.substring(0, 4).toUpperCase();
         const licenseKey = `STMV-${shortSong}-${licenseType.substring(0, 4).toUpperCase()}-${randomStr}`;
 
-        await tx.userLicense.create({
+        const createdLicense = await tx.userLicense.create({
           data: {
             userId,
             songId,
@@ -105,6 +109,7 @@ export class PaymentService {
             paymentId: paymentIntent.id,
           },
         });
+        newLicenseId = createdLicense.id;
 
         // If exclusive, disable future exclusive sales
         if (licenseType === 'exclusive') {
@@ -114,6 +119,10 @@ export class PaymentService {
           });
         }
       });
+
+      if (newLicenseId) {
+        await this.royaltyService.distributeRoyalty(songId, paymentIntent.amount, newLicenseId);
+      }
     }
 
     return true;

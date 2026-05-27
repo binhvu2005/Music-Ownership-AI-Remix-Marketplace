@@ -19,7 +19,23 @@ describe('MusicUploadService', () => {
     send: jest.fn(),
   };
 
+  let prismaMock: any;
+
   beforeEach(async () => {
+    prismaMock = {
+      $transaction: jest.fn().mockImplementation(async (cb) => cb(prismaMock)),
+      song: {
+        create: jest.fn(),
+        update: jest.fn(),
+        delete: jest.fn().mockResolvedValue({}),
+        findUnique: jest.fn().mockResolvedValue({ id: 'song-uuid', ownerId: 'user-uuid', remixAllowed: true, royaltySplitRemixer: 20.00 }),
+      },
+      ownershipRelation: {
+        findFirst: jest.fn().mockResolvedValue(null),
+        create: jest.fn().mockResolvedValue({}),
+      },
+    };
+
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         MusicUploadService,
@@ -32,13 +48,7 @@ describe('MusicUploadService', () => {
         },
         {
           provide: PrismaService,
-          useValue: {
-            song: {
-              create: jest.fn(),
-              update: jest.fn(),
-              delete: jest.fn().mockResolvedValue({}),
-            },
-          },
+          useValue: prismaMock,
         },
         {
           provide: getQueueToken('audio-analysis'),

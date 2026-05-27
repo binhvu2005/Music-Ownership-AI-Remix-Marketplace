@@ -17,6 +17,7 @@ interface UploadSession {
   uploadId: string;
   key: string;
   songId: string;
+  parentSongId?: string;
 }
 
 @Injectable()
@@ -31,6 +32,18 @@ export class MusicUploadService {
   ) {}
 
   async initializeUpload(ownerId: string, dto: InitUploadDto) {
+    if (dto.parentSongId) {
+      const parentSong = await this.prisma.song.findUnique({
+        where: { id: dto.parentSongId },
+      });
+      if (!parentSong) {
+        throw new NotFoundException(`Parent song with ID ${dto.parentSongId} not found`);
+      }
+      if (!parentSong.remixAllowed) {
+        throw new BadRequestException(`Remixing is not allowed for parent song "${parentSong.title}"`);
+      }
+    }
+
     const sessionId = crypto.randomUUID();
     const songId = crypto.randomUUID();
     
@@ -84,7 +97,7 @@ export class MusicUploadService {
       }
 
       // 3. Store session
-      this.sessions.set(sessionId, { uploadId, key, songId });
+      this.sessions.set(sessionId, { uploadId, key, songId, parentSongId: dto.parentSongId });
 
       return {
         sessionId,
@@ -152,12 +165,62 @@ export class MusicUploadService {
       // Clean up session
       this.sessions.delete(sessionId);
 
-      // Update Song processing status (kept as queued, ready for worker analysis)
-      await this.prisma.song.update({
-        where: { id: session.songId },
-        data: {
-          processingStatus: 'queued',
-        },
+      // Update Song processing status and create initial OwnershipRelation in a transaction
+      await this.prisma.$transaction(async (tx) => {
+        await tx.song.update({
+          where: { id: session.songId },
+          data: {
+            processingStatus: 'queued',
+          },
+        });
+
+        const existingRelation = await tx.ownershipRelation.findFirst({
+          where: { childSongId: session.songId },
+        });
+
+        if (!existingRelation) {
+          if (session.parentSongId) {
+            const parentSong = await tx.song.findUnique({
+              where: { id: session.parentSongId },
+              select: { royaltySplitRemixer: true, ownerId: true },
+            });
+            const splitPercentage = parentSong ? Number(parentSong.royaltySplitRemixer) : 20.00;
+
+            const song = await tx.song.findUnique({
+              where: { id: session.songId },
+              select: { ownerId: true },
+            });
+            const ownerId = song ? song.ownerId : '';
+
+            // Create remix relation
+            await tx.ownershipRelation.create({
+              data: {
+                parentSongId: session.parentSongId,
+                childSongId: session.songId,
+                ownerId: ownerId,
+                splitPercentage: splitPercentage,
+                relationshipType: 'remix',
+              },
+            });
+          } else {
+            // Create original relation
+            const song = await tx.song.findUnique({
+              where: { id: session.songId },
+              select: { ownerId: true },
+            });
+            const ownerId = song ? song.ownerId : '';
+
+            await tx.ownershipRelation.create({
+              data: {
+                parentSongId: null,
+                childSongId: session.songId,
+                ownerId: ownerId,
+                splitPercentage: 100.00,
+                relationshipType: 'original',
+              },
+            });
+          }
+        }
       });
 
       // Enqueue Job in Redis BullMQ for FastAPI analysis

@@ -2,6 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { PaymentService } from './payment.service';
 import { PrismaService } from '../prisma/prisma.service';
 import { ConfigService } from '@nestjs/config';
+import { RoyaltyService } from './royalty.service';
 
 describe('PaymentService', () => {
   let service: PaymentService;
@@ -11,6 +12,12 @@ describe('PaymentService', () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         PaymentService,
+        {
+          provide: RoyaltyService,
+          useValue: {
+            distributeRoyalty: jest.fn().mockResolvedValue({}),
+          },
+        },
         {
           provide: PrismaService,
           useValue: {
