@@ -68,7 +68,7 @@ Launch một platform có thể:
 - [x] Licensing system: Create + validate licenses
 - [ ] Royalty payout: Stripe Connect
 - [x] Frontend: License purchase flow
-- [ ] Frontend: Wallet + royalty dashboard
+- [x] Frontend: Wallet + royalty dashboard
 
 ### Sprint 5: AI Remix + Polish (2 weeks)
 - [ ] AI Service: Basic AI remix (MusicGen)
